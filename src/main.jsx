@@ -6,66 +6,67 @@ const projects = [
   {
     id: 'batchrenameprov2',
     name: 'BatchRename Pro',
-    repoName: 'batchrenameprov2',
+    repoName: 'batchrename-pro',
     tag: 'Local-first file operations',
-    repo: 'https://gitlab.com/NODAYSIDLE/batchrenameprov2',
-    release: 'https://gitlab.com/NODAYSIDLE/batchrenameprov2/-/releases/v0.1.0',
-    download: 'https://gitlab.com/api/v4/projects/81352534/packages/generic/batchrename-pro/0.1.0/BatchRename-Pro-0.1.0-aarch64.dmg',
+    repo: 'https://github.com/nodaysidle/batchrename-pro',
+    release: 'https://github.com/nodaysidle/batchrename-pro/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/batchrename-pro/releases/download/v0.1.0/BatchRename-Pro-0.1.0-aarch64.dmg',
     className: 'page-batch',
     eyebrow: 'Tauri 2 · Rust · React 19 · SQLite',
     headline: 'Bulk rename hundreds of files without scripts, cloud, or regret.',
     summary: 'BatchRename Pro is a compact macOS desktop app for regex, template, and sequence-based file renaming. Every apply is previewed, backed up, and undoable through local SQLite job history.',
-    proof: ['v0.1.0 release live', '6.9MB macOS DMG', '10/10 Rust tests', 'Strict codesign + DMG verification passed'],
+    proof: ['v0.1.0 GitHub release live', '7.1MB macOS DMG', '10/10 Rust tests', 'Strict codesign + DMG verification passed'],
     features: [
       ['Preview before impact', 'Transform names in memory first, detect conflicts, and only write when the output is safe.'],
       ['Undo everything', 'Backup-before-write workflow with searchable job history and full rollback.'],
       ['Power-user transforms', 'Regex, template tokens, zero-padded numbering, and case transforms in one desktop flow.']
     ],
     styleNote: 'Slate-blue glass utility aesthetic: terminal confidence, not SaaS subscription noise.',
-    artifact: 'SHA256 5b158f4f8c27004d6db414eda4b90e71302fd447e9080ba003a7b942c9287d44'
+    artifact: 'DMG SHA256 ef6e33a03881430c329fd9fd888cf4010142598010a89b535cf0eb2c3948309b · 7,139,735 bytes · GitHub Release v0.1.0.'
   },
   {
     id: 'nodaysidle-whispering',
     name: 'NoDaysIdle Whispering',
     repoName: 'nodaysidle-whispering',
     tag: 'Private macOS dictation',
-    repo: 'https://gitlab.com/NODAYSIDLE/nodaysidle-whispering',
-    download: '/downloads/NoDaysIdle-Whispering-local.zip',
+    repo: 'https://github.com/nodaysidle/nodaysidle-whispering',
+    release: 'https://github.com/nodaysidle/nodaysidle-whispering/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/nodaysidle-whispering/releases/download/v0.1.0/NoDaysIdle-Whispering-0.1.0-aarch64.zip',
     downloadLabel: 'Download macOS app ZIP',
     className: 'page-whisper',
     eyebrow: 'Tauri 2 · Rust · React · whisper.cpp',
     headline: 'A warm, local dictation desk for words that should stay on your Mac.',
     summary: 'Whispering is a macOS dictation utility built around local Whisper transcription, push-to-talk capture, and a searchable transcript vault. It is designed for private writing, notes, and voice capture without remote AI APIs.',
-    proof: ['Packaged 57MB macOS app ZIP', 'ci:verify passed: Vite, audit, Rust tests', 'Signed .app verified locally', '9/10 UI polish pass shipped'],
+    proof: ['v0.1.0 GitHub release live', '60.3MB macOS app ZIP', 'ci:verify passed: Vite, audit, Rust tests', 'Signed .app verified locally'],
     features: [
       ['On-device transcription', 'whisper.cpp through Rust/Tauri keeps speech processing local.'],
       ['Transcript vault', 'Keep captured text searchable, pinnable, archivable, and ready to copy.'],
       ['Fast capture posture', 'Push-to-talk and VAD controls turn voice into a focused utility, not a toy recorder.']
     ],
     styleNote: 'Amber studio-meter aesthetic: warm charcoal, gold waveform light, muted rose recording states.',
-    artifact: 'ZIP SHA256 0f36b95c44695b805d148c806c77f2dc6cb552e526362af74ef5dac128cbe97c · commit 97c64ade3c6c4a71e5f38eac001a0b058c3bcd52'
+    artifact: 'ZIP SHA256 781430b35c35bb872d377abc4aab31aed930feea174f733dbe4c04607170308d · 60,276,327 bytes · GitHub Release v0.1.0.'
   },
   {
     id: 'scribeflowpro',
     name: 'ScribeFlowPro',
     repoName: 'scribeflowpro',
     tag: 'Offline meeting transcription',
-    repo: 'https://gitlab.com/nodaysidle1/scribeflowpro',
-    release: 'https://gitlab.com/nodaysidle1/scribeflowpro/-/releases/v1.0.0',
-    download: '/downloads/ScribeFlowPro-1.0.0.zip',
+    repo: 'https://github.com/nodaysidle/scribeflowpro',
+    release: 'https://github.com/nodaysidle/scribeflowpro/releases/tag/v1.0.0',
+    download: 'https://github.com/nodaysidle/scribeflowpro/releases/download/v1.0.0/ScribeFlowPro-1.0.0.zip',
     downloadLabel: 'Download macOS app ZIP',
     className: 'page-scribe',
     eyebrow: 'SwiftPM · SwiftUI · MLX · Whisper · Qwen',
     headline: 'Record a meeting, transcribe it locally, and leave with the summary.',
     summary: 'ScribeFlowPro is a native macOS app for offline meeting recording, local Whisper transcription, and local Qwen summarization. It ships with a verified MLX runtime path, packaged resources, and an installed-app launch smoke.',
-    proof: ['v1.0.0 GitLab release live', '9.2MB macOS app ZIP verified', '5 Swift tests passed', 'Real local Whisper + Qwen smoke passed'],
+    proof: ['v1.0.0 GitHub release live', '9.6MB macOS app ZIP verified', '5 Swift tests passed', 'Real local Whisper + Qwen smoke passed'],
     features: [
       ['Offline transcription', 'MLX Whisper runs locally so meeting audio stays on the Mac.'],
       ['Local summaries', 'Qwen produces meeting summaries through the bundled production runtime path.'],
-      ['Release-grade package', 'Swift build, signed app package, install smoke, GitLab release, and ZIP checksum were verified.']
+      ['Release-grade package', 'Swift build, signed app package, install smoke, GitHub release, and ZIP checksum were verified.']
     ],
     styleNote: 'Midnight transcript studio: dark graphite, Volt recorder glow, crisp meeting-card typography, local-AI confidence.',
-    artifact: 'ZIP SHA256 3ab7ee9d56c0bc0acf6377126c9c2578fcabc172d511fed7adb096a4e5b23ac9 · 9,613,161 bytes · source commit dab5d62fb3844b582c6fc25b6eacb8fbc95a06be.'
+    artifact: 'ZIP SHA256 beffaccfe10ab571f0d6237c56fd1b0e88adebeccb98029e51a479bfc24ee279 · 9,614,350 bytes · GitHub Release v1.0.0.'
   },
   {
     id: 'nodaysidian',
@@ -91,23 +92,24 @@ const projects = [
   {
     id: 'nodaysnotes',
     name: 'NODAYSNOTES',
-    repoName: 'NODAYSNOTES',
+    repoName: 'nodaysnotes',
     tag: 'Plain-text native notes',
-    repo: 'https://gitlab.com/NODAYSIDLE/NODAYSNOTES',
-    download: 'https://gitlab.com/NODAYSIDLE/NODAYSNOTES/-/archive/main/NODAYSNOTES-main.zip',
-    downloadLabel: 'Download source ZIP',
+    repo: 'https://github.com/nodaysidle/nodaysnotes',
+    release: 'https://github.com/nodaysidle/nodaysnotes/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/nodaysnotes/releases/download/v0.1.0/NODAYSNOTES_0.1.0_aarch64.zip',
+    downloadLabel: 'Download macOS app ZIP',
     className: 'page-notes',
     eyebrow: 'SwiftUI · Swift Package Manager · Markdown files',
     headline: 'Plain Markdown notes with native Mac speed and no vendor lock-in.',
     summary: 'NODAYSNOTES is a local-first macOS notes app for fast capture, daily notes, wiki-style links, tags, search, backlinks, and notebooks — stored as user-controlled .md files on disk.',
-    proof: ['v0.1.0 stable tag documented', 'Native SwiftUI interface', 'Markdown files on disk', 'Package script installs to /Applications'],
+    proof: ['v0.1.0 GitHub release live', 'Native SwiftUI interface', 'Markdown files on disk', 'Package script installs to /Applications'],
     features: [
       ['Files you own', 'Notes remain plain Markdown in a chosen local directory.'],
       ['Knowledge basics', 'Wiki-links, backlinks, tags, search, daily notes, and notebooks.'],
       ['Native packaging', 'SwiftPM build and scriptable app packaging with ad-hoc signing.']
     ],
     styleNote: 'Editorial paper desk: warm cream, ink, blue pencil marks, visible notebook grids.',
-    artifact: 'Distribution: source archive download from GitLab main branch.'
+    artifact: 'ZIP SHA256 69afee3d92890b2f08e611e26daae7d86c78d827cc41741d47cc33ce6eba3f71 · 531,803 bytes · GitHub Release v0.1.0.'
   },
   {
     id: 'focusblur',
@@ -135,22 +137,22 @@ const projects = [
     name: 'Sunder',
     repoName: 'sunder',
     tag: 'Local AI research graph',
-    repo: 'https://gitlab.com/NODAYSIDLE/sunder',
-    release: 'https://gitlab.com/NODAYSIDLE/sunder/-/releases/v0.1.0',
-    download: 'https://gitlab.com/-/project/80136120/uploads/2f078902423564732d88520e04aeec0a/Sunder_0.1.0_aarch64.dmg',
+    repo: 'https://github.com/nodaysidle/sunder',
+    release: 'https://github.com/nodaysidle/sunder/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/sunder/releases/download/v0.1.0/Sunder_0.1.0_aarch64.dmg',
     downloadLabel: 'Download macOS DMG',
     className: 'page-sunder',
     eyebrow: 'Tauri 2 · Rust · React 19 · SQLite · ONNX',
     headline: 'Split a vault open and map the latent research hiding inside.',
     summary: 'Sunder is a local-first macOS research hub for Markdown notes with a CodeMirror editor, hybrid FTS5 plus semantic search, ONNX-powered note discovery, and a D3 knowledge graph — all on-device, zero cloud.',
-    proof: ['v0.1.0 GitLab release live', '30.6MB public macOS DMG verified', 'release:check passed end-to-end', 'Ad-hoc codesign + DMG checksum valid'],
+    proof: ['v0.1.0 GitHub release live', '30.7MB public macOS DMG verified', 'release:check passed end-to-end', 'Ad-hoc codesign + DMG checksum valid'],
     features: [
       ['Hybrid retrieval', 'SQLite FTS5 and local embeddings combine keyword precision with semantic discovery.'],
       ['Graph-first research', 'D3-force reveals connected notes, clusters, and latent links without sending a vault to cloud AI.'],
       ['Installable Mac release', 'Tauri build, resources, signing, DMG integrity, and launch smoke were all verified.']
     ],
     styleNote: 'Shattered prism aesthetic: crystalline fractures, cyan-magenta split light, severe research-cartography energy.',
-    artifact: 'DMG SHA256 c90235e8a1581549c7bb0aa09b1471d4a9c3317a6caed36d1fba65e6345c9478 · 30,645,844 bytes · ad-hoc signed, not notarized.'
+    artifact: 'DMG SHA256 0a8ddc4859dbc78d43783e8a72f761525785397f0aed75b0acfd5534a2756ea0 · 30,713,907 bytes · GitHub Release v0.1.0 · ad-hoc signed, not notarized.'
   },
   {
     id: 'synapse-notes',
@@ -207,7 +209,7 @@ function Home() {
       <section className="home-hero">
         <p className="kicker">NODAYSIDLE project pages</p>
         <h1>Nine separate repo presentations. Nine separate visual systems.</h1>
-        <p>Each page is a standalone product presentation built from GitLab repo facts, with a project-matched visual system and an explicit download CTA: release artifacts when verified, source ZIPs when not.</p>
+        <p>Each page is a standalone product presentation built from verified NODAYSIDLE source and release facts, with a project-matched visual system and an explicit download CTA: GitHub release artifacts when verified, source ZIPs when not.</p>
       </section>
       <section className="project-grid" aria-label="Project pages">
         {projects.map((project) => (
@@ -231,7 +233,7 @@ function ProjectPage({ project }) {
       <nav className="topbar">
         <a href="/" className="brand">NODAYSIDLE</a>
         <div>
-          <a href={project.repo}>GitLab</a>
+          <a href={project.repo}>Repository</a>
           {project.release && <a href={project.release}>Release</a>}
         </div>
       </nav>

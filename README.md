@@ -81,5 +81,6 @@ The site is deployed on Vercel. Every project route is rewritten to `index.html`
 ## Repository notes
 
 - `node_modules/`, `dist/`, `.vercel/`, and environment files are intentionally ignored.
-- `public/downloads/` contains verified local ZIP downloads used by the live site.
-- Source and public artifacts are prepared for migration to `https://github.com/nodaysidle/nodaysidle-project-pages`.
+- `public/downloads/` contains legacy local ZIP copies; verified migrated projects now prefer direct GitHub Release downloads.
+- Source repository: `https://github.com/nodaysidle/nodaysidle-project-pages`.
+- Migrated project CTAs currently point to GitHub repositories/releases for BatchRename Pro, NoDaysIdle Whispering, ScribeFlowPro, Sunder, and NODAYSNOTES.
