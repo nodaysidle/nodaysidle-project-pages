@@ -8,6 +8,7 @@
     { "source": "/focusblur", "destination": "/index.html" },
     { "source": "/sunder", "destination": "/index.html" },
     { "source": "/synapse-notes", "destination": "/index.html" },
-    { "source": "/orbit-browser", "destination": "/index.html" }
+    { "source": "/orbit-browser", "destination": "/index.html" },
+    { "source": "/nodaysidle-flowstate", "destination": "/index.html" }
   ]
 }

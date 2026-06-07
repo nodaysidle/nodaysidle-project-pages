@@ -134,6 +134,28 @@ const projects = [
     artifact: 'Permission note: requires Accessibility, not Screen Recording.'
   },
   {
+    id: 'nodaysidle-flowstate',
+    name: 'FlowState',
+    repoName: 'nodaysidle-flowstate',
+    tag: 'Adaptive focus state',
+    repo: 'https://github.com/nodaysidle/nodaysidle-flowstate',
+    release: 'https://github.com/nodaysidle/nodaysidle-flowstate/releases/tag/v1.0.0',
+    download: 'https://github.com/nodaysidle/nodaysidle-flowstate/releases/download/v1.0.0/FlowState-1.0.0.dmg',
+    downloadLabel: 'Download macOS DMG',
+    className: 'page-flowstate',
+    eyebrow: 'SwiftPM · SwiftUI · AppKit · Accessibility API',
+    headline: 'A smarter Pomodoro that watches focus state, not the clock.',
+    summary: 'FlowState is a native macOS menu bar utility that scores keyboard and mouse activity locally, gently dims when focus drops, and suggests breaks from live trend data instead of fixed timers.',
+    proof: ['v1.0.0 GitHub release live', '478KB macOS DMG verified', '7 Swift tests passed', 'App launch + DMG mount smoke passed'],
+    features: [
+      ['Activity-based scoring', 'Keyboard and mouse patterns produce a local focus score without cloud telemetry.'],
+      ['Adaptive break nudges', 'Session history and live activity trend decide when a break is useful.'],
+      ['Release-grade menu bar app', 'Template icon rendering, display-aware tint cleanup, signed app bundle, DMG checksum, and launch smoke were verified.']
+    ],
+    styleNote: 'Biometric focus console: black glass, Volt pulse, calm green rings, adaptive utility posture.',
+    artifact: 'DMG SHA256 91c122fef725d23cf46e9ef0579ee287e111f2e18d34541a0241470b2ffd313f · 478,428 bytes · GitHub Release v1.0.0 · ad-hoc signed, not notarized.'
+  },
+  {
     id: 'sunder',
     name: 'Sunder',
     repoName: 'sunder',
@@ -211,7 +233,7 @@ function Home() {
     <main className="home">
       <section className="home-hero">
         <p className="kicker">NODAYSIDLE project pages</p>
-        <h1>Nine separate repo presentations. Nine separate visual systems.</h1>
+        <h1>Ten separate repo presentations. Ten separate visual systems.</h1>
         <p>Each page is a standalone product presentation built from verified NODAYSIDLE source and release facts, with a project-matched visual system and an explicit download CTA: GitHub release artifacts when verified, source ZIPs when not.</p>
       </section>
       <section className="project-grid" aria-label="Project pages">
