@@ -73,21 +73,22 @@ const projects = [
     name: 'Nodaysidian',
     repoName: 'nodaysidian',
     tag: 'Native knowledge graph',
-    repo: 'https://gitlab.com/NODAYSIDLE/nodaysidian',
-    download: 'https://gitlab.com/NODAYSIDLE/nodaysidian/-/archive/main/nodaysidian-main.zip',
-    downloadLabel: 'Download source ZIP',
+    repo: 'https://github.com/nodaysidle/nodaysidian',
+    release: 'https://github.com/nodaysidle/nodaysidian/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/nodaysidian/releases/download/v0.1.0/Nodaysidian.dmg',
+    downloadLabel: 'Download macOS DMG',
     className: 'page-obsidian',
     eyebrow: 'SwiftUI · Core Data · NaturalLanguage · macOS 15+',
     headline: 'Obsidian-style thinking rebuilt as a native Mac knowledge graph.',
     summary: 'Nodaysidian writes Markdown notes, imports Obsidian vaults, maps wiki-links, discovers semantic connections on-device, and gives notes a visual graph plus whiteboard mode — all without cloud accounts.',
-    proof: ['Source ZIP available', 'Native SwiftUI app', 'On-device semantic links', 'Interactive graph + whiteboard'],
+    proof: ['v0.1.0 GitHub release live', '873KB macOS DMG verified', '4 Swift tests passed', 'Ad-hoc signed app launch smoke passed'],
     features: [
       ['Vault import', 'Read Markdown, strip front matter, preserve titles, and turn wiki-links into graph edges.'],
       ['Semantic auto-links', 'Apple NaturalLanguage embeddings suggest related notes without remote providers.'],
       ['Graph plus canvas', 'Force-directed graph navigation and Excalidraw-inspired whiteboarding in one native workspace.']
     ],
     styleNote: 'Iridescent obsidian: volcanic glass black with teal-purple edges and copper note highlights.',
-    artifact: 'Distribution: source archive download from GitLab main branch.'
+    artifact: 'DMG SHA256 6a998de0b3aac3e6bf32bbb58a7826562d5b2efbe5aff805d8e17e57ebb95ce4 · 873,742 bytes · GitHub Release v0.1.0 · ad-hoc signed, not notarized.'
   },
   {
     id: 'nodaysnotes',
@@ -159,21 +160,22 @@ const projects = [
     name: 'Synapse Notes',
     repoName: 'synapse-notes',
     tag: 'Voice-first AI notes',
-    repo: 'https://gitlab.com/NODAYSIDLE/synapse-notes',
-    download: 'https://gitlab.com/NODAYSIDLE/synapse-notes/-/archive/main/synapse-notes-main.zip',
-    downloadLabel: 'Download source ZIP',
+    repo: 'https://github.com/nodaysidle/synapse-notes',
+    release: 'https://github.com/nodaysidle/synapse-notes/releases/tag/v0.1.0',
+    download: 'https://github.com/nodaysidle/synapse-notes/releases/download/v0.1.0/Synapse-Notes-0.1.0-debug.apk',
+    downloadLabel: 'Download Android APK',
     className: 'page-synapse',
     eyebrow: 'React · Capacitor Android · Supabase · Gemini · Imagen · Three.js',
     headline: 'Speak a thought. Watch it become a searchable neural note.',
     summary: 'Synapse Notes records voice, transcribes with Gemini, generates AI images, embeds notes for semantic search, and connects ideas inside a Three.js knowledge graph. It is already running on two of NDI’s phones.',
-    proof: ['Android app operational on 2 phones', 'Capacitor Android project present', 'Supabase functions and pgvector migrations present', 'Source ZIP download verified'],
+    proof: ['v0.1.0 GitHub release live', '4.4MB Android APK verified', 'TypeScript + Vite build passed', 'Capacitor Android sync + Gradle assembleDebug passed'],
     features: [
       ['Voice capture flow', 'Record thoughts, process audio, and turn speech into structured notes with minimal friction.'],
       ['AI enrichment', 'Gemini transcription, Imagen generation, embeddings, and semantic search work as one pipeline.'],
       ['Knowledge graph', 'Three.js graph view links note keywords, related thoughts, and generated context visually.']
     ],
     styleNote: 'Neural web aesthetic: plum bio-organic gradients, amber synaptic points, dendrite-dot texture.',
-    artifact: 'Distribution: GitLab source ZIP. No public APK/DMG release is published yet; local debug APK is not treated as release-grade.'
+    artifact: 'APK SHA256 b83ae21646873a00e3b2527a4846962f40aeda4f77a43bc2124fce7756d56b50 · 4,405,823 bytes · GitHub Release v0.1.0 · debug APK release asset.'
   },
   {
     id: 'orbit-browser',
