@@ -205,23 +205,21 @@ const projects = [
     repoName: 'orbit-browser',
     tag: 'Native macOS browser',
     repo: 'https://github.com/nodaysidle/orbit-browser',
-    release: 'https://github.com/nodaysidle/orbit-browser/releases/tag/v1.0.0',
-    download: 'https://github.com/nodaysidle/orbit-browser/releases/download/v1.0.0/Orbit-1.0.0-aarch64.dmg',
-    downloadLabel: 'Download DMG',
-    downloadAvailable: false,
-    linkIssue: 'GitHub release tag v1.0.0 and DMG asset returned HTTP 404 during verification.',
+    release: 'https://github.com/nodaysidle/orbit-browser/releases/tag/v1.0.5',
+    download: 'https://github.com/nodaysidle/orbit-browser/releases/download/v1.0.5/Orbit-1.0.5-aarch64.dmg',
+    downloadLabel: 'Download macOS DMG',
     className: 'page-orbit',
     eyebrow: 'Tauri 2 · Rust · Vanilla JS · WKWebView · SQLite',
     headline: 'A minimal native browser: no Electron, no telemetry, full web.',
-    summary: 'Orbit Browser is a focused macOS browser with per-tab WKWebViews, local SQLite history/bookmarks/settings, domain blocking, Reader Mode, per-origin zoom, clean-link copying, and keyboard-first chrome.',
-    proof: ['Native WKWebView child-webview architecture', 'Local-first SQLite persistence', 'Release link currently returns 404', 'macOS app launch smoke previously recorded'],
+    summary: 'Orbit Browser is a focused macOS browser with per-tab WKWebViews, local SQLite history/bookmarks/settings, domain blocking, Reader Mode, per-origin zoom memory, clean-link copying, and keyboard-first chrome.',
+    proof: ['v1.0.5 GitHub release live', '8.4MB macOS DMG verified', 'Ad-hoc signed, not notarized', 'Native WKWebView child-webview architecture'],
     features: [
       ['Native tab engine', 'Tauri child WKWebViews keep browsing native to macOS instead of shipping an Electron runtime.'],
       ['Local browser memory', 'Tabs, history, bookmarks, settings, sessions, zoom, and blocking live locally in SQLite/resources.'],
       ['Operator chrome', 'Reader Mode, clean-link copying, keyboard shortcuts, and minimal dark browser UI are the core posture.']
     ],
     styleNote: 'Deep-field orbit aesthetic: black-space canvas, cyan trajectory rings, nebula violet, sparse star points.',
-    artifact: 'DMG SHA256 fb954633110e4db73b43e0053aa63f20baae8b210264b22e02164876c28e92d7 · 8,381,420 bytes · GitHub Release v1.0.0 link returned HTTP 404 during verification · ad-hoc signed, not notarized.'
+    artifact: 'DMG SHA256 bfd5465ed8cdc441805caa652e59d70a54abe7bf2a0cd818665d932075c0a6d7 · 8,387,910 bytes · GitHub Release v1.0.5 · ad-hoc signed, not notarized.'
   }
 ];
 
