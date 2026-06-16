@@ -299,6 +299,101 @@ function productClass(project) {
   return `product-accent accent-${project.id}`;
 }
 
+const markPaths = {
+  batchrenameprov2: (
+    <>
+      <path d="M8 14.5 24 5l16 9.5v19L24 43 8 33.5Z" />
+      <path d="M24 5v18.5m0 19.5V23.5m0 0L8 14.5m16 9 16-9" />
+      <path d="m15 29 9-5.5 9 5.5M15 34l9-5.5 9 5.5" />
+    </>
+  ),
+  'nodaysidle-whispering': (
+    <>
+      <path d="M8 24h3m26 0h3M14 18v12m5-18v24m5-28v32m5-28v32m5-22v16" />
+      <path d="M5 24c4-12 34-12 38 0-4 12-34 12-38 0Z" />
+    </>
+  ),
+  scribeflowpro: (
+    <>
+      <circle cx="24" cy="24" r="17" />
+      <path d="M16 24h3m5-9v18m5-14v10m-14-4v6m21-13v12" />
+      <path d="M12 38c8-5 16-5 24 0" />
+    </>
+  ),
+  nodaysidian: (
+    <>
+      <path d="m24 5 17 10v18L24 43 7 33V15Z" />
+      <path d="m24 5v38M7 15l17 10 17-10M7 33l17-8 17 8" />
+      <path d="M15 20h18M15 28h18" />
+    </>
+  ),
+  nodaysnotes: (
+    <>
+      <path d="M10 38c17-3 27-14 28-30-17 1-29 11-30 28Z" />
+      <path d="M14 34c8-9 16-15 24-20" />
+      <path d="M17 20h10M15 26h7" />
+    </>
+  ),
+  focusblur: (
+    <>
+      <rect x="10" y="12" width="28" height="24" rx="5" />
+      <path d="M5 17h6M5 31h6m26-14h6m-6 14h6M15 24h18" />
+      <path d="M19 20h10v8H19Z" />
+    </>
+  ),
+  'nodaysidle-flowstate': (
+    <>
+      <path d="M8 31c4-15 12-23 24-23 7 0 11 4 11 10 0 11-16 10-16 19 0 3 2 5 5 6" />
+      <path d="M9 33c8 5 17 5 27 0M18 22h12" />
+      <circle cx="34" cy="18" r="3" />
+    </>
+  ),
+  sunder: (
+    <>
+      <path d="M24 5 7 20l7 23 10-12 10 12 7-23Z" />
+      <path d="M24 5v26M7 20h34M14 43l10-23 10 23" />
+    </>
+  ),
+  'synapse-notes': (
+    <>
+      <circle cx="14" cy="16" r="4" />
+      <circle cx="34" cy="14" r="4" />
+      <circle cx="23" cy="34" r="5" />
+      <path d="M18 17c5 2 8 2 12-1M16 20l5 10m10-13-6 13m3 5c4 1 7 0 10-4" />
+    </>
+  ),
+  'orbit-browser': (
+    <>
+      <circle cx="24" cy="24" r="7" />
+      <path d="M7 26c5-13 21-21 32-13 8 6 4 18-7 25-13 8-27 4-25-12Z" />
+      <path d="M13 12c10-6 24-2 27 8 3 11-8 23-22 23" />
+      <circle cx="39" cy="11" r="3" />
+    </>
+  ),
+};
+
+function BrandGlyph() {
+  return (
+    <svg viewBox="0 0 44 44" aria-hidden="true">
+      <path d="M7 34V10l8 3v24Z" />
+      <path d="M18 36V12l8 5v24Z" />
+      <path d="M29 32V8l8 3v24Z" />
+    </svg>
+  );
+}
+
+function ProjectMark({ project }) {
+  return (
+    <svg className="mark-svg" viewBox="0 0 48 48" aria-hidden="true">
+      {markPaths[project.id]}
+    </svg>
+  );
+}
+
+function projectVersion(meta) {
+  return meta.version === 'Source' ? 'Source' : meta.version;
+}
+
 function Home() {
   const [query, setQuery] = React.useState('');
   const [platform, setPlatform] = React.useState('All');
@@ -337,17 +432,21 @@ function Home() {
     <main className="catalog-shell">
       <nav className="catalog-nav" aria-label="Catalog navigation">
         <a href="/" className="brand-mark" aria-label="NODAYSIDLE product catalog home">
-          <span className="brand-sigil">NDI</span>
+          <span className="brand-sigil"><BrandGlyph /></span>
           <span>NODAYSIDLE</span>
         </a>
-        <a href="#products" className="nav-pill">Products</a>
+        <div className="nav-links">
+          <a href="#products">Products</a>
+          <a href="#releases">Releases</a>
+          <a href="https://github.com/nodaysidle">GitHub</a>
+        </div>
       </nav>
 
       <section className="catalog-hero" aria-labelledby="catalog-title">
         <div>
-          <p className="kicker">Verified software catalog</p>
-          <h1 id="catalog-title">NODAYSIDLE Catalog</h1>
-          <p className="hero-lede">Release-ready apps, verified download paths, and source artifacts in one disciplined index.</p>
+          <p className="kicker">Boutique software studio</p>
+          <h1 id="catalog-title">Installable tools for focused operators.</h1>
+          <p className="hero-lede">A public catalog of NODAYSIDLE apps: local-first, source-visible, and packaged with verifiable release artifacts.</p>
         </div>
         <dl className="catalog-stats" aria-label="Catalog summary">
           <div><dt>Products</dt><dd>{projects.length}</dd></div>
@@ -359,12 +458,12 @@ function Home() {
 
       <section className="catalog-controls" aria-label="Catalog controls">
         <label className="search-field">
-          <span>Search catalog</span>
+          <span aria-hidden="true">/</span>
           <input
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search app, platform, release, checksum"
+            placeholder="Search apps, platform, release, checksum..."
             aria-label="Search projects"
           />
         </label>
@@ -394,10 +493,10 @@ function Home() {
         </label>
       </section>
 
-      <section className="trust-ribbon" aria-label="Catalog trust policy">
+      <section id="releases" className="trust-ribbon" aria-label="Catalog trust policy">
         <span>{filtered.length} shown</span>
-        <span>Verified download paths</span>
-        <span>Checksums on detail pages</span>
+        <span>Release links verified</span>
+        <span>Checksums published</span>
       </section>
 
       <section className="catalog-table-head" aria-label="Catalog columns">
@@ -414,7 +513,7 @@ function Home() {
           return (
             <article className={`product-card ${productClass(project)}`} key={project.id}>
               <a className="product-card-main" href={`/${project.id}`} aria-label={`Open ${project.name} product page`}>
-                <div className="product-icon" aria-hidden="true">{project.name.split(/\s|-/).map((word) => word[0]).join('').slice(0, 3)}</div>
+                <div className="product-icon" aria-hidden="true"><ProjectMark project={project} /></div>
                 <div className="product-copy">
                   <p>{project.repoName}</p>
                   <h2>{project.name}</h2>
@@ -423,13 +522,13 @@ function Home() {
               <p className="product-category">{project.tag}</p>
               <dl className="card-meta">
                 <div className="meta-platform"><dt>Platform</dt><dd>{meta.platform}</dd></div>
-                <div className="meta-artifact"><dt>Artifact</dt><dd>{meta.type} · {meta.version}<span>{meta.size}</span></dd></div>
+                <div className="meta-artifact"><dt>Artifact</dt><dd>{meta.type} · {projectVersion(meta)}<span>{meta.size}</span></dd></div>
                 <div className={meta.canDownload ? 'meta-status status-ok' : 'meta-status status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
               </dl>
               {project.linkIssue && <p className="link-issue">{project.linkIssue}</p>}
               <div className="card-actions">
                 {meta.canDownload ? (
-                  <a className="primary small" href={project.download}>Download {meta.type}</a>
+                  <a className="primary small" href={project.download}>Download</a>
                 ) : (
                   <span className="primary small disabled" aria-disabled="true">Download unavailable</span>
                 )}
@@ -460,7 +559,7 @@ function ProjectPage({ project }) {
     <main className={`catalog-shell detail-shell ${productClass(project)}`}>
       <nav className="catalog-nav" aria-label="Product navigation">
         <a href="/" className="brand-mark">
-          <span className="brand-sigil">NDI</span>
+          <span className="brand-sigil"><BrandGlyph /></span>
           <span>NODAYSIDLE</span>
         </a>
         <div className="nav-links">
@@ -472,11 +571,11 @@ function ProjectPage({ project }) {
 
       <section className="detail-hero" aria-labelledby="product-title">
         <div className="device-card" aria-label={`${project.name} product summary`}>
-          <div className="device-topline"><span></span><span></span><span></span></div>
+          <div className="device-mark"><ProjectMark project={project} /></div>
           <div className="device-body">
             <p>{project.repoName}</p>
             <strong>{project.name}</strong>
-            <span>{meta.platform} · {meta.type} · {meta.version}</span>
+            <span>{meta.platform} · {meta.type} · {projectVersion(meta)}</span>
           </div>
           <div className="device-footer">
             <span>{meta.releaseState}</span>
