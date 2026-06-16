@@ -394,6 +394,25 @@ function projectVersion(meta) {
   return meta.version === 'Source' ? 'Source' : meta.version;
 }
 
+function ActionLinks({ project, meta, compact = false, includeDetails = true }) {
+  return (
+    <div className={compact ? 'card-actions' : 'actions'}>
+      {meta.canDownload ? (
+        <a className={compact ? 'primary small' : 'primary'} href={project.download}>
+          {compact ? 'Download' : `Download ${meta.type}`}
+        </a>
+      ) : (
+        <span className={compact ? 'primary small disabled' : 'primary disabled'} aria-disabled="true">
+          Download unavailable
+        </span>
+      )}
+      {includeDetails && <a className={compact ? 'secondary small' : 'secondary'} href={`/${project.id}`}>Details</a>}
+      {!compact && <a className="secondary" href={project.repo}>Repository</a>}
+      {!compact && project.release && meta.canDownload && <a className="secondary" href={project.release}>Release</a>}
+    </div>
+  );
+}
+
 function Home() {
   const [query, setQuery] = React.useState('');
   const [platform, setPlatform] = React.useState('All');
@@ -427,6 +446,9 @@ function Home() {
       });
   }, [catalog, platform, query, sort]);
   const platforms = ['All', 'macOS', 'Android', 'Source'];
+  const featured = projects.find((project) => project.id === 'orbit-browser') || projects[0];
+  const featuredMeta = parseArtifact(featured);
+  const verifiedDownloads = catalog.filter(({ project, meta }) => project.release && meta.canDownload).length;
 
   return (
     <main className="catalog-shell">
@@ -443,27 +465,42 @@ function Home() {
       </nav>
 
       <section className="catalog-hero" aria-labelledby="catalog-title">
-        <div>
-          <p className="kicker">Boutique software studio</p>
-          <h1 id="catalog-title">Installable tools for focused operators.</h1>
-          <p className="hero-lede">A public catalog of NODAYSIDLE apps: local-first, source-visible, and packaged with verifiable release artifacts.</p>
+        <div className="hero-copy">
+          <p className="kicker">Public release index</p>
+          <h1 id="catalog-title">NODAYSIDLE software catalog</h1>
+          <p className="hero-lede">Installable Mac and Android tools, presented with release status, source links, artifact size, and checksum evidence.</p>
+          <div className="hero-proof" aria-label="Catalog proof summary">
+            <span>{projects.length} products</span>
+            <span>{verifiedDownloads} verified downloads</span>
+            <span>{counts.macOS || 0} macOS apps</span>
+          </div>
         </div>
-        <dl className="catalog-stats" aria-label="Catalog summary">
-          <div><dt>Products</dt><dd>{projects.length}</dd></div>
-          <div><dt>macOS</dt><dd>{counts.macOS || 0}</dd></div>
-          <div><dt>Android</dt><dd>{counts.Android || 0}</dd></div>
-          <div><dt>Source</dt><dd>{counts.Source || 0}</dd></div>
-        </dl>
+        <aside className={`featured-release ${productClass(featured)}`} aria-label="Featured verified release">
+          <div className="featured-top">
+            <div className="product-icon large"><ProjectMark project={featured} /></div>
+            <div>
+              <p className="kicker">Featured release</p>
+              <h2>{featured.name}</h2>
+            </div>
+          </div>
+          <p>{featured.summary}</p>
+          <dl className="featured-meta">
+            <div><dt>Version</dt><dd>{projectVersion(featuredMeta)}</dd></div>
+            <div><dt>Artifact</dt><dd>{featuredMeta.type}</dd></div>
+            <div><dt>Size</dt><dd>{featuredMeta.size}</dd></div>
+          </dl>
+          <ActionLinks project={featured} meta={featuredMeta} />
+        </aside>
       </section>
 
       <section className="catalog-controls" aria-label="Catalog controls">
         <label className="search-field">
-          <span aria-hidden="true">/</span>
+          <span>Search</span>
           <input
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search apps, platform, release, checksum..."
+            placeholder="Search products..."
             aria-label="Search projects"
           />
         </label>
@@ -495,8 +532,8 @@ function Home() {
 
       <section id="releases" className="trust-ribbon" aria-label="Catalog trust policy">
         <span>{filtered.length} shown</span>
-        <span>Release links verified</span>
-        <span>Checksums published</span>
+        <span>Download links checked</span>
+        <span>Checksums shown where published</span>
       </section>
 
       <section className="catalog-table-head" aria-label="Catalog columns">
@@ -526,14 +563,7 @@ function Home() {
                 <div className={meta.canDownload ? 'meta-status status-ok' : 'meta-status status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
               </dl>
               {project.linkIssue && <p className="link-issue">{project.linkIssue}</p>}
-              <div className="card-actions">
-                {meta.canDownload ? (
-                  <a className="primary small" href={project.download}>Download</a>
-                ) : (
-                  <span className="primary small disabled" aria-disabled="true">Download unavailable</span>
-                )}
-                <a className="secondary small" href={`/${project.id}`}>Details</a>
-              </div>
+              <ActionLinks project={project} meta={meta} compact />
             </article>
           );
         })}
@@ -570,22 +600,15 @@ function ProjectPage({ project }) {
       </nav>
 
       <section className="detail-hero" aria-labelledby="product-title">
-        <div className="device-card" aria-label={`${project.name} product summary`}>
-          <div className="device-mark"><ProjectMark project={project} /></div>
-          <div className="device-body">
-            <p>{project.repoName}</p>
-            <strong>{project.name}</strong>
-            <span>{meta.platform} · {meta.type} · {projectVersion(meta)}</span>
-          </div>
-          <div className="device-footer">
-            <span>{meta.releaseState}</span>
-            <span>{meta.size}</span>
-          </div>
-        </div>
-
         <div className="detail-copy">
-          <p className="kicker">{project.eyebrow}</p>
-          <h1 id="product-title">{project.name}</h1>
+          <a className="back-link" href="/">Back to catalog</a>
+          <div className="detail-title-row">
+            <div className="device-mark"><ProjectMark project={project} /></div>
+            <div>
+              <p className="kicker">{project.eyebrow}</p>
+              <h1 id="product-title">{project.name}</h1>
+            </div>
+          </div>
           <p className="summary">{project.summary}</p>
           <div className="detail-badges" aria-label="Product metadata">
             <span>{project.tag}</span>
@@ -593,17 +616,24 @@ function ProjectPage({ project }) {
             <span>{meta.type}</span>
             <span className={meta.canDownload ? 'status-ok' : 'status-bad'}>{meta.releaseState}</span>
           </div>
-          <div className="actions">
-            {meta.canDownload ? (
-              <a className="primary" href={project.download}>Download {meta.type}</a>
-            ) : (
-              <span className="primary disabled" aria-disabled="true">Download unavailable</span>
-            )}
-            <a className="secondary" href={project.repo}>View repository</a>
-            {project.release && meta.canDownload && <a className="secondary" href={project.release}>Release page</a>}
-          </div>
+          <ActionLinks project={project} meta={meta} includeDetails={false} />
           {project.linkIssue && <p className="release-warning">{project.linkIssue}</p>}
         </div>
+
+        <aside className="artifact-panel hero-artifact" aria-label="Release artifact">
+          <div className="artifact-heading">
+            <p className="kicker">Release artifact</p>
+            <strong>{project.name}</strong>
+          </div>
+          <dl>
+            <div><dt>Type</dt><dd>{meta.type}</dd></div>
+            <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
+            <div><dt>Version</dt><dd>{projectVersion(meta)}</dd></div>
+            <div><dt>Size</dt><dd>{meta.size}</dd></div>
+            <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+            {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
+          </dl>
+        </aside>
       </section>
 
       <section className="download-trust" aria-label="Download trust summary">
@@ -640,7 +670,7 @@ function ProjectPage({ project }) {
           <dl>
             <div><dt>Type</dt><dd>{meta.type}</dd></div>
             <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
-            <div><dt>Version</dt><dd>{meta.version}</dd></div>
+            <div><dt>Version</dt><dd>{projectVersion(meta)}</dd></div>
             <div><dt>Size</dt><dd>{meta.size}</dd></div>
             <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
             {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
