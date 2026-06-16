@@ -491,20 +491,24 @@ function Home() {
 
       <section className="catalog-hero" aria-labelledby="catalog-title">
         <div className="hero-copy">
-          <p className="kicker">Release foundry</p>
-          <h1 id="catalog-title">NODAYSIDLE software worth opening</h1>
-          <p className="hero-lede">A curated wall of installable tools with real release artifacts, source proof, and product pages designed to make each app feel as serious as the thing it ships.</p>
+          <p className="kicker">Private release foundry</p>
+          <h1 id="catalog-title">Finished apps, not portfolio thumbnails.</h1>
+          <p className="hero-lede">A buyer-facing catalog of NODAYSIDLE releases: installable artifacts, local-first product stories, source proof, and direct downloads kept in the open.</p>
           <div className="hero-proof" aria-label="Catalog proof summary">
-            <span>{projects.length} products</span>
-            <span>{verifiedDownloads} verified downloads</span>
-            <span>{counts.macOS || 0} macOS apps</span>
+            <span>{projects.length} product dossiers</span>
+            <span>{verifiedDownloads} release artifacts</span>
+            <span>{counts.macOS || 0} Mac-native builds</span>
+          </div>
+          <div className="hero-statement" aria-label="Foundry promise">
+            <strong>Built to be opened.</strong>
+            <span>Every card leads to a real app page with artifact state, platform fit, proof notes, and the original release/source trail.</span>
           </div>
         </div>
         <aside className={`featured-release ${productClass(featured)}`} aria-label="Featured verified release">
           <div className="featured-top">
             <div className="product-icon large"><ProjectMark project={featured} /></div>
             <div>
-              <p className="kicker">Featured dossier</p>
+              <p className="kicker">Current spotlight</p>
               <h2>{featured.name}</h2>
             </div>
           </div>
@@ -582,10 +586,10 @@ function Home() {
                 </div>
               </a>
               <p className="product-category">{project.tag}</p>
-              <dl className="card-meta">
-                <div className="meta-platform"><dt>Platform</dt><dd>{meta.platform}</dd></div>
-                <div className="meta-artifact"><dt>Artifact</dt><dd>{meta.type} · {projectVersion(meta)}<span>{meta.size}</span></dd></div>
-                <div className={meta.canDownload ? 'meta-status status-ok' : 'meta-status status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+              <p className="product-narrative">{project.headline}</p>
+              <dl className="card-meta" aria-label={`${project.name} release dossier`}>
+                <div className="meta-artifact"><dt>Build</dt><dd>{meta.type} · {projectVersion(meta)}<span>{meta.platform} · {meta.size}</span></dd></div>
+                <div className={meta.canDownload ? 'meta-status status-ok' : 'meta-status status-bad'}><dt>Proof</dt><dd>{meta.releaseState}</dd></div>
               </dl>
               {project.linkIssue && <p className="link-issue">{project.linkIssue}</p>}
               <ActionLinks project={project} meta={meta} compact />
@@ -635,6 +639,10 @@ function ProjectPage({ project }) {
             </div>
           </div>
           <p className="summary">{project.summary}</p>
+          <div className="detail-value-card" aria-label="Product value">
+            <span>Why it matters</span>
+            <strong>{project.headline}</strong>
+          </div>
           <div className="detail-badges" aria-label="Product metadata">
             <span>{project.tag}</span>
             <span>{meta.platform}</span>
