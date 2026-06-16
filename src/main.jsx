@@ -259,16 +259,79 @@ function parseArtifact(project) {
   };
 }
 
+function artifactBytes(meta) {
+  const match = meta.size.match(/^([0-9,]+)\s+bytes$/);
+  return match ? Number(match[1].replace(/,/g, '')) : 0;
+}
+
+function projectSearchText(project, meta) {
+  return [
+    project.name,
+    project.repoName,
+    project.tag,
+    project.eyebrow,
+    project.summary,
+    project.artifact,
+    meta.platform,
+    meta.type,
+    meta.releaseState,
+  ].join(' ').toLowerCase();
+}
+
+function signingNote(project) {
+  const artifact = project.artifact || '';
+  if (/not notarized/i.test(artifact)) {
+    return 'Ad-hoc signed. macOS Gatekeeper may require explicit approval on first launch.';
+  }
+  if (/debug APK/i.test(artifact)) {
+    return 'Debug APK release asset. Install only when you understand the Android sideloading path.';
+  }
+  if (/Permission note/i.test(artifact)) {
+    return 'Source/permission utility. Follow repository instructions before granting macOS permissions.';
+  }
+  if (/signed/i.test(project.proof.join(' '))) {
+    return 'Signed release artifact. Verify the checksum before install when possible.';
+  }
+  return 'Release metadata is shown exactly as verified from the linked source.';
+}
+
 function productClass(project) {
   return `product-accent accent-${project.id}`;
 }
 
 function Home() {
+  const [query, setQuery] = React.useState('');
+  const [platform, setPlatform] = React.useState('All');
+  const [sort, setSort] = React.useState('recommended');
   const counts = projects.reduce((acc, project) => {
     const meta = parseArtifact(project);
     acc[meta.platform] = (acc[meta.platform] || 0) + 1;
     return acc;
   }, {});
+  const catalog = React.useMemo(() => projects.map((project) => ({
+    project,
+    meta: parseArtifact(project),
+  })), []);
+  const filtered = React.useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    return catalog
+      .filter(({ project, meta }) => {
+        const platformMatch = platform === 'All' || meta.platform === platform;
+        const queryMatch = !normalizedQuery || projectSearchText(project, meta).includes(normalizedQuery);
+        return platformMatch && queryMatch;
+      })
+      .slice()
+      .sort((a, b) => {
+        if (sort === 'name') return a.project.name.localeCompare(b.project.name);
+        if (sort === 'size') return artifactBytes(b.meta) - artifactBytes(a.meta);
+        const downloadDelta = Number(b.meta.canDownload) - Number(a.meta.canDownload);
+        if (downloadDelta) return downloadDelta;
+        const releaseDelta = Number(Boolean(b.project.release)) - Number(Boolean(a.project.release));
+        if (releaseDelta) return releaseDelta;
+        return a.project.name.localeCompare(b.project.name);
+      });
+  }, [catalog, platform, query, sort]);
+  const platforms = ['All', 'macOS', 'Android', 'Source'];
 
   return (
     <main className="catalog-shell">
@@ -283,8 +346,8 @@ function Home() {
       <section className="catalog-hero" aria-labelledby="catalog-title">
         <div>
           <p className="kicker">Verified software catalog</p>
-          <h1 id="catalog-title">NODAYSIDLE apps, releases, and source artifacts.</h1>
-          <p className="hero-lede">A sharp product index for NODAYSIDLE utilities: what each app does, where it runs, and which artifact is actually available. No moodboards. No fake release claims.</p>
+          <h1 id="catalog-title">NODAYSIDLE Catalog</h1>
+          <p className="hero-lede">Release-ready apps, verified download paths, and source artifacts in one disciplined index.</p>
         </div>
         <dl className="catalog-stats" aria-label="Catalog summary">
           <div><dt>Products</dt><dd>{projects.length}</dd></div>
@@ -292,6 +355,49 @@ function Home() {
           <div><dt>Android</dt><dd>{counts.Android || 0}</dd></div>
           <div><dt>Source</dt><dd>{counts.Source || 0}</dd></div>
         </dl>
+      </section>
+
+      <section className="catalog-controls" aria-label="Catalog controls">
+        <label className="search-field">
+          <span>Search catalog</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search app, platform, release, checksum"
+            aria-label="Search projects"
+          />
+        </label>
+        <div className="filter-group" aria-label="Platform filters">
+          {platforms.map((item) => (
+            <button
+              type="button"
+              key={item}
+              className={platform === item ? 'filter-chip active' : 'filter-chip'}
+              onClick={() => {
+                setPlatform(item);
+                setQuery('');
+              }}
+              aria-pressed={platform === item}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <label className="sort-field">
+          <span>Sort</span>
+          <select value={sort} onChange={(event) => setSort(event.target.value)} aria-label="Sort projects">
+            <option value="recommended">Release readiness</option>
+            <option value="name">Name</option>
+            <option value="size">Artifact size</option>
+          </select>
+        </label>
+      </section>
+
+      <section className="trust-ribbon" aria-label="Catalog trust policy">
+        <span>{filtered.length} shown</span>
+        <span>Verified download paths</span>
+        <span>Checksums on detail pages</span>
       </section>
 
       <section className="catalog-table-head" aria-label="Catalog columns">
@@ -304,8 +410,7 @@ function Home() {
       </section>
 
       <section id="products" className="product-grid" aria-label="NODAYSIDLE products">
-        {projects.map((project) => {
-          const meta = parseArtifact(project);
+        {filtered.map(({ project, meta }) => {
           return (
             <article className={`product-card ${productClass(project)}`} key={project.id}>
               <a className="product-card-main" href={`/${project.id}`} aria-label={`Open ${project.name} product page`}>
@@ -313,16 +418,14 @@ function Home() {
                 <div className="product-copy">
                   <p>{project.repoName}</p>
                   <h2>{project.name}</h2>
-                  <span>{project.tag}</span>
                 </div>
               </a>
+              <p className="product-category">{project.tag}</p>
               <dl className="card-meta">
-                <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
-                <div><dt>Artifact</dt><dd>{meta.type} · {meta.version}</dd></div>
-                <div><dt>Size</dt><dd>{meta.size}</dd></div>
-                <div className={meta.canDownload ? 'status-ok' : 'status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+                <div className="meta-platform"><dt>Platform</dt><dd>{meta.platform}</dd></div>
+                <div className="meta-artifact"><dt>Artifact</dt><dd>{meta.type} · {meta.version}<span>{meta.size}</span></dd></div>
+                <div className={meta.canDownload ? 'meta-status status-ok' : 'meta-status status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
               </dl>
-              {meta.checksum && <p className="checksum"><span>SHA256</span>{meta.checksum.slice(0, 12)}…{meta.checksum.slice(-8)}</p>}
               {project.linkIssue && <p className="link-issue">{project.linkIssue}</p>}
               <div className="card-actions">
                 {meta.canDownload ? (
@@ -335,6 +438,13 @@ function Home() {
             </article>
           );
         })}
+        {filtered.length === 0 && (
+          <article className="empty-state">
+            <p className="kicker">No matching artifacts</p>
+            <h2>No product matches that filter.</h2>
+            <p>Clear the search or switch platform filters to return to the full catalog.</p>
+          </article>
+        )}
       </section>
     </main>
   );
@@ -394,6 +504,21 @@ function ProjectPage({ project }) {
             {project.release && meta.canDownload && <a className="secondary" href={project.release}>Release page</a>}
           </div>
           {project.linkIssue && <p className="release-warning">{project.linkIssue}</p>}
+        </div>
+      </section>
+
+      <section className="download-trust" aria-label="Download trust summary">
+        <div>
+          <span>Release status</span>
+          <strong>{meta.releaseState}</strong>
+        </div>
+        <div>
+          <span>Install note</span>
+          <strong>{signingNote(project)}</strong>
+        </div>
+        <div>
+          <span>Artifact size</span>
+          <strong>{meta.size}</strong>
         </div>
       </section>
 
