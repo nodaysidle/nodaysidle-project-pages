@@ -394,6 +394,31 @@ function projectVersion(meta) {
   return meta.version === 'Source' ? 'Source' : meta.version;
 }
 
+function artifactFileName(project) {
+  if (!project.download) return project.repoName;
+  try {
+    const pathname = new URL(project.download).pathname;
+    const fileName = pathname.split('/').filter(Boolean).pop();
+    return fileName ? decodeURIComponent(fileName) : project.repoName;
+  } catch {
+    return project.repoName;
+  }
+}
+
+function ArtifactSpec({ project, meta, includeProduct = false }) {
+  return (
+    <dl className="artifact-spec">
+      {includeProduct && <div><dt>Product</dt><dd>{project.name}</dd></div>}
+      <div><dt>Type</dt><dd>{meta.type}</dd></div>
+      <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
+      <div><dt>Version</dt><dd>{projectVersion(meta)}</dd></div>
+      <div><dt>Size</dt><dd>{meta.size}</dd></div>
+      <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+      {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
+    </dl>
+  );
+}
+
 function ActionLinks({ project, meta, compact = false, includeDetails = true }) {
   return (
     <div className={compact ? 'card-actions' : 'actions'}>
@@ -466,9 +491,9 @@ function Home() {
 
       <section className="catalog-hero" aria-labelledby="catalog-title">
         <div className="hero-copy">
-          <p className="kicker">Public release index</p>
-          <h1 id="catalog-title">NODAYSIDLE software catalog</h1>
-          <p className="hero-lede">Installable Mac and Android tools, presented with release status, source links, artifact size, and checksum evidence.</p>
+          <p className="kicker">Release foundry</p>
+          <h1 id="catalog-title">NODAYSIDLE software worth opening</h1>
+          <p className="hero-lede">A curated wall of installable tools with real release artifacts, source proof, and product pages designed to make each app feel as serious as the thing it ships.</p>
           <div className="hero-proof" aria-label="Catalog proof summary">
             <span>{projects.length} products</span>
             <span>{verifiedDownloads} verified downloads</span>
@@ -479,7 +504,7 @@ function Home() {
           <div className="featured-top">
             <div className="product-icon large"><ProjectMark project={featured} /></div>
             <div>
-              <p className="kicker">Featured release</p>
+              <p className="kicker">Featured dossier</p>
               <h2>{featured.name}</h2>
             </div>
           </div>
@@ -623,16 +648,10 @@ function ProjectPage({ project }) {
         <aside className="artifact-panel hero-artifact" aria-label="Release artifact">
           <div className="artifact-heading">
             <p className="kicker">Release artifact</p>
-            <strong>{project.name}</strong>
+            <strong>{meta.type} package</strong>
+            <span>{artifactFileName(project)}</span>
           </div>
-          <dl>
-            <div><dt>Type</dt><dd>{meta.type}</dd></div>
-            <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
-            <div><dt>Version</dt><dd>{projectVersion(meta)}</dd></div>
-            <div><dt>Size</dt><dd>{meta.size}</dd></div>
-            <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
-            {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
-          </dl>
+          <ArtifactSpec project={project} meta={meta} />
         </aside>
       </section>
 
@@ -667,14 +686,7 @@ function ProjectPage({ project }) {
         </div>
         <aside className="artifact-panel" aria-label="Artifact metadata">
           <h2>Artifact proof</h2>
-          <dl>
-            <div><dt>Type</dt><dd>{meta.type}</dd></div>
-            <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
-            <div><dt>Version</dt><dd>{projectVersion(meta)}</dd></div>
-            <div><dt>Size</dt><dd>{meta.size}</dd></div>
-            <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
-            {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
-          </dl>
+          <ArtifactSpec project={project} meta={meta} includeProduct />
           <p>{project.artifact}</p>
         </aside>
       </section>
