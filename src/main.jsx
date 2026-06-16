@@ -208,18 +208,20 @@ const projects = [
     release: 'https://github.com/nodaysidle/orbit-browser/releases/tag/v1.0.0',
     download: 'https://github.com/nodaysidle/orbit-browser/releases/download/v1.0.0/Orbit-1.0.0-aarch64.dmg',
     downloadLabel: 'Download DMG',
+    downloadAvailable: false,
+    linkIssue: 'GitHub release tag v1.0.0 and DMG asset returned HTTP 404 during verification.',
     className: 'page-orbit',
     eyebrow: 'Tauri 2 · Rust · Vanilla JS · WKWebView · SQLite',
     headline: 'A minimal native browser: no Electron, no telemetry, full web.',
     summary: 'Orbit Browser is a focused macOS browser with per-tab WKWebViews, local SQLite history/bookmarks/settings, domain blocking, Reader Mode, per-origin zoom, clean-link copying, and keyboard-first chrome.',
-    proof: ['Native WKWebView child-webview architecture', 'Local-first SQLite persistence', 'GitHub DMG release verified', 'macOS app launch smoke passed'],
+    proof: ['Native WKWebView child-webview architecture', 'Local-first SQLite persistence', 'Release link currently returns 404', 'macOS app launch smoke previously recorded'],
     features: [
       ['Native tab engine', 'Tauri child WKWebViews keep browsing native to macOS instead of shipping an Electron runtime.'],
       ['Local browser memory', 'Tabs, history, bookmarks, settings, sessions, zoom, and blocking live locally in SQLite/resources.'],
       ['Operator chrome', 'Reader Mode, clean-link copying, keyboard shortcuts, and minimal dark browser UI are the core posture.']
     ],
     styleNote: 'Deep-field orbit aesthetic: black-space canvas, cyan trajectory rings, nebula violet, sparse star points.',
-    artifact: 'DMG SHA256 fb954633110e4db73b43e0053aa63f20baae8b210264b22e02164876c28e92d7 · 8,381,420 bytes · GitHub Release v1.0.0 · ad-hoc signed, not notarized.'
+    artifact: 'DMG SHA256 fb954633110e4db73b43e0053aa63f20baae8b210264b22e02164876c28e92d7 · 8,381,420 bytes · GitHub Release v1.0.0 link returned HTTP 404 during verification · ad-hoc signed, not notarized.'
   }
 ];
 
@@ -228,59 +230,172 @@ function routeProject() {
   return projects.find((project) => project.id === slug || project.repoName.toLowerCase() === slug.toLowerCase());
 }
 
+function parseArtifact(project) {
+  const text = project.artifact || '';
+  const typeMatch = text.match(/^(DMG|ZIP|APK|Permission note|Source)/i);
+  const checksumMatch = text.match(/SHA256\s+([a-f0-9]{64})/i);
+  const sizeMatch = text.match(/([0-9][0-9,]+)\s+bytes/i);
+  const versionMatch = text.match(/(?:Release|release)\s+v?([0-9][\w.-]*)/i) || text.match(/v([0-9][\w.-]*)/i);
+  const type = typeMatch
+    ? typeMatch[1].replace('Permission note', 'Source ZIP')
+    : (project.downloadLabel || 'Build').replace(/^Download\s+/i, '');
+  const platform = /android|apk|capacitor/i.test(`${project.eyebrow} ${project.artifact} ${project.downloadLabel}`)
+    ? 'Android'
+    : /source zip|permission note|gitlab/i.test(`${project.downloadLabel} ${project.artifact} ${project.repo}`)
+      ? 'Source'
+      : 'macOS';
+  const releaseState = project.downloadAvailable === false
+    ? 'Download unavailable'
+    : project.release
+      ? 'Verified release'
+      : 'Source archive';
+
+  return {
+    type: type.toUpperCase(),
+    platform,
+    version: versionMatch ? `v${versionMatch[1].replace(/^v/, '')}` : 'Source',
+    size: sizeMatch ? `${Number(sizeMatch[1].replace(/,/g, '')).toLocaleString()} bytes` : 'Not published',
+    checksum: checksumMatch ? checksumMatch[1] : null,
+    releaseState,
+    canDownload: project.downloadAvailable !== false,
+  };
+}
+
+function productClass(project) {
+  return `product-accent accent-${project.id}`;
+}
+
 function Home() {
+  const counts = projects.reduce((acc, project) => {
+    const meta = parseArtifact(project);
+    acc[meta.platform] = (acc[meta.platform] || 0) + 1;
+    return acc;
+  }, {});
+
   return (
-    <main className="home">
-      <section className="home-hero">
-        <p className="kicker">NODAYSIDLE project pages</p>
-        <h1>Ten separate repo presentations. Ten separate visual systems.</h1>
-        <p>Each page is a standalone product presentation built from verified NODAYSIDLE source and release facts, with a project-matched visual system and an explicit download CTA: GitHub release artifacts when verified, source ZIPs when not.</p>
+    <main className="catalog-shell">
+      <nav className="catalog-nav" aria-label="Catalog navigation">
+        <a href="/" className="brand-mark" aria-label="NODAYSIDLE product catalog home">
+          <span className="brand-sigil">NDI</span>
+          <span>NODAYSIDLE</span>
+        </a>
+        <a href="#products" className="nav-pill">Products</a>
+      </nav>
+
+      <section className="catalog-hero" aria-labelledby="catalog-title">
+        <div>
+          <p className="kicker">Verified software catalog</p>
+          <h1 id="catalog-title">NODAYSIDLE apps, releases, and source artifacts.</h1>
+          <p className="hero-lede">A sharp product index for NODAYSIDLE utilities: what each app does, where it runs, and which artifact is actually available. No moodboards. No fake release claims.</p>
+        </div>
+        <dl className="catalog-stats" aria-label="Catalog summary">
+          <div><dt>Products</dt><dd>{projects.length}</dd></div>
+          <div><dt>macOS</dt><dd>{counts.macOS || 0}</dd></div>
+          <div><dt>Android</dt><dd>{counts.Android || 0}</dd></div>
+          <div><dt>Source</dt><dd>{counts.Source || 0}</dd></div>
+        </dl>
       </section>
-      <section className="project-grid" aria-label="Project pages">
-        {projects.map((project) => (
-          <article className={`project-tile ${project.className}`} key={project.id}>
-            <a className="tile-main" href={`/${project.id}`}>
-              <span>{project.tag}</span>
-              <strong>{project.name}</strong>
-              <small>{project.styleNote}</small>
-            </a>
-            <a className="tile-download" href={project.download}>{project.downloadLabel || 'Download build'}</a>
-          </article>
-        ))}
+
+      <section className="catalog-table-head" aria-label="Catalog columns">
+        <span>Product</span>
+        <span>Category</span>
+        <span>Platform</span>
+        <span>Artifact</span>
+        <span>Status</span>
+        <span>Action</span>
+      </section>
+
+      <section id="products" className="product-grid" aria-label="NODAYSIDLE products">
+        {projects.map((project) => {
+          const meta = parseArtifact(project);
+          return (
+            <article className={`product-card ${productClass(project)}`} key={project.id}>
+              <a className="product-card-main" href={`/${project.id}`} aria-label={`Open ${project.name} product page`}>
+                <div className="product-icon" aria-hidden="true">{project.name.split(/\s|-/).map((word) => word[0]).join('').slice(0, 3)}</div>
+                <div className="product-copy">
+                  <p>{project.repoName}</p>
+                  <h2>{project.name}</h2>
+                  <span>{project.tag}</span>
+                </div>
+              </a>
+              <dl className="card-meta">
+                <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
+                <div><dt>Artifact</dt><dd>{meta.type} · {meta.version}</dd></div>
+                <div><dt>Size</dt><dd>{meta.size}</dd></div>
+                <div className={meta.canDownload ? 'status-ok' : 'status-bad'}><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+              </dl>
+              {meta.checksum && <p className="checksum"><span>SHA256</span>{meta.checksum.slice(0, 12)}…{meta.checksum.slice(-8)}</p>}
+              {project.linkIssue && <p className="link-issue">{project.linkIssue}</p>}
+              <div className="card-actions">
+                {meta.canDownload ? (
+                  <a className="primary small" href={project.download}>Download {meta.type}</a>
+                ) : (
+                  <span className="primary small disabled" aria-disabled="true">Download unavailable</span>
+                )}
+                <a className="secondary small" href={`/${project.id}`}>Details</a>
+              </div>
+            </article>
+          );
+        })}
       </section>
     </main>
   );
 }
 
 function ProjectPage({ project }) {
+  const meta = parseArtifact(project);
+  React.useEffect(() => {
+    document.title = `${project.name} — NODAYSIDLE Catalog`;
+  }, [project.name]);
+
   return (
-    <main className={`project-page ${project.className}`}>
-      <nav className="topbar">
-        <a href="/" className="brand">NODAYSIDLE</a>
-        <div>
+    <main className={`catalog-shell detail-shell ${productClass(project)}`}>
+      <nav className="catalog-nav" aria-label="Product navigation">
+        <a href="/" className="brand-mark">
+          <span className="brand-sigil">NDI</span>
+          <span>NODAYSIDLE</span>
+        </a>
+        <div className="nav-links">
+          <a href="/">Catalog</a>
           <a href={project.repo}>Repository</a>
-          {project.release && <a href={project.release}>Release</a>}
+          {project.release && meta.canDownload && <a href={project.release}>Release</a>}
         </div>
       </nav>
 
-      <section className="hero-panel">
-        <div className="hero-copy">
-          <p className="kicker">{project.eyebrow}</p>
-          <h1>{project.headline}</h1>
-          <p className="summary">{project.summary}</p>
-          <div className="actions">
-            <a className="primary" href={project.download}>{project.downloadLabel || 'Download build'}</a>
-            <a className="secondary" href={project.repo}>View repository</a>
+      <section className="detail-hero" aria-labelledby="product-title">
+        <div className="device-card" aria-label={`${project.name} product summary`}>
+          <div className="device-topline"><span></span><span></span><span></span></div>
+          <div className="device-body">
+            <p>{project.repoName}</p>
+            <strong>{project.name}</strong>
+            <span>{meta.platform} · {meta.type} · {meta.version}</span>
+          </div>
+          <div className="device-footer">
+            <span>{meta.releaseState}</span>
+            <span>{meta.size}</span>
           </div>
         </div>
-        <div className="product-object" aria-label={`${project.name} visual identity`}>
-          <div className="orb one"></div>
-          <div className="orb two"></div>
-          <div className="screen-card">
-            <span>{project.repoName}</span>
-            <strong>{project.name}</strong>
-            <small>{project.tag}</small>
+
+        <div className="detail-copy">
+          <p className="kicker">{project.eyebrow}</p>
+          <h1 id="product-title">{project.name}</h1>
+          <p className="summary">{project.summary}</p>
+          <div className="detail-badges" aria-label="Product metadata">
+            <span>{project.tag}</span>
+            <span>{meta.platform}</span>
+            <span>{meta.type}</span>
+            <span className={meta.canDownload ? 'status-ok' : 'status-bad'}>{meta.releaseState}</span>
           </div>
+          <div className="actions">
+            {meta.canDownload ? (
+              <a className="primary" href={project.download}>Download {meta.type}</a>
+            ) : (
+              <span className="primary disabled" aria-disabled="true">Download unavailable</span>
+            )}
+            <a className="secondary" href={project.repo}>View repository</a>
+            {project.release && meta.canDownload && <a className="secondary" href={project.release}>Release page</a>}
+          </div>
+          {project.linkIssue && <p className="release-warning">{project.linkIssue}</p>}
         </div>
       </section>
 
@@ -288,21 +403,27 @@ function ProjectPage({ project }) {
         {project.proof.map((item) => <div key={item}>{item}</div>)}
       </section>
 
-      <section className="content-grid">
-        <div className="features">
-          {project.features.map(([title, body]) => (
+      <section className="detail-grid">
+        <div className="features" aria-label="Product features">
+          {project.features.map(([title, body], index) => (
             <article key={title}>
-              <span className="feature-index">0{project.features.findIndex((f) => f[0] === title) + 1}</span>
+              <span className="feature-index">{String(index + 1).padStart(2, '0')}</span>
               <h2>{title}</h2>
               <p>{body}</p>
             </article>
           ))}
         </div>
-        <aside className="brief">
-          <h2>Presentation direction</h2>
-          <p>{project.styleNote}</p>
-          <h3>Artifact note</h3>
-          <code>{project.artifact}</code>
+        <aside className="artifact-panel" aria-label="Artifact metadata">
+          <h2>Artifact proof</h2>
+          <dl>
+            <div><dt>Type</dt><dd>{meta.type}</dd></div>
+            <div><dt>Platform</dt><dd>{meta.platform}</dd></div>
+            <div><dt>Version</dt><dd>{meta.version}</dd></div>
+            <div><dt>Size</dt><dd>{meta.size}</dd></div>
+            <div><dt>Status</dt><dd>{meta.releaseState}</dd></div>
+            {meta.checksum && <div className="hash-row"><dt>SHA256</dt><dd>{meta.checksum}</dd></div>}
+          </dl>
+          <p>{project.artifact}</p>
         </aside>
       </section>
     </main>
@@ -311,6 +432,9 @@ function ProjectPage({ project }) {
 
 function App() {
   const project = routeProject();
+  React.useEffect(() => {
+    if (!project) document.title = 'NODAYSIDLE Product Catalog';
+  }, [project]);
   return project ? <ProjectPage project={project} /> : <Home />;
 }
 
