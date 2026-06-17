@@ -866,6 +866,7 @@ dt {
 .accent-sunder { --accent: #00d4aa; }
 .accent-synapse-notes { --accent: #f0c060; }
 .accent-orbit-browser { --accent: #60d0ff; }
+.accent-nodaysidle-control-room { --accent: #c8ff00; }
 
 :root {
   --bg: #030404;
@@ -1245,6 +1246,7 @@ dt {
 .accent-sunder { --accent: #35c4a1; }
 .accent-synapse-notes { --accent: #d7b35b; }
 .accent-orbit-browser { --accent: #74c4e8; }
+.accent-nodaysidle-control-room { --accent: #c8ff00; }
 
 @media (max-width: 1120px) {
   .catalog-hero,
@@ -1836,5 +1838,76 @@ dt {
   .proof-strip div,
   .features article {
     min-height: 0;
+  }
+}
+
+/* Control Room mobile hardening: prevent long product metadata from widening detail pages. */
+@media (max-width: 680px) {
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .catalog-nav,
+  .catalog-hero,
+  .catalog-controls,
+  .trust-ribbon,
+  .catalog-table-head,
+  .product-grid,
+  .detail-hero,
+  .download-trust,
+  .proof-strip,
+  .detail-grid {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .detail-hero {
+    display: block;
+  }
+
+  .detail-shell,
+  .detail-shell * {
+    min-width: 0;
+  }
+
+  .detail-copy,
+  .artifact-panel,
+  .detail-value-card,
+  .download-trust,
+  .proof-strip,
+  .features,
+  .artifact-spec {
+    width: 100%;
+    max-width: calc(100vw - 28px);
+    overflow-wrap: anywhere;
+  }
+
+  .detail-title-row {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .kicker,
+  .artifact-heading span,
+  .artifact-spec dd,
+  .detail-value-card strong,
+  .summary {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .detail-copy .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .detail-copy .primary,
+  .detail-copy .secondary {
+    width: 100%;
+    flex: none;
   }
 }

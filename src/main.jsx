@@ -200,6 +200,28 @@ const projects = [
     artifact: 'APK SHA256 b83ae21646873a00e3b2527a4846962f40aeda4f77a43bc2124fce7756d56b50 · 4,405,823 bytes · GitHub Release v0.1.0 · debug APK release asset.'
   },
   {
+    id: 'nodaysidle-control-room',
+    name: 'NODAYSIDLE Control Room',
+    repoName: 'nodaysidle-control-room',
+    tag: 'Native agent operations console',
+    repo: 'https://github.com/nodaysidle/nodaysidle-control-room',
+    release: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/tag/v0.1.1',
+    download: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/download/v0.1.1/NODAYSIDLE-Control-Room-0.1.1-macOS-aarch64.zip',
+    downloadLabel: 'Download macOS app ZIP',
+    className: 'page-control-room',
+    eyebrow: 'SwiftPM · SwiftUI · AppKit · Menu Bar',
+    headline: 'Local AI-ops. One Mac control room.',
+    summary: 'NODAYSIDLE Control Room is a premium native macOS menu bar app for agent sessions, repo dirt, bridge health, and proof receipts — read-only, local, and fast.',
+    proof: ['v0.1.1 GitHub release live', '353KB macOS app ZIP verified', '5 Swift tests passed', 'Installed /Applications launch smoke passed'],
+    features: [
+      ['Agent process radar', 'Read-only scanning surfaces Hermes, Codex, CodexPro, tunnels, Vite/Vercel, and local server processes without destructive controls.'],
+      ['Repo and bridge command center', 'Watched NODAYSIDLE repos show branch, dirty state, remote, last commit, and known local bridge health.'],
+      ['Premium native packaging', 'SwiftPM source, custom SVG logo, generated .icns, ad-hoc signed .app, /Applications install, launch smoke, and screenshot proof are verified.']
+    ],
+    styleNote: 'Graphite command-room aesthetic: matte black panels, Volt signal states, tight monospaced telemetry, native Mac utility restraint.',
+    artifact: 'ZIP SHA256 440c6b9c8d20f5918defe293c224562ef65657e9e907c64ad43f0304ada2e5cc · 353,285 bytes · GitHub Release v0.1.1 · ad-hoc signed, not notarized.'
+  },
+  {
     id: 'orbit-browser',
     name: 'Orbit Browser',
     repoName: 'orbit-browser',
@@ -362,6 +384,16 @@ const markPaths = {
       <path d="M18 17c5 2 8 2 12-1M16 20l5 10m10-13-6 13m3 5c4 1 7 0 10-4" />
     </>
   ),
+  'nodaysidle-control-room': (
+    <>
+      <rect x="9" y="10" width="30" height="28" rx="6" />
+      <path d="M15 19h18M15 25h10M15 31h14" />
+      <path d="M35 14l5-5M38 20h5M35 26l5 5" />
+      <circle cx="13" cy="19" r="1.5" />
+      <circle cx="13" cy="25" r="1.5" />
+      <circle cx="13" cy="31" r="1.5" />
+    </>
+  ),
   'orbit-browser': (
     <>
       <circle cx="24" cy="24" r="7" />
@@ -471,7 +503,7 @@ function Home() {
       });
   }, [catalog, platform, query, sort]);
   const platforms = ['All', 'macOS', 'Android', 'Source'];
-  const featured = projects.find((project) => project.id === 'orbit-browser') || projects[0];
+  const featured = projects.find((project) => project.id === 'nodaysidle-control-room') || projects[0];
   const featuredMeta = parseArtifact(featured);
   const verifiedDownloads = catalog.filter(({ project, meta }) => project.release && meta.canDownload).length;
 

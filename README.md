@@ -6,7 +6,7 @@ Live site: https://nodaysidle-project-pages.vercel.app
 
 ## What it is
 
-NODAYSIDLE Project Pages is a React + Vite static site that presents nine NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA.
+NODAYSIDLE Project Pages is a React + Vite static site that presents ten NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA.
 
 ## Projects presented
 
@@ -19,6 +19,7 @@ NODAYSIDLE Project Pages is a React + Vite static site that presents nine NODAYS
 - Sunder — `/sunder`
 - Synapse Notes — `/synapse-notes`
 - Orbit Browser — `/orbit-browser`
+- NODAYSIDLE Control Room — `/nodaysidle-control-room`
 
 ## Tech stack
 
@@ -83,4 +84,4 @@ The site is deployed on Vercel. Every project route is rewritten to `index.html`
 - `node_modules/`, `dist/`, `.vercel/`, and environment files are intentionally ignored.
 - `public/downloads/` contains legacy local ZIP copies; verified migrated projects now prefer direct GitHub Release downloads.
 - Source repository: `https://github.com/nodaysidle/nodaysidle-project-pages`.
-- Migrated project CTAs currently point to GitHub repositories/releases for BatchRename Pro, NoDaysIdle Whispering, ScribeFlowPro, Nodaysidian, NODAYSNOTES, Sunder, Synapse Notes, and Orbit Browser.
+- Migrated project CTAs currently point to GitHub repositories/releases for BatchRename Pro, NoDaysIdle Whispering, ScribeFlowPro, Nodaysidian, NODAYSNOTES, Sunder, Synapse Notes, Orbit Browser, and NODAYSIDLE Control Room.
