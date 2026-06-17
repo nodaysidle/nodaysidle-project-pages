@@ -205,21 +205,21 @@ const projects = [
     repoName: 'nodaysidle-control-room',
     tag: 'Native agent operations console',
     repo: 'https://github.com/nodaysidle/nodaysidle-control-room',
-    release: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/tag/v0.1.1',
-    download: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/download/v0.1.1/NODAYSIDLE-Control-Room-0.1.1-macOS-aarch64.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/tag/v0.1.2',
+    download: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/download/v0.1.2/NODAYSIDLE-Control-Room-0.1.2-macOS-aarch64.zip',
     downloadLabel: 'Download macOS app ZIP',
     className: 'page-control-room',
     eyebrow: 'SwiftPM · SwiftUI · AppKit · Menu Bar',
     headline: 'Local AI-ops. One Mac control room.',
     summary: 'NODAYSIDLE Control Room is a native menu bar command surface for agent sessions, repo dirt, bridge health, and proof receipts.',
-    proof: ['v0.1.1 GitHub release live', '353KB macOS app ZIP verified', '5 Swift tests passed', 'Installed /Applications launch smoke passed'],
+    proof: ['v0.1.2 GitHub release live', '353KB macOS app ZIP verified', '5 Swift tests passed', 'Installed /Applications launch smoke passed'],
     features: [
       ['Agent process radar', 'Read-only scanning surfaces Hermes, Codex, CodexPro, tunnels, Vite/Vercel, and local server processes without destructive controls.'],
       ['Repo and bridge command center', 'Watched NODAYSIDLE repos show branch, dirty state, remote, last commit, and known local bridge health.'],
       ['Premium native packaging', 'SwiftPM source, custom SVG logo, generated .icns, ad-hoc signed .app, /Applications install, launch smoke, and screenshot proof are verified.']
     ],
     styleNote: 'Graphite command-room aesthetic: matte black panels, Volt signal states, tight monospaced telemetry, native Mac utility restraint.',
-    artifact: 'ZIP SHA256 440c6b9c8d20f5918defe293c224562ef65657e9e907c64ad43f0304ada2e5cc · 353,285 bytes · GitHub Release v0.1.1 · ad-hoc signed, not notarized.'
+    artifact: 'ZIP SHA256 059c652e280962327c929a2c442f428b6aaff3631ac52964ec3aa680ca3d910b · 353,286 bytes · GitHub Release v0.1.2 · ad-hoc signed, not notarized.'
   },
   {
     id: 'orbit-browser',
