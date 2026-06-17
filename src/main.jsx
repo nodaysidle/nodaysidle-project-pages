@@ -211,7 +211,7 @@ const projects = [
     className: 'page-control-room',
     eyebrow: 'SwiftPM · SwiftUI · AppKit · Menu Bar',
     headline: 'Local AI-ops. One Mac control room.',
-    summary: 'NODAYSIDLE Control Room is a premium native macOS menu bar app for agent sessions, repo dirt, bridge health, and proof receipts — read-only, local, and fast.',
+    summary: 'NODAYSIDLE Control Room is a native menu bar command surface for agent sessions, repo dirt, bridge health, and proof receipts.',
     proof: ['v0.1.1 GitHub release live', '353KB macOS app ZIP verified', '5 Swift tests passed', 'Installed /Applications launch smoke passed'],
     features: [
       ['Agent process radar', 'Read-only scanning surfaces Hermes, Codex, CodexPro, tunnels, Vite/Vercel, and local server processes without destructive controls.'],
