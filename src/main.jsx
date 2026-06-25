@@ -212,14 +212,14 @@ const projects = [
     eyebrow: 'SwiftPM · SwiftUI · AppKit · Menu Bar',
     headline: 'Local AI-ops. One Mac control room.',
     summary: 'NODAYSIDLE Control Room is a native menu bar command surface for agent sessions, repo dirt, bridge health, and proof receipts.',
-    proof: ['v0.1.2 GitHub release live', '353KB macOS app ZIP verified', '5 Swift tests passed', 'Installed /Applications launch smoke passed'],
+    proof: ['v0.1.2 GitHub release live', '353KB macOS app ZIP verified', '16 Swift tests + CI passed', 'Installed /Applications launch smoke passed'],
     features: [
       ['Agent process radar', 'Read-only scanning surfaces Hermes, Codex, CodexPro, tunnels, Vite/Vercel, and local server processes without destructive controls.'],
       ['Repo and bridge command center', 'Watched NODAYSIDLE repos show branch, dirty state, remote, last commit, and known local bridge health.'],
       ['Premium native packaging', 'SwiftPM source, custom SVG logo, generated .icns, ad-hoc signed .app, /Applications install, launch smoke, and screenshot proof are verified.']
     ],
     styleNote: 'Graphite command-room aesthetic: matte black panels, Volt signal states, tight monospaced telemetry, native Mac utility restraint.',
-    artifact: 'ZIP SHA256 059c652e280962327c929a2c442f428b6aaff3631ac52964ec3aa680ca3d910b · 353,286 bytes · GitHub Release v0.1.2 · ad-hoc signed, not notarized.'
+    artifact: 'ZIP SHA256 059c652e280962327c929a2c442f428b6aaff3631ac52964ec3aa680ca3d910b · 353,286 bytes · GitHub Release v0.1.2 · CI passed on commit f6e0923 · ad-hoc signed, not notarized.'
   },
   {
     id: 'orbit-browser',
