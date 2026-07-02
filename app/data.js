@@ -17,6 +17,40 @@ export const projects = [
     accent: '#c8ff00',
   },
   {
+    slug: 'shareguard',
+    name: 'ShareGuard',
+    type: 'Local pre-share privacy scanner',
+    platform: 'macOS',
+    stack: ['SwiftPM', 'SwiftUI', 'Local scanning', 'Redaction'],
+    status: 'v0.1.0 live',
+    artifact: 'ShareGuard-v0.1.0-macos.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/tag/v0.1.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-shareguard',
+    download: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/download/v0.1.0/ShareGuard-v0.1.0-macos.zip',
+    checksum: 'a14e01aa0aa077173d447abe8f2492507d5660e38c881daf0bad86d4d3038088',
+    headline: 'Catch secrets before a folder leaves your Mac.',
+    summary: 'A local-first macOS scanner for drag-and-drop pre-share checks, redacted findings, and release-safe review before files move outward.',
+    proof: ['1.1MB macOS app ZIP', '18 Swift tests passed', 'Round-trip release ZIP + codesign verified'],
+    accent: '#ff6b6b',
+  },
+  {
+    slug: 'cloudscribe',
+    name: 'CloudScribe',
+    type: 'Cloud speech-to-text menu bar app',
+    platform: 'macOS',
+    stack: ['SwiftPM', 'SwiftUI', 'Deepgram nova-3', 'Keychain'],
+    status: 'v0.1.0 live',
+    artifact: 'CloudScribe-v0.1.0-macos.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/tag/v0.1.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-cloudscribe',
+    download: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/download/v0.1.0/CloudScribe-v0.1.0-macos.zip',
+    checksum: 'b4900ef216fb5a8f44d354ba31b9c9a545133fe9145bf13ec38bdacf30d07d33',
+    headline: 'Menu bar dictation through Deepgram, with the cloud boundary visible.',
+    summary: 'A macOS menu bar dictation app with Keychain API-key storage, Deepgram nova-3 transcription, transcript history, and explicit cloud-use proof.',
+    proof: ['528KB macOS app ZIP', '31 Swift tests passed', 'Live Deepgram smoke + codesign verified'],
+    accent: '#7dd3fc',
+  },
+  {
     slug: 'orbit-browser',
     name: 'Orbit Browser',
     type: 'Native macOS browser',
@@ -105,7 +139,7 @@ export const projects = [
 
 export const stack = [
   'Next.js App Router', 'React 19', 'TypeScript-ready JS modules', 'SwiftUI', 'Tauri 2', 'Rust',
-  'SQLite / FTS5', 'MLX / Whisper', 'ONNX', 'Capacitor Android', 'Vercel', 'GitHub Releases'
+  'SQLite / FTS5', 'MLX / Whisper', 'Deepgram', 'ONNX', 'Capacitor Android', 'Vercel', 'GitHub Releases'
 ];
 
 export const workflows = [

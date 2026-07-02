@@ -8,7 +8,7 @@ const metrics = [
   [String(projects.length), 'selected releases'],
   [String(macProjects), 'macOS project artifacts'],
   [String(androidProjects), 'Android build'],
-  ['0', 'cloud-first dependencies in shipped Mac apps'],
+  ['1', 'cloud STT Mac app with explicit boundary'],
 ];
 
 function Arrow() {
