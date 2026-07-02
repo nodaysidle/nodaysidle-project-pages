@@ -2,18 +2,16 @@
   "name": "nodaysidle-project-pages",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "vercel:prepare": "npm run build && node scripts/prepare-vercel-output.mjs",
+    "deploy": "npm run vercel:prepare && vercel deploy --prebuilt --prod"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "6.0.2",
-    "vite": "8.0.16",
-    "typescript": "6.0.3",
+    "next": "15.4.10",
     "react": "19.2.7",
     "react-dom": "19.2.7"
-  },
-  "devDependencies": {}
+  }
 }

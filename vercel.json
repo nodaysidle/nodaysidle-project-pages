@@ -1,15 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/batchrenameprov2", "destination": "/index.html" },
-    { "source": "/nodaysidle-whispering", "destination": "/index.html" },
-    { "source": "/scribeflowpro", "destination": "/index.html" },
-    { "source": "/nodaysidian", "destination": "/index.html" },
-    { "source": "/nodaysnotes", "destination": "/index.html" },
-    { "source": "/focusblur", "destination": "/index.html" },
-    { "source": "/sunder", "destination": "/index.html" },
-    { "source": "/synapse-notes", "destination": "/index.html" },
-    { "source": "/orbit-browser", "destination": "/index.html" },
-    { "source": "/nodaysidle-control-room", "destination": "/index.html" },
-    { "source": "/nodaysidle-flowstate", "destination": "/index.html" }
-  ]
-}
+{}

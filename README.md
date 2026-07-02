@@ -1,33 +1,29 @@
 # NODAYSIDLE Project Pages
 
-Public project showcase for NODAYSIDLE software releases and source repositories.
+Personal portfolio and public project showcase for NODAYSIDLE software releases, active agent workflows, and the NODAYSIDLE technical stack.
 
 Live site: https://nodaysidle-project-pages.vercel.app
 
 ## What it is
 
-NODAYSIDLE Project Pages is a React + Vite static site that presents ten NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA.
+A polished Next.js app for Vercel. The first screen is the portfolio/project experience itself: identity, current release dossier, selected projects, proof metrics, stack, active agents/workflows, and contact paths.
 
 ## Projects presented
 
-- BatchRename Pro — `/batchrenameprov2`
-- NoDaysIdle Whispering — `/nodaysidle-whispering`
-- ScribeFlow Pro — `/scribeflowpro`
-- Nodaysidian — `/nodaysidian`
-- NODAYSNOTES — `/nodaysnotes`
-- FocusBlur — `/focusblur`
-- Sunder — `/sunder`
-- Synapse Notes — `/synapse-notes`
-- Orbit Browser — `/orbit-browser`
 - NODAYSIDLE Control Room — `/nodaysidle-control-room`
+- Orbit Browser — `/orbit-browser`
+- Sunder — `/sunder`
+- ScribeFlowPro — `/scribeflowpro`
+- NoDaysIdle Whispering — `/nodaysidle-whispering`
+- Synapse Notes — `/synapse-notes`
 
 ## Tech stack
 
+- Next.js App Router
 - React 19
-- Vite 8
-- Plain CSS with per-project design tokens
-- Vercel static deployment
-- SPA route rewrites via `vercel.json`
+- Plain CSS with dense responsive layout and NODAYSIDLE Volt accent
+- Static export via `next.config.mjs`
+- Vercel deployment
 
 ## Local development
 
@@ -39,7 +35,7 @@ npm run dev
 Dev server:
 
 ```text
-http://127.0.0.1:5173
+http://127.0.0.1:3000
 ```
 
 ## Build
@@ -51,37 +47,48 @@ npm run build
 Output:
 
 ```text
-dist/
+out/
 ```
 
-## Preview production build
+## Production smoke
 
 ```bash
-npm run preview
+npm run build
+npx serve out -l 4173
 ```
 
-Preview server:
+Then open:
 
 ```text
 http://127.0.0.1:4173
 ```
 
-## Project structure
-
-```text
-src/main.jsx       React components, routing, and project data
-src/styles.css     Global styles and per-project visual systems
-public/downloads/  Local app ZIP downloads served by Vercel
-vercel.json        Route rewrites for direct project URLs
-```
-
 ## Deployment
 
-The site is deployed on Vercel. Every project route is rewritten to `index.html`, and the app selects the matching project from `window.location.pathname`.
+If Vercel CLI is authenticated and the project is linked:
+
+```bash
+npm run deploy
+```
+
+This repo currently prepares Vercel's Build Output API from the Next static export because the linked Vercel project was previously configured as `vite`.
+
+Equivalent manual commands:
+
+```bash
+npm run vercel:prepare
+vercel deploy --prebuilt --prod
+```
+
+If not linked:
+
+```bash
+vercel link
+npm run deploy
+```
 
 ## Repository notes
 
-- `node_modules/`, `dist/`, `.vercel/`, and environment files are intentionally ignored.
-- `public/downloads/` contains legacy local ZIP copies; verified migrated projects now prefer direct GitHub Release downloads.
-- Source repository: `https://github.com/nodaysidle/nodaysidle-project-pages`.
-- Migrated project CTAs currently point to GitHub repositories/releases for BatchRename Pro, NoDaysIdle Whispering, ScribeFlowPro, Nodaysidian, NODAYSNOTES, Sunder, Synapse Notes, Orbit Browser, and NODAYSIDLE Control Room.
+- `node_modules/`, `out/`, `dist/`, `.next/`, `.vercel/`, and environment files should stay ignored.
+- Source account: https://github.com/nodaysidle
+- The project intentionally keeps release CTAs pointed at public GitHub Release artifacts where available.

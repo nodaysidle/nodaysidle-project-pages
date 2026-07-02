@@ -46,7 +46,8 @@ Create child `AGENTS.md` files only for durable boundaries with distinct ownersh
 
 ## Stack Lock
 
-- Public NODAYSIDLE showcase site.
+- Public NODAYSIDLE portfolio and project showcase site.
+- Production app uses Next.js App Router in `app/` with static export to `out/`.
 - Preserve verified GitHub release/download links and product-facing presentation.
 - Do not alter deployment/provider settings unless explicitly requested.
 
@@ -91,7 +92,7 @@ Run the lowest sufficient rung for the change. Do not claim completion without r
    - `npm run build`
 
 4. **Runtime smoke**
-   - `npm run preview -- --host 127.0.0.1`
+   - `python3 -m http.server 4173 --bind 127.0.0.1 --directory out`
    - Verify the local preview manually or with browser/HTTP checks for changed routes.
 
 5. **Package / install**
@@ -119,5 +120,7 @@ Prompt files are instruction templates, not executable scripts. Keep them short,
 
 ## Child DOX Index
 
-- `src/AGENTS.md` — Application/frontend source.
-- `public/AGENTS.md` — Static public assets.
+- `src/AGENTS.md` — Legacy Vite frontend source retained from the prior implementation.
+- `app/AGENTS.md` — Next.js App Router portfolio/showcase source.
+
+Do not place `AGENTS.md`, `.DS_Store`, or other repo/operator metadata under `public/`; everything in that subtree is copied into the public static export.
