@@ -1,12 +1,16 @@
 # NODAYSIDLE Project Pages
 
-Public project showcase for NODAYSIDLE software releases and source repositories.
+> Public project showcase for NODAYSIDLE software releases and source repositories.
 
-Live site: https://nodaysidle-project-pages.vercel.app
+![Platform](https://img.shields.io/badge/platform-Web-black?style=flat-square)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite)
 
-## What it is
+Live site: [nodaysidle-project-pages.vercel.app](https://nodaysidle-project-pages.vercel.app)
 
-NODAYSIDLE Project Pages is a React + Vite static site that presents ten NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA.
+## Overview
+
+NODAYSIDLE Project Pages is a React + Vite static site presenting NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA. Deployed on Vercel.
 
 ## Projects presented
 
@@ -21,26 +25,24 @@ NODAYSIDLE Project Pages is a React + Vite static site that presents ten NODAYSI
 - Orbit Browser — `/orbit-browser`
 - NODAYSIDLE Control Room — `/nodaysidle-control-room`
 
-## Tech stack
+## Technology
 
-- React 19
-- Vite 8
-- Plain CSS with per-project design tokens
-- Vercel static deployment
-- SPA route rewrites via `vercel.json`
+| Area | Technology |
+|------|------------|
+| Framework | React 19 |
+| Build | Vite 8 |
+| Styling | Plain CSS with per-project design tokens |
+| Deployment | Vercel (static) |
+| Routing | SPA route rewrites via `vercel.json` |
 
-## Local development
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Dev server:
-
-```text
-http://127.0.0.1:5173
-```
+Dev server at `http://127.0.0.1:5173`.
 
 ## Build
 
@@ -48,25 +50,9 @@ http://127.0.0.1:5173
 npm run build
 ```
 
-Output:
+Output in `dist/`. Preview with `npm run preview` at `http://127.0.0.1:4173`.
 
-```text
-dist/
-```
-
-## Preview production build
-
-```bash
-npm run preview
-```
-
-Preview server:
-
-```text
-http://127.0.0.1:4173
-```
-
-## Project structure
+## Project Structure
 
 ```text
 src/main.jsx       React components, routing, and project data
@@ -77,11 +63,12 @@ vercel.json        Route rewrites for direct project URLs
 
 ## Deployment
 
-The site is deployed on Vercel. Every project route is rewritten to `index.html`, and the app selects the matching project from `window.location.pathname`.
+Deployed on Vercel. Every project route is rewritten to `index.html`; the app selects the matching project from `window.location.pathname`.
 
-## Repository notes
+## Status
 
-- `node_modules/`, `dist/`, `.vercel/`, and environment files are intentionally ignored.
-- `public/downloads/` contains legacy local ZIP copies; verified migrated projects now prefer direct GitHub Release downloads.
-- Source repository: `https://github.com/nodaysidle/nodaysidle-project-pages`.
-- Migrated project CTAs currently point to GitHub repositories/releases for BatchRename Pro, NoDaysIdle Whispering, ScribeFlowPro, Nodaysidian, NODAYSNOTES, Sunder, Synapse Notes, Orbit Browser, and NODAYSIDLE Control Room.
+Active — web showcase site. Content updated as new releases ship.
+
+## Contributing
+
+This repository is not currently accepting external contributions.
