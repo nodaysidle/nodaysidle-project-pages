@@ -1,228 +1,195 @@
 import Link from 'next/link';
-import {
-  formatChecksum,
-  getCatalogueEntries,
-  getFeaturedProject,
-  projects,
-} from './data';
+import { getCatalogueEntries, projects } from './data';
 
-function Arrow() {
-  return <span aria-hidden="true"> ↗</span>;
+function indexLabel(index) {
+  return String(index + 1).padStart(2, '0');
+}
+
+function formatMetaLine(project) {
+  return [project.platform, ...project.stack.slice(0, 2)].join(' · ');
 }
 
 export default function HomePage() {
   const entries = getCatalogueEntries(projects);
-  const featured = getFeaturedProject(projects);
 
   const total = entries.length;
-  const macCount = entries.filter((p) => p.platform === 'macOS').length;
-  const androidCount = entries.filter((p) => p.platform === 'Android').length;
   const allStacks = new Set(entries.flatMap((p) => p.stack));
   const langCount = allStacks.size;
+  const featureCount = entries.reduce(
+    (sum, p) => sum + (p.features?.length ?? 0),
+    0,
+  );
 
   return (
-    <main id="main-content" className="site-shell">
-      {/* ── 0. Top Nav ────────────────────────────────────────── */}
-      <header className="topbar" aria-label="Site navigation">
-        <Link className="brand" href="/" aria-label="NODAYSIDLE home">
-          <span className="brand-mark" aria-hidden="true" />
-          NODAYSIDLE
-        </Link>
-        <nav>
-          <a href="#catalogue">Catalogue</a>
-          <a href="#philosophy">Philosophy</a>
-          <a href="#contact">Contact</a>
-          <a
-            href="https://github.com/nodaysidle"
-            rel="noopener noreferrer"
-          >
-            GitHub <Arrow />
-          </a>
-        </nav>
-      </header>
-
-      {/* ── 1. Catalogue Hero ─────────────────────────────────── */}
+    <main id="main-content" className="catalogue-page">
       <section className="catalogue-hero" aria-labelledby="hero-title">
-        <div className="hero-left">
-          <p className="kicker">Independent software atelier / Edition 02</p>
-          <h1 id="hero-title">A catalogue of finished software.</h1>
-          <p className="lede">
-            NODAYSIDLE builds focused, native tools — each with one clear job, a
-            public repository, and a release you can install today. No demos. No
-            roadmaps. Just working software.
-          </p>
-          <div className="hero-actions">
-            <a className="button primary" href="#catalogue">
-              Browse the catalogue
-            </a>
-            <a
-              className="button"
-              href="https://github.com/nodaysidle"
-              rel="noopener noreferrer"
-            >
-              GitHub <Arrow />
-            </a>
+        <div className="page-shell catalogue-hero__inner">
+          <div className="catalogue-hero__copy">
+            <p className="kicker">Independent software atelier / Edition 02</p>
+            <h1 id="hero-title">
+              A catalogue of <em>finished</em> software.
+            </h1>
+            <p className="catalogue-hero__lede">
+              NODAYSIDLE builds focused, native tools — each with one clear job,
+              a public repository, and a release you can install today. No demos.
+              No roadmaps. Just working software.
+            </p>
+            <div className="button-group">
+              <a className="button button--primary" href="#catalogue">
+                Browse the catalogue
+              </a>
+              <a className="button button--quiet" href="#philosophy">
+                Read the philosophy
+              </a>
+            </div>
           </div>
-        </div>
 
-        <aside className="hero-right" aria-label="Studio output">
-          <div className="studio-card">
-            <p className="kicker">Studio output</p>
-            <h2>{total} releases</h2>
+          <aside className="release-index" aria-label="Release index">
+            <div className="release-index__head">
+              <p>Catalogue</p>
+              <span>{total} entries</span>
+            </div>
+            <ol>
+              {entries.slice(0, 8).map((project, index) => (
+                <li key={project.slug}>
+                  <Link href={`/${project.slug}`}>
+                    <span className="release-index__number">
+                      {indexLabel(index)}
+                    </span>
+                    <span className="release-index__name">{project.name}</span>
+                    <span className="release-index__version">
+                      {project.status.replace(' live', '')}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+            <div className="release-index__foot">
+              <span>Built in public</span>
+              <span>Edition 02 / 2026</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        id="catalogue"
+        className="section-strip"
+        aria-labelledby="catalogue-title"
+      >
+        <div className="page-shell section-strip__inner">
+          <p className="kicker">
+            Catalogue / {String(total).padStart(2, '0')} entries
+          </p>
+          <div>
+            <h2 id="catalogue-title">Small software. Serious finish.</h2>
             <p>
-              {macCount} macOS apps · {androidCount} Android builds · {langCount} languages
+              Each entry has one clear job, a public repository, and a product
+              surface designed to respect the machine it runs on. {langCount}{' '}
+              distinct technologies across {featureCount} shipped features.
             </p>
           </div>
-        </aside>
+        </div>
       </section>
 
-      {/* ── 2. Studio Heading Strip ───────────────────────────── */}
-      <section className="studio-heading" id="catalogue">
-        <p className="kicker">
-          Studio output / {total} release{total !== 1 ? 's' : ''}
-        </p>
-        <h2>Small software. Serious finish.</h2>
-        <p>
-          {macCount} macOS app{macCount !== 1 ? 's' : ''},{' '}
-          {androidCount} Android build{androidCount !== 1 ? 's' : ''},{' '}
-          {langCount} language{langCount !== 1 ? 's' : ''} across{' '}
-          {total} shipped project{total !== 1 ? 's' : ''}.
-        </p>
-      </section>
-
-      {/* ── 3. Full Product Catalogue ─────────────────────────── */}
-      <nav className="catalogue" aria-label="Product catalogue">
-        {entries.map((project, i) => (
-            <Link
-              href={`/${project.slug}`}
-              className="catalogue-row"
-              key={project.slug}
-            >
-              <span className="catalogue-row__num">
-                {(i + 1).toString().padStart(2, '0')}
-              </span>
-              <div className="catalogue-row__primary">
-                <span className="catalogue-row__name">{project.name}</span>
-                <span className="catalogue-row__type">{project.type}</span>
-                <p className="catalogue-row__summary">{project.summary}</p>
-              </div>
-              <span className="catalogue-row__meta">
-                {project.platform} · {project.status}
-              </span>
-            </Link>
-          ))}
+      <nav className="project-index" aria-label="Product catalogue">
+        <div className="project-index__head page-shell">
+          <span className="project-index__col project-index__col--num">#</span>
+          <span className="project-index__col project-index__col--name">Project</span>
+          <span className="project-index__col project-index__col--meta">Stack</span>
+          <span className="project-index__col project-index__col--status">Release</span>
+        </div>
+        {entries.map((project, index) => (
+          <Link href={`/${project.slug}`} className="project-row" key={project.slug}>
+            <span className="project-row__num">{indexLabel(index)}</span>
+            <div className="project-row__primary">
+              <span className="project-row__name">{project.name}</span>
+              <p className="project-row__purpose">
+                {project.headline || project.summary}
+              </p>
+            </div>
+            <span className="project-row__meta">{formatMetaLine(project)}</span>
+            <span className="project-row__status">{project.status}</span>
+          </Link>
+        ))}
       </nav>
 
-      {/* ── 4. Featured Deep-Dive ─────────────────────────────── */}
-      <section className="featured-panel" aria-labelledby="featured-title">
-        <div className="featured-info">
-          <p className="kicker">Featured project</p>
-          <h2 id="featured-title">{featured.name}</h2>
-          <p className="lede">{featured.headline}</p>
-          <p className="lede">{featured.summary}</p>
-          <dl className="featured-proof">
-            <div>
-              <dt>Artifact</dt>
-              <dd>{featured.artifact}</dd>
-            </div>
-            <div>
-              <dt>Checksum</dt>
-              <dd>{formatChecksum(featured.checksum)}</dd>
-            </div>
-            <div>
-              <dt>Platform</dt>
-              <dd>{featured.platform}</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>{featured.status}</dd>
-            </div>
-          </dl>
-          <div className="featured-actions">
-            {featured.download && (
+      <section
+        className="philosophy-strip"
+        id="philosophy"
+        aria-labelledby="philosophy-title"
+      >
+        <div className="page-shell philosophy-strip__inner">
+          <div>
+            <p className="kicker">Studio standard</p>
+            <h2 id="philosophy-title">
+              Built like it has to survive daily use.
+            </h2>
+            <p className="philosophy-strip__intro">
+              Not a demo collection. A working catalogue of opinionated software
+              with release proof attached.
+            </p>
+          </div>
+          <ol className="philosophy-list">
+            <li>
+              <span className="philosophy-list__num">01</span>
+              <div>
+                <h3>Narrow by design</h3>
+                <p>
+                  One workflow, one clear promise, no platform-sized feature creep.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="philosophy-list__num">02</span>
+              <div>
+                <h3>Local where possible</h3>
+                <p>
+                  Fewer dependencies, less telemetry, control kept close to the
+                  user.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="philosophy-list__num">03</span>
+              <div>
+                <h3>Release is the proof</h3>
+                <p>
+                  Public source, installable artifacts, clean path from idea to
+                  shipped tool.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="cta-strip" id="contact" aria-labelledby="cta-title">
+        <div className="page-shell cta-strip__inner">
+          <p className="cta-strip__label">Open for exacting work</p>
+          <div>
+            <h2 id="cta-title">
+              Bring the workflow that should already exist as software.
+            </h2>
+            <p>
+              NODAYSIDLE can turn it into a focused product surface with clear
+              architecture, useful constraints, and a release path from day one.
+            </p>
+            <div className="button-group">
+              <a className="button button--primary" href="mailto:nodaysidle@proton.me">
+                Start a conversation
+              </a>
               <a
-                className="button primary"
-                href={featured.download}
+                className="button button--quiet"
+                href="https://github.com/nodaysidle"
                 rel="noopener noreferrer"
               >
-                Download <Arrow />
+                Inspect the work
               </a>
-            )}
-            <a
-              className="button"
-              href={featured.repo}
-              rel="noopener noreferrer"
-            >
-              Repository <Arrow />
-            </a>
+            </div>
           </div>
         </div>
-
       </section>
-
-      {/* ── 5. Philosophy Strip ───────────────────────────────── */}
-      <section className="philosophy-strip" id="philosophy">
-        <p className="kicker">Studio standard</p>
-        <h2>Built like it has to survive daily use.</h2>
-        <ol className="philosophy-list">
-          <li>
-            <div>
-              <strong>Narrow by design</strong>
-              <p>
-                One workflow, one clear promise, no platform-sized feature creep.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <strong>Local where possible</strong>
-              <p>
-                Fewer dependencies, less telemetry, control kept close to the user.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <strong>Release is the proof</strong>
-              <p>
-                Public source, installable artifacts, clean path from idea to
-                shipped tool.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      {/* ── 6. Contact CTA ────────────────────────────────────── */}
-      <section className="contact-cta" id="contact">
-        <div>
-          <p className="kicker">Open for exacting work</p>
-          <h2>Bring the workflow that should already exist as software.</h2>
-          <p>
-            If you have a focused product surface in mind — a macOS utility, a
-            local AI tool, a privacy-first app — NODAYSIDLE can turn it from
-            idea into an installable release with a clean repository and
-            verifiable artifact trail.
-          </p>
-        </div>
-        <div className="hero-actions">
-          <a className="button primary" href="mailto:nodaysidle@proton.me">
-            Start a conversation <Arrow />
-          </a>
-          <a
-            className="button"
-            href="https://github.com/nodaysidle"
-            rel="noopener noreferrer"
-          >
-            Inspect the work <Arrow />
-          </a>
-        </div>
-      </section>
-
-      {/* ── 7. Footer ─────────────────────────────────────────── */}
-      <footer className="site-footer">
-        NODAYSIDLE / macOS-quality software / nodaysidle@proton.me
-      </footer>
     </main>
   );
 }
