@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#faf7f2"/>
-  <rect x="580" y="290" width="40" height="40" fill="#1a1a1a"/>
-  <text x="600" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#1a1a1a">NODAYSIDLE</text>
-  <text x="600" y="450" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#8a8780" letter-spacing="0.2em">A CATALOGUE OF FINISHED SOFTWARE</text>
+  <rect width="1200" height="630" fill="#0A0A0F"/>
+  <rect width="1200" height="630" fill="#14141F" opacity="0.55"/>
+  <rect x="560" y="255" width="80" height="80" rx="16" fill="none" stroke="#C8FF00" stroke-width="3" opacity="0.85"/>
+  <path d="M570 285v30l20 10v-30Z M590 275v30l20 10v-30Z M610 265v30l20 10v-30Z" fill="#C8FF00" opacity="0.85"/>
+  <text x="600" y="395" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="48" font-weight="800" fill="#F0F0F5" letter-spacing="-0.03em">NODAYSIDLE</text>
+  <text x="600" y="445" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#6B6B80" letter-spacing="0.16em">A CATALOGUE OF FINISHED SOFTWARE</text>
 </svg>

@@ -1,29 +1,29 @@
-/* NODAYSIDLE — Editorial catalogue (showcase-aligned, neutral accent) */
+/* NODAYSIDLE — Dark utility catalogue */
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --paper:          #faf7f2;
-  --paper-warm:     #f5f0e8;
-  --paper-muted:    #efe9df;
-  --surface:        #ffffff;
-  --surface-raised: #fcfaf7;
+  --paper:          #0A0A0F;
+  --paper-warm:     #0E0E16;
+  --paper-muted:    #14141F;
+  --surface:        #14141F;
+  --surface-raised: #1A1A28;
 
-  --ink:            #1a1a1a;
-  --ink-soft:       #555555;
-  --ink-dim:        #8a8780;
-  --ink-faint:      #b5b0a8;
+  --ink:            #F0F0F5;
+  --ink-soft:       #9D9DB0;
+  --ink-dim:        #6B6B80;
+  --ink-faint:      #4A4A5A;
 
-  --line:           #d8d3ca;
-  --line-strong:    #c4beb3;
-  --line-rule:      #2a2a2a;
+  --line:           #1E1E2A;
+  --line-strong:    #2A2A3A;
+  --line-rule:      #3A3A4A;
 
-  --accent:         #1a1a1a;
-  --accent-soft:    rgba(26, 26, 26, 0.05);
-  --accent-muted:   #6b6760;
+  --accent:         #C8FF00;
+  --accent-soft:    rgba(200, 255, 0, 0.06);
+  --accent-muted:   rgba(200, 255, 0, 0.18);
 
-  --font-display:   "Georgia", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  --font-body:      system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display:   system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:      system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:      ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, monospace;
 
   --page:           960px;
@@ -61,8 +61,8 @@ body {
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  color: #0A0A0F;
 }
 
 img,
@@ -85,7 +85,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -95,8 +95,8 @@ a {
   top: -5rem;
   z-index: 999;
   padding: 0.7rem 1rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  color: #0A0A0F;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 600;
@@ -163,7 +163,7 @@ a {
 .brand__mark {
   width: 0.45rem;
   height: 0.45rem;
-  background: var(--ink);
+  background: var(--accent);
   flex-shrink: 0;
 }
 
@@ -201,7 +201,7 @@ a {
   bottom: -0.4rem;
   left: 0;
   height: 1px;
-  background: var(--ink);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform var(--ease);
@@ -253,7 +253,7 @@ a {
   text-transform: uppercase;
 }
 
-/* ── Homepage hero ── */
+/* ── Homepage hero (single-column, no sidecar) ── */
 
 .catalogue-page {
   position: relative;
@@ -265,21 +265,18 @@ a {
 }
 
 .catalogue-hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(14rem, 0.5fr);
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: start;
+  max-width: 42rem;
 }
 
 .catalogue-hero__copy {
-  max-width: 38rem;
+  max-width: 42rem;
 }
 
 .catalogue-hero h1 {
   margin-top: 0.6rem;
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -287,7 +284,8 @@ a {
 }
 
 .catalogue-hero h1 em {
-  font-style: italic;
+  font-style: normal;
+  color: var(--accent);
 }
 
 .catalogue-hero__lede {
@@ -299,87 +297,11 @@ a {
   text-wrap: balance;
 }
 
-.release-index {
-  border: 1px solid var(--line-rule);
-  background: var(--surface);
-}
-
-.release-index__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0.9rem;
-  border-bottom: 1px solid var(--line-rule);
-  color: var(--ink);
+.catalogue-hero__meta {
+  margin-top: 0.75rem;
+  color: var(--ink-dim);
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.release-index ol {
-  list-style: none;
-  max-height: 280px;
-  overflow-y: auto;
-}
-
-.release-index li + li {
-  border-top: 1px solid var(--line);
-}
-
-.release-index a {
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr) auto;
-  gap: 0.5rem;
-  align-items: center;
-  padding: 0.6rem 0.9rem;
-  transition: background var(--ease), padding-left var(--ease);
-}
-
-.release-index a:hover {
-  background: var(--accent-soft);
-  padding-left: 1.1rem;
-}
-
-.release-index__number,
-.release-index__version {
-  color: var(--ink-dim);
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.release-index__name {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  color: var(--ink);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.release-index__body {
-  padding: 1rem 0.9rem;
-}
-
-.release-index__body p {
-  color: var(--ink-soft);
-  font-size: 0.88rem;
-  line-height: 1.55;
-}
-
-.release-index__foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0.9rem;
-  border-top: 1px solid var(--line);
-  color: var(--ink-dim);
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -401,7 +323,7 @@ a {
 .section-strip h2 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -414,7 +336,7 @@ a {
   font-size: clamp(0.92rem, 1.2vw, 1rem);
 }
 
-/* ── Project index ── */
+/* ── Project index (dense rows) ── */
 
 .project-index {
   border-top: 1px solid var(--line-rule);
@@ -433,7 +355,7 @@ a {
 }
 
 .project-index__head {
-  padding-block: 0.65rem 0.5rem;
+  padding-block: 0.5rem 0.4rem;
   border-bottom: 1px solid var(--line-rule);
   color: var(--ink-faint);
   font-family: var(--font-mono);
@@ -449,7 +371,7 @@ a {
 }
 
 .project-row {
-  padding-block: 1rem;
+  padding-block: 0.85rem;
   border-bottom: 1px solid var(--line);
   transition: background var(--ease);
 }
@@ -473,7 +395,7 @@ a {
 .project-row__name {
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 2vw, 1.3rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--ink);
@@ -529,13 +451,13 @@ a {
   align-items: center;
   justify-content: center;
   padding: 0.55rem 1rem;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--line-rule);
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  transition: background var(--ease), color var(--ease), transform var(--ease);
+  transition: background var(--ease), color var(--ease), transform var(--ease), border-color var(--ease);
   cursor: pointer;
 }
 
@@ -544,14 +466,14 @@ a {
 }
 
 .button--primary {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0A0A0F;
 }
 
 .button--primary:hover {
-  background: var(--accent-muted);
-  border-color: var(--accent-muted);
+  background: rgba(200, 255, 0, 0.8);
+  border-color: rgba(200, 255, 0, 0.8);
 }
 
 .button--quiet {
@@ -561,7 +483,7 @@ a {
 }
 
 .button--quiet:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
   color: var(--ink);
 }
 
@@ -583,7 +505,7 @@ a {
 }
 
 .text-link:hover {
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .text-link--strong {
@@ -607,7 +529,7 @@ a {
 .philosophy-strip h2 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   max-width: 12ch;
@@ -636,7 +558,7 @@ a {
 }
 
 .philosophy-list__num {
-  color: var(--ink-dim);
+  color: var(--accent);
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 600;
@@ -645,7 +567,7 @@ a {
 .philosophy-list h3 {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--ink);
@@ -685,7 +607,7 @@ a {
 .cta-strip h2 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--ink);
@@ -723,7 +645,7 @@ a {
 }
 
 .breadcrumb a:hover {
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .detail-hero {
@@ -736,7 +658,7 @@ a {
   margin-top: 0.5rem;
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5.5vw, 4rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--ink);
@@ -774,9 +696,9 @@ a {
 }
 
 .badge--stable {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0A0A0F;
 }
 
 .badge--development {
@@ -842,7 +764,7 @@ a {
   margin-top: 0.4rem;
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--ink);
@@ -882,7 +804,7 @@ a {
   top: 1.35rem;
   width: 0.3rem;
   height: 0.3rem;
-  background: var(--ink-dim);
+  background: var(--accent);
 }
 
 .tech-tags {
@@ -934,8 +856,8 @@ a {
 
 .detail-action:hover,
 .detail-action--current {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  color: #0A0A0F;
 }
 
 /* ── Responsive ── */
@@ -1047,10 +969,6 @@ a {
   .site-footer__meta {
     flex-direction: column;
     gap: 0.35rem;
-  }
-
-  .release-index ol {
-    max-height: 200px;
   }
 }
 

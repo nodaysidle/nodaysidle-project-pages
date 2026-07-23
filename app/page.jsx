@@ -34,6 +34,9 @@ export default function HomePage() {
               a public repository, and a release you can install today. No demos.
               No roadmaps. Just working software.
             </p>
+            <p className="catalogue-hero__meta">
+              {total} entries · {langCount} technologies · {featureCount} shipped features
+            </p>
             <div className="button-group">
               <a className="button button--primary" href="#catalogue">
                 Browse the catalogue
@@ -43,32 +46,6 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-
-          <aside className="release-index" aria-label="Release index">
-            <div className="release-index__head">
-              <p>Catalogue</p>
-              <span>{total} entries</span>
-            </div>
-            <ol>
-              {entries.slice(0, 8).map((project, index) => (
-                <li key={project.slug}>
-                  <Link href={`/${project.slug}`}>
-                    <span className="release-index__number">
-                      {indexLabel(index)}
-                    </span>
-                    <span className="release-index__name">{project.name}</span>
-                    <span className="release-index__version">
-                      {project.status.replace(' live', '')}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-            <div className="release-index__foot">
-              <span>Built in public</span>
-              <span>Edition 02 / 2026</span>
-            </div>
-          </aside>
         </div>
       </section>
 
