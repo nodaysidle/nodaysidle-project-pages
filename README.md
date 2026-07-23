@@ -1,3 +1,5 @@
+<img src=".github/social-preview.png" alt="NODAYSIDLE Project Pages — NODAYSIDLE" width="100%">
+
 # NODAYSIDLE Project Pages
 
 > Public project showcase for NODAYSIDLE software releases and source repositories.
