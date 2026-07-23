@@ -21,7 +21,7 @@ const projects = [
       ['Undo everything', 'Backup-before-write workflow with searchable job history and full rollback.'],
       ['Power-user transforms', 'Regex, template tokens, zero-padded numbering, and case transforms in one desktop flow.']
     ],
-    styleNote: 'Slate-blue glass utility aesthetic: terminal confidence, not SaaS subscription noise.',
+    styleNote: 'Slate utility aesthetic: terminal confidence, not SaaS subscription noise.',
     artifact: 'DMG SHA256 ef6e33a03881430c329fd9fd888cf4010142598010a89b535cf0eb2c3948309b · 7,139,735 bytes · GitHub Release v0.1.0.'
   },
   {
@@ -43,7 +43,7 @@ const projects = [
       ['Transcript vault', 'Keep captured text searchable, pinnable, archivable, and ready to copy.'],
       ['Fast capture posture', 'Push-to-talk and VAD controls turn voice into a focused utility, not a toy recorder.']
     ],
-    styleNote: 'Amber studio-meter aesthetic: warm charcoal, gold waveform light, muted rose recording states.',
+    styleNote: 'Studio-meter aesthetic: warm charcoal, signal waveform light, muted recording states.',
     artifact: 'ZIP SHA256 781430b35c35bb872d377abc4aab31aed930feea174f733dbe4c04607170308d · 60,276,327 bytes · GitHub Release v0.1.0.'
   },
   {
@@ -87,7 +87,7 @@ const projects = [
       ['Semantic auto-links', 'Apple NaturalLanguage embeddings suggest related notes without remote providers.'],
       ['Graph plus canvas', 'Force-directed graph navigation and Excalidraw-inspired whiteboarding in one native workspace.']
     ],
-    styleNote: 'Iridescent obsidian: volcanic glass black with teal-purple edges and copper note highlights.',
+    styleNote: 'Volcanic obsidian: dark reflective black with copper note highlights.',
     artifact: 'DMG SHA256 6a998de0b3aac3e6bf32bbb58a7826562d5b2efbe5aff805d8e17e57ebb95ce4 · 873,742 bytes · GitHub Release v0.1.0 · ad-hoc signed, not notarized.'
   },
   {
@@ -109,7 +109,7 @@ const projects = [
       ['Knowledge basics', 'Wiki-links, backlinks, tags, search, daily notes, and notebooks.'],
       ['Native packaging', 'SwiftPM build and scriptable app packaging with ad-hoc signing.']
     ],
-    styleNote: 'Editorial paper desk: warm cream, ink, blue pencil marks, visible notebook grids.',
+    styleNote: 'Editorial paper desk: warm paper, ink, blue pencil marks, visible notebook grids.',
     artifact: 'ZIP SHA256 69afee3d92890b2f08e611e26daae7d86c78d827cc41741d47cc33ce6eba3f71 · 531,803 bytes · GitHub Release v0.1.0.'
   },
   {
@@ -130,7 +130,7 @@ const projects = [
       ['Menu bar only', 'A background utility with no dock clutter, shortcut toggle, and preferences.'],
       ['Adjustable focus', 'Blur intensity, grayscale, tint, exclusions, launch at login, and shake-to-toggle.']
     ],
-    styleNote: 'Frosted daylight interface: glass blur, pale cyan, soft violet shadows, crisp active rectangle.',
+    styleNote: 'Frosted daylight interface: soft blur, crisp active rectangle.',
     artifact: 'Permission note: requires Accessibility, not Screen Recording.'
   },
   {
@@ -160,22 +160,23 @@ const projects = [
     name: 'Sunder',
     repoName: 'sunder',
     tag: 'Local AI research graph',
-    repo: 'https://github.com/nodaysidle/sunder',
-    release: 'https://github.com/nodaysidle/sunder/releases/tag/v0.1.0',
-    download: 'https://github.com/nodaysidle/sunder/releases/download/v0.1.0/Sunder_0.1.0_aarch64.dmg',
-    downloadLabel: 'Download macOS DMG',
+    repo: null,
+    release: null,
+    download: null,
+    downloadAvailable: false,
+    linkIssue: 'Private build — no public repository or artifact.',
     className: 'page-sunder',
     eyebrow: 'Tauri 2 · Rust · React 19 · SQLite · ONNX',
     headline: 'Split a vault open and map the latent research hiding inside.',
     summary: 'Sunder is a local-first macOS research hub for Markdown notes with a CodeMirror editor, hybrid FTS5 plus semantic search, ONNX-powered note discovery, and a D3 knowledge graph — all on-device, zero cloud.',
-    proof: ['v0.1.0 GitHub release live', '30.7MB public macOS DMG verified', 'release:check passed end-to-end', 'Ad-hoc codesign + DMG checksum valid'],
+    proof: ['Private research build', 'Rust + ONNX local stack verified', 'Tauri 2 desktop shell', 'FTS5 + D3 knowledge graph'],
     features: [
       ['Hybrid retrieval', 'SQLite FTS5 and local embeddings combine keyword precision with semantic discovery.'],
       ['Graph-first research', 'D3-force reveals connected notes, clusters, and latent links without sending a vault to cloud AI.'],
-      ['Installable Mac release', 'Tauri build, resources, signing, DMG integrity, and launch smoke were all verified.']
+      ['Private research tool', 'Tauri-built desktop shell with local SQLite, ONNX embeddings, and D3 graph rendering — no cloud dependency.']
     ],
-    styleNote: 'Shattered prism aesthetic: crystalline fractures, cyan-magenta split light, severe research-cartography energy.',
-    artifact: 'DMG SHA256 0a8ddc4859dbc78d43783e8a72f761525785397f0aed75b0acfd5534a2756ea0 · 30,713,907 bytes · GitHub Release v0.1.0 · ad-hoc signed, not notarized.'
+    styleNote: 'Shattered prism aesthetic: crystalline fractures, split light, severe research-cartography energy.',
+    artifact: 'Private build — no public DMG, repository, or release artifact. Built with Tauri 2, Rust, ONNX, and SQLite.'
   },
   {
     id: 'synapse-notes',
@@ -196,7 +197,7 @@ const projects = [
       ['AI enrichment', 'Gemini transcription, Imagen generation, embeddings, and semantic search work as one pipeline.'],
       ['Knowledge graph', 'Three.js graph view links note keywords, related thoughts, and generated context visually.']
     ],
-    styleNote: 'Neural web aesthetic: plum bio-organic gradients, amber synaptic points, dendrite-dot texture.',
+    styleNote: 'Neural web aesthetic: bio-organic composition, synaptic points, dendrite-dot texture.',
     artifact: 'APK SHA256 b83ae21646873a00e3b2527a4846962f40aeda4f77a43bc2124fce7756d56b50 · 4,405,823 bytes · GitHub Release v0.1.0 · debug APK release asset.'
   },
   {
@@ -240,7 +241,7 @@ const projects = [
       ['Local browser memory', 'Tabs, history, bookmarks, settings, sessions, zoom, and blocking live locally in SQLite/resources.'],
       ['Operator chrome', 'Reader Mode, clean-link copying, keyboard shortcuts, and minimal dark browser UI are the core posture.']
     ],
-    styleNote: 'Deep-field orbit aesthetic: black-space canvas, cyan trajectory rings, nebula violet, sparse star points.',
+    styleNote: 'Deep-field orbit aesthetic: black-space canvas, trajectory rings, sparse star points.',
     artifact: 'DMG SHA256 bfd5465ed8cdc441805caa652e59d70a54abe7bf2a0cd818665d932075c0a6d7 · 8,387,910 bytes · GitHub Release v1.0.5 · ad-hoc signed, not notarized.'
   }
 ];
@@ -267,7 +268,7 @@ function parseArtifact(project) {
   const releaseState = project.downloadAvailable === false
     ? 'Download unavailable'
     : project.release
-      ? 'Verified release'
+      ? 'Release published'
       : 'Source archive';
 
   return {
@@ -464,7 +465,7 @@ function ActionLinks({ project, meta, compact = false, includeDetails = true }) 
         </span>
       )}
       {includeDetails && <a className={compact ? 'secondary small' : 'secondary'} href={`/${project.id}`}>Details</a>}
-      {!compact && <a className="secondary" href={project.repo}>Repository</a>}
+      {!compact && project.repo && <a className="secondary" href={project.repo}>Repository</a>}
       {!compact && project.release && meta.canDownload && <a className="secondary" href={project.release}>Release</a>}
     </div>
   );
@@ -503,8 +504,6 @@ function Home() {
       });
   }, [catalog, platform, query, sort]);
   const platforms = ['All', 'macOS', 'Android', 'Source'];
-  const featured = projects.find((project) => project.id === 'nodaysidle-control-room') || projects[0];
-  const featuredMeta = parseArtifact(featured);
   const verifiedDownloads = catalog.filter(({ project, meta }) => project.release && meta.canDownload).length;
 
   return (
@@ -528,7 +527,7 @@ function Home() {
           <p className="hero-lede">A buyer-facing catalog of NODAYSIDLE releases: installable artifacts, local-first product stories, source proof, and direct downloads kept in the open.</p>
           <div className="hero-proof" aria-label="Catalog proof summary">
             <span>{projects.length} product dossiers</span>
-            <span>{verifiedDownloads} release artifacts</span>
+            <span>{verifiedDownloads} published releases</span>
             <span>{counts.macOS || 0} Mac-native builds</span>
           </div>
           <div className="hero-statement" aria-label="Foundry promise">
@@ -536,22 +535,6 @@ function Home() {
             <span>Every card leads to a real app page with artifact state, platform fit, proof notes, and the original release/source trail.</span>
           </div>
         </div>
-        <aside className={`featured-release ${productClass(featured)}`} aria-label="Featured verified release">
-          <div className="featured-top">
-            <div className="product-icon large"><ProjectMark project={featured} /></div>
-            <div>
-              <p className="kicker">Current spotlight</p>
-              <h2>{featured.name}</h2>
-            </div>
-          </div>
-          <p>{featured.summary}</p>
-          <dl className="featured-meta">
-            <div><dt>Version</dt><dd>{projectVersion(featuredMeta)}</dd></div>
-            <div><dt>Artifact</dt><dd>{featuredMeta.type}</dd></div>
-            <div><dt>Size</dt><dd>{featuredMeta.size}</dd></div>
-          </dl>
-          <ActionLinks project={featured} meta={featuredMeta} />
-        </aside>
       </section>
 
       <section className="catalog-controls" aria-label="Catalog controls">
@@ -593,7 +576,7 @@ function Home() {
 
       <section id="releases" className="trust-ribbon" aria-label="Catalog trust policy">
         <span>{filtered.length} shown</span>
-        <span>Download links checked</span>
+        <span>Release pages verified</span>
         <span>Checksums shown where published</span>
       </section>
 
@@ -655,7 +638,7 @@ function ProjectPage({ project }) {
         </a>
         <div className="nav-links">
           <a href="/">Catalog</a>
-          <a href={project.repo}>Repository</a>
+          {project.repo && <a href={project.repo}>Repository</a>}
           {project.release && meta.canDownload && <a href={project.release}>Release</a>}
         </div>
       </nav>
