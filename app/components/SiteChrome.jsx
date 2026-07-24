@@ -8,17 +8,17 @@ export function SiteHeader() {
           <span className="brand__mark" aria-hidden="true" />
           <span>NODAYSIDLE</span>
         </Link>
-        <p className="site-header__descriptor">Independent software atelier</p>
+        <p className="site-header__descriptor">Independent software workshop</p>
         <nav aria-label="Main navigation">
           <ul className="nav-links">
             <li>
               <a href="/#catalogue">Catalogue</a>
             </li>
             <li>
-              <a href="/#philosophy">Philosophy</a>
+              <a href="/philosophy">Philosophy</a>
             </li>
             <li>
-              <a href="/#contact">Contact</a>
+              <a href="/#source">Contact</a>
             </li>
             <li>
               <a
@@ -52,7 +52,7 @@ export function SiteFooter() {
               <a href="/#catalogue">Catalogue</a>
             </li>
             <li>
-              <a href="/#philosophy">Philosophy</a>
+              <a href="/philosophy">Philosophy</a>
             </li>
             <li>
               <a

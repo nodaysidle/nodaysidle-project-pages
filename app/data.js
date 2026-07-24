@@ -1,61 +1,31 @@
+/**
+ * @typedef {Object} Project
+ * @property {string} slug
+ * @property {string} name
+ * @property {string} type
+ * @property {'macOS' | 'Android'} platform
+ * @property {string[]} stack
+ * @property {string} status
+ * @property {string} artifact
+ * @property {string} release
+ * @property {string} repo
+ * @property {string | null} download
+ * @property {string | null} checksum
+ * @property {string} headline
+ * @property {string} summary
+ * @property {string[]} proof
+ * @property {string[]} features
+ * @property {'shipped'} maturity
+ * @property {string} dataBoundary
+ * @property {string} updated
+ * @property {string | null} screenshotPath
+ * @property {string | null} screenshotAlt
+ * @property {string | null} screenshotSource
+ * @property {string} [accent]
+ */
+
+/** @type {Project[]} */
 export const projects = [
-  {
-    slug: 'nodaysidle-control-room',
-    name: 'NODAYSIDLE Control Room',
-    type: 'Native agent operations console',
-    platform: 'macOS',
-    stack: ['SwiftPM', 'SwiftUI', 'AppKit', 'Menu Bar'],
-    status: 'v0.1.2 live',
-    artifact: 'NODAYSIDLE-Control-Room-0.1.2-macOS-aarch64.zip',
-    release: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/tag/v0.1.2',
-    repo: 'https://github.com/nodaysidle/nodaysidle-control-room',
-    download: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/download/v0.1.2/NODAYSIDLE-Control-Room-0.1.2-macOS-aarch64.zip',
-    checksum: '059c652e280962327c929a2c442f428b6aaff3631ac52964ec3aa680ca3d910b',
-    headline: 'Local AI-ops. One Mac control room.',
-    summary: 'A native menu bar command surface for agent sessions, repo dirt, bridge health, and proof receipts.',
-    proof: ['353KB macOS app ZIP', '16 Swift tests + CI passed', '/Applications launch smoke passed'],
-    features: ['Monitors local process state (agent runtimes, tunnels, dev servers)', 'Watches NODAYSIDLE repositories and reports dirty state', 'Detects local bridges and likely service ports', 'Surfaces recent receipt files', 'Safe copy, open, and refresh actions only', 'JSON config file for custom watched repos and receipt roots'],
-    maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'shareguard',
-    name: 'ShareGuard',
-    type: 'Local pre-share privacy scanner',
-    platform: 'macOS',
-    stack: ['SwiftPM', 'SwiftUI', 'Local scanning', 'Redaction'],
-    status: 'v0.1.0 live',
-    artifact: 'ShareGuard-v0.1.0-macos.zip',
-    release: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/nodaysidle-shareguard',
-    download: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/download/v0.1.0/ShareGuard-v0.1.0-macos.zip',
-    checksum: 'a14e01aa0aa077173d447abe8f2492507d5660e38c881daf0bad86d4d3038088',
-    headline: 'Catch secrets before a folder leaves your Mac.',
-    summary: 'A local-first macOS scanner for drag-and-drop pre-share checks, redacted findings, and release-safe review before files move outward.',
-    proof: ['1.1MB macOS app ZIP', '18 Swift tests passed', 'Round-trip release ZIP + codesign verified'],
-    features: ['Drag-and-drop recursive file/folder scanning', 'Secret hints (token-like strings, private-key headers, .env values)', 'Personal data hints (emails, phone-like strings, local paths, risky URLs)', 'Suspicious filename detection (id_rsa, .pem, .p12, .mobileprovision, .env)', 'Manual-review media flagging for PDFs and images', 'Redacted findings with masked excerpts, zero network calls'],
-    maturity: 'shipped',
-    accent: '#ff6b6b',
-  },
-  {
-    slug: 'cloudscribe',
-    name: 'CloudScribe',
-    type: 'Cloud speech-to-text menu bar app',
-    platform: 'macOS',
-    stack: ['SwiftPM', 'SwiftUI', 'Deepgram nova-3', 'Keychain'],
-    status: 'v0.1.0 live',
-    artifact: 'CloudScribe-v0.1.0-macos.zip',
-    release: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/nodaysidle-cloudscribe',
-    download: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/download/v0.1.0/CloudScribe-v0.1.0-macos.zip',
-    checksum: 'b4900ef216fb5a8f44d354ba31b9c9a545133fe9145bf13ec38bdacf30d07d33',
-    headline: 'Menu bar dictation through Deepgram, with the cloud boundary visible.',
-    summary: 'A macOS menu bar dictation app with Keychain API-key storage, Deepgram nova-3 transcription, transcript history, and explicit cloud-use proof.',
-    proof: ['528KB macOS app ZIP', '31 Swift tests passed', 'Live Deepgram smoke + codesign verified'],
-    features: ['Live dictation from menu bar or floating pill with streaming interim text', 'Audio file import (WAV, MP3, M4A, OGG, FLAC, AAC, WebM)', 'Draggable always-on-top floating pill with live status', 'Global hotkey (⌥⇧Space), configurable in Settings', 'Auto-paste copies final transcript into frontmost app', 'Optional local transcript history and OpenRouter text polish'],
-    maturity: 'shipped',
-    accent: '#7dd3fc',
-  },
   {
     slug: 'orbit-browser',
     name: 'Orbit Browser',
@@ -71,9 +41,52 @@ export const projects = [
     headline: 'A minimal native browser: no Electron, no telemetry, full web.',
     summary: 'Per-tab WKWebViews, SQLite browser memory, domain blocking, Reader Mode, clean-link copying, and keyboard-first chrome.',
     proof: ['8.4MB macOS DMG', 'Native WKWebView architecture', 'Ad-hoc signed'],
-    features: ['Native tabs — each tab managed as its own WKWebView by Rust', 'Local-first data — bookmarks, history, settings in bundled SQLite', 'Domain blocking via built-in adblock pattern list', 'Full keyboard shortcut set for tabs, navigation, find-in-page', 'Per-origin zoom memory persisted per site', 'Smart clean link copying (strips utm_*, fbclid, gclid, etc.)'],
+    features: [
+      'Native tabs — each tab managed as its own WKWebView by Rust',
+      'Local-first data — bookmarks, history, settings in bundled SQLite',
+      'Domain blocking via built-in adblock pattern list',
+      'Full keyboard shortcut set for tabs, navigation, find-in-page',
+      'Per-origin zoom memory persisted per site',
+      'Smart clean link copying (strips utm_*, fbclid, gclid, etc.)',
+    ],
     maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-06-25',
+    screenshotPath: '/screenshots/orbit-browser.png',
+    screenshotAlt: 'Orbit Browser dark UI screenshot',
+    screenshotSource: '/Volumes/omarchyuser/projekti/orbit-browser/artifacts/premium-visual-qa/orbit-dark-1440x1000.png',
     accent: '#78c7ea',
+  },
+  {
+    slug: 'nodaysidle-control-room',
+    name: 'NODAYSIDLE Control Room',
+    type: 'Native agent operations console',
+    platform: 'macOS',
+    stack: ['SwiftPM', 'SwiftUI', 'AppKit', 'Menu Bar'],
+    status: 'v0.1.2 live',
+    artifact: 'NODAYSIDLE-Control-Room-0.1.2-macOS-aarch64.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/tag/v0.1.2',
+    repo: 'https://github.com/nodaysidle/nodaysidle-control-room',
+    download: 'https://github.com/nodaysidle/nodaysidle-control-room/releases/download/v0.1.2/NODAYSIDLE-Control-Room-0.1.2-macOS-aarch64.zip',
+    checksum: '059c652e280962327c929a2c442f428b6aaff3631ac52964ec3aa680ca3d910b',
+    headline: 'Local AI-ops. One Mac control room.',
+    summary: 'A native menu bar command surface for agent sessions, repo dirt, bridge health, and proof receipts.',
+    proof: ['353KB macOS app ZIP', '16 Swift tests + CI passed', '/Applications launch smoke passed'],
+    features: [
+      'Monitors local process state (agent runtimes, tunnels, dev servers)',
+      'Watches NODAYSIDLE repositories and reports dirty state',
+      'Detects local bridges and likely service ports',
+      'Surfaces recent receipt files',
+      'Safe copy, open, and refresh actions only',
+      'JSON config file for custom watched repos and receipt roots',
+    ],
+    maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-06-25',
+    screenshotPath: '/screenshots/control-room.png',
+    screenshotAlt: 'NODAYSIDLE Control Room menu bar UI screenshot',
+    screenshotSource: '/Volumes/omarchyuser/NODAYSIDLESCREENSHOTS/control-room/control-room-self-render-1280x820.png',
+    accent: '#c8ff00',
   },
   {
     slug: 'scribeflowpro',
@@ -90,85 +103,21 @@ export const projects = [
     headline: 'Record a meeting, transcribe it locally, and leave with the summary.',
     summary: 'Native macOS recording, local Whisper transcription, and local Qwen summarization through a verified MLX runtime path.',
     proof: ['9.6MB macOS app ZIP', '5 Swift tests passed', 'Real local Whisper + Qwen smoke'],
-    features: ['Live microphone recording and audio/video file import', 'Local Whisper transcription from installed mlx-community models', 'Local MLX LLM summarization from installed mlx-community models', 'Local meeting library with transcript and detail view (SwiftData)', 'One-command local MLX runtime setup via bundled script', 'Model path detection under ~/Models/'],
+    features: [
+      'Live microphone recording and audio/video file import',
+      'Local Whisper transcription from installed mlx-community models',
+      'Local MLX LLM summarization from installed mlx-community models',
+      'Local meeting library with transcript and detail view (SwiftData)',
+      'One-command local MLX runtime setup via bundled script',
+      'Model path detection under ~/Models/',
+    ],
     maturity: 'shipped',
+    dataBoundary: 'local/offline',
+    updated: '2026-06-10',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
     accent: '#55d0bd',
-  },
-  {
-    slug: 'nodaysidle-whispering',
-    name: 'NoDaysIdle Whispering',
-    type: 'Private macOS dictation',
-    platform: 'macOS',
-    stack: ['Tauri 2', 'Rust', 'React', 'whisper.cpp'],
-    status: 'v0.1.0 live',
-    artifact: 'NoDaysIdle-Whispering-0.1.0-aarch64.zip',
-    release: 'https://github.com/nodaysidle/nodaysidle-whispering/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/nodaysidle-whispering',
-    download: 'https://github.com/nodaysidle/nodaysidle-whispering/releases/download/v0.1.0/NoDaysIdle-Whispering-0.1.0-aarch64.zip',
-    checksum: '781430b35c35bb872d377abc4aab31aed930feea174f733dbe4c04607170308d',
-    headline: 'A warm, local dictation desk for words that should stay on your Mac.',
-    summary: 'Local Whisper transcription, push-to-talk capture, and a searchable transcript vault for private writing and voice capture.',
-    proof: ['60.3MB macOS app ZIP', 'ci:verify passed', 'Signed .app verified locally'],
-    features: ['Local-first transcription via bundled Whisper.cpp model', 'Global push-to-talk hotkey (configurable)', 'Transcript vault with save, search, pin, archive, copy, clear', 'Native text insertion (paste and backend insertion modes)', 'Voice activity detection (VAD) toggle', 'Premium dark macOS utility UI with status chips and live metrics'],
-    maturity: 'shipped',
-    accent: '#d49b42',
-  },
-  {
-    slug: 'synapse-notes',
-    name: 'Synapse Notes',
-    type: 'Voice-first AI notes',
-    platform: 'Android',
-    stack: ['React', 'Capacitor', 'Supabase', 'Gemini', 'Three.js'],
-    status: 'Prototype',
-    artifact: 'Synapse-Notes-0.1.0-debug.apk',
-    release: 'https://github.com/nodaysidle/synapse-notes/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/synapse-notes',
-    download: 'https://github.com/nodaysidle/synapse-notes/releases/download/v0.1.0/Synapse-Notes-0.1.0-debug.apk',
-    checksum: 'b83ae21646873a00e3b2527a4846962f40aeda4f77a43bc2124fce7756d56b50',
-    headline: 'Speak a thought. Watch it become a searchable neural note.',
-    summary: 'Voice-first notes with AI transcription, generated visuals, semantic search, and a 3D knowledge graph. Functional web and Android builds — not yet production-hardened.',
-    proof: ['4.4MB Android APK', 'Vite build passed', 'Gradle assembleDebug passed'],
-    features: ['Voice recording with waveform feedback', 'AI transcription through Supabase Edge Functions', 'AI image generation for note visuals', 'Semantic search backed by pgvector embeddings', '3D graph view powered by Three.js', 'Android app shell via Capacitor + web build via Vite'],
-    maturity: 'in_development',
-    accent: '#d5b765',
-  },
-  {
-    slug: 'twentyone',
-    name: 'TwentyOne',
-    type: 'Android remote controller',
-    platform: 'Android',
-    stack: ['Expo 54', 'React Native', 'Cloudflare Tunnel', 'Secure Store'],
-    status: 'v0.1.0',
-    artifact: 'app-release.apk',
-    release: 'https://github.com/nodaysidle/twentyone/releases/tag/twentyone-v0.1.0',
-    repo: 'https://github.com/nodaysidle/twentyone',
-    download: 'https://github.com/nodaysidle/twentyone/releases/download/twentyone-v0.1.0/app-release.apk',
-    checksum: null,
-    headline: 'Android remote for your local AI gateway.',
-    summary: 'Chat with your Mac gateway over Cloudflare, approve sensitive actions, and send slash commands from your Android phone. QR pairing, secure storage, and a badge-counted approvals inbox.',
-    proof: ['Public source available'],
-    features: ['QR pairing — scan desktop Remote Setup QR to connect', 'Cloudflare tunnel — connects through public HTTPS URL, no USB/LAN', 'Chat interface with mobile-safe prompt sanitization', 'Approvals inbox with badge count for sensitive gateway actions', 'Slash commands (/status, /eldio, extensible)', 'Secure storage — device tokens in Expo Secure Store'],
-    maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'nodaysidle-lumiere',
-    name: 'Lumiere',
-    type: 'Screenshot polish and annotation app',
-    platform: 'macOS',
-    stack: ['Swift 6', 'SwiftUI', 'AppKit', 'Vision', 'Core Image'],
-    status: 'v0.1.0',
-    artifact: 'Lumiere-v0.1.0-macos.dmg',
-    release: 'https://github.com/nodaysidle/nodaysidle-lumiere/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/nodaysidle-lumiere',
-    download: 'https://github.com/nodaysidle/nodaysidle-lumiere/releases/download/v0.1.0/Lumiere-v0.1.0-macos.dmg',
-    checksum: null,
-    headline: 'Native macOS screenshot polish and annotation.',
-    summary: 'Auto-capture screenshots from clipboard, apply shadow styling and perspective correction, annotate with vector tools, and export to PNG/JPEG/HEIC. Local-first, no network, no accounts.',
-    proof: ['Public source available'],
-    features: ['Auto-capture — clipboard monitoring detects screenshots and copied images', 'Shadow styling with directional depth controls', 'Perspective correction via Vision framework', 'Vector annotations — arrow, rectangle, text, callout, blur', 'Floating glass NSPanel toolbar with cursor-proximity reveal', 'Export to PNG (lossless), JPEG, and HEIC'],
-    maturity: 'shipped',
-    accent: '#c8ff00',
   },
   {
     slug: 'werkstatt-infinite',
@@ -183,29 +132,22 @@ export const projects = [
     download: 'https://github.com/nodaysidle/werkstatt-infinite/releases/download/v1.0/werkstatt-infinite-v1.0.apk',
     checksum: null,
     headline: 'Premium Android drawing and notebook app.',
-    summary: 'An expressive drawing canvas with 8 brush types, pressure-aware strokes, pinch-to-zoom, undo/redo, and a gallery system. Local-first, Jetpack Compose, feature-complete.',
-    proof: ['Public source available'],
-    features: ['8 brush types with distinct rendering (Pen, Fine, Ballpoint, Pencil, Marker, Watercolor, Ink, Brush)', 'Pressure-aware strokes from Android pointer pressure', 'Pinch-to-zoom and two-finger pan (0.5×–5× zoom)', 'Full stroke-level undo/redo history', 'Spatial-index-backed eraser fast at 10,000+ strokes', 'Color wheel + 6 preset palettes (Bold, Pastel, Earth, Neon, Skin, Vintage)'],
+    summary: 'An expressive drawing canvas with multiple brush types, pressure-aware strokes, pinch-to-zoom, undo/redo, and a gallery system. Local-first, Jetpack Compose, feature-complete.',
+    proof: [],
+    features: [
+      '8 brush types with distinct rendering (Pen, Fine, Ballpoint, Pencil, Marker, Watercolor, Ink, Brush)',
+      'Pressure-aware strokes from Android pointer pressure',
+      'Pinch-to-zoom and two-finger pan (0.5×–5× zoom)',
+      'Full stroke-level undo/redo history',
+      'Spatial-index-backed eraser',
+      'Color wheel + 6 preset palettes (Bold, Pastel, Earth, Neon, Skin, Vintage)',
+    ],
     maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'nodaysnotes',
-    name: 'NodaysNotes',
-    type: 'Native macOS Markdown notes',
-    platform: 'macOS',
-    stack: ['Swift 6', 'SwiftUI', 'SPM'],
-    status: 'v0.1.0',
-    artifact: 'NODAYSNOTES_0.1.0_aarch64.zip',
-    release: 'https://github.com/nodaysidle/nodaysnotes/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/nodaysnotes',
-    download: 'https://github.com/nodaysidle/nodaysnotes/releases/download/v0.1.0/NODAYSNOTES_0.1.0_aarch64.zip',
-    checksum: null,
-    headline: 'Plain Markdown notes, on your disk, no lock-in.',
-    summary: 'A native macOS notes app that stores everything as .md files in a folder you control. Wiki-style [[links]], daily notes, search, backlinks, and tags — no proprietary format, no cloud.',
-    proof: ['Public source available'],
-    features: ['Local-first Markdown notes stored as plain .md files on disk', 'Native macOS SwiftUI interface', 'Wiki-style [[links]] with Cmd-click navigation', 'Daily note command from the app menu', 'Search, backlinks, and tags', 'Notebook-oriented structure'],
-    maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-07-10',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
     accent: '#c8ff00',
   },
   {
@@ -220,30 +162,23 @@ export const projects = [
     repo: 'https://github.com/nodaysidle/nodaysidle-flowstate',
     download: 'https://github.com/nodaysidle/nodaysidle-flowstate/releases/download/v1.0.1/FlowState-1.0.1.dmg',
     checksum: null,
-    headline: 'A smarter Pomodoro for developers who don\'t like timers.',
+    headline: "A smarter Pomodoro for developers who don't like timers.",
     summary: 'Adaptive focus detection via keyboard and mouse activity monitoring. Learns your work patterns, dims the screen when focus drops, and suggests breaks based on session trends — all on-device.',
-    proof: ['Public source available'],
-    features: ['Activity-based focus detection via keyboard/mouse monitoring', 'Smart screen dimming when focus drops (subtle visual cue)', 'Adaptive break suggestions using session patterns and focus trends', 'Liquid-fill menu bar icon visualizing current focus level', 'Configurable settings (idle thresholds, tint intensity, break preferences)', 'Privacy-first — all processing on-device, no data leaves the Mac'],
+    proof: [],
+    features: [
+      'Activity-based focus detection via keyboard/mouse monitoring',
+      'Smart screen dimming when focus drops (subtle visual cue)',
+      'Adaptive break suggestions using session patterns and focus trends',
+      'Liquid-fill menu bar icon visualizing current focus level',
+      'Configurable settings (idle thresholds, tint intensity, break preferences)',
+      'Privacy-first — all processing on-device, no data leaves the Mac',
+    ],
     maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'nodaysidle-voice-anywhere-v2',
-    name: 'Voice Anywhere v2',
-    type: 'Android accessibility dictation overlay',
-    platform: 'Android',
-    stack: ['Kotlin', 'Android Accessibility Services', 'FUTO STT'],
-    status: 'v0.2.0',
-    artifact: 'voice-anywhere-v2-v0.2.0-release.apk',
-    release: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/tag/v0.2.0',
-    repo: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2',
-    download: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/download/v0.2.0/voice-anywhere-v2-v0.2.0-release.apk',
-    checksum: null,
-    headline: 'Speak into any Android app, anywhere.',
-    summary: 'A floating mic overlay that uses Android Accessibility Services to detect the focused input field and insert dictated text at the cursor. Works fully offline, tested on Pixel 8a with Android 16.',
-    proof: ['Public source available'],
-    features: ['Floating pill overlay — draggable, snaps to screen edge, persists position', 'Cursor-aware insertion — appends at cursor, not end of field', 'Smart hint detection — never confuses placeholder text with real content', 'Three insertion modes (SET/PST/CPY) with live visual feedback', 'No-field guard — shows NO FIELD instead of useless dictation', 'Opt-in local transcript history with copy, retry, delete'],
-    maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-06-10',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
     accent: '#c8ff00',
   },
   {
@@ -261,8 +196,82 @@ export const projects = [
     headline: 'Menu bar clipboard history. Local, text-only, searchable.',
     summary: 'Keeps your last 10 plain-text clips one click away in the macOS menu bar. Pin up to 3 favorites, search live, and never worry about network access — there is none.',
     proof: ['168KB macOS ZIP', 'Swift 6 + SwiftUI', 'Zero network access'],
-    features: ['History of last 10 unpinned plain-text clips (newest first)', 'Up to 3 pinned clips that survive Clear', 'Live case-insensitive search in the popover header', 'Delete individual pinned or unpinned rows', 'Pause/Resume capture (no backfill on resume)', '60-second dedupe — re-copying same text bumps existing row'],
+    features: [
+      'History of last 10 unpinned plain-text clips (newest first)',
+      'Up to 3 pinned clips that survive Clear',
+      'Live case-insensitive search in the popover header',
+      'Delete individual pinned or unpinned rows',
+      'Pause/Resume capture (no backfill on resume)',
+      '60-second dedupe — re-copying same text bumps existing row',
+    ],
     maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-07-01',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
+    accent: '#c8ff00',
+  },
+  {
+    slug: 'shareguard',
+    name: 'ShareGuard',
+    type: 'Local pre-share privacy scanner',
+    platform: 'macOS',
+    stack: ['SwiftPM', 'SwiftUI', 'Local scanning', 'Redaction'],
+    status: 'v0.1.0 live',
+    artifact: 'ShareGuard-v0.1.0-macos.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/tag/v0.1.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-shareguard',
+    download: 'https://github.com/nodaysidle/nodaysidle-shareguard/releases/download/v0.1.0/ShareGuard-v0.1.0-macos.zip',
+    checksum: 'a14e01aa0aa077173d447abe8f2492507d5660e38c881daf0bad86d4d3038088',
+    headline: 'Catch secrets before a folder leaves your Mac.',
+    summary: 'A local-first macOS scanner for drag-and-drop pre-share checks, redacted findings, and release-safe review before files move outward.',
+    proof: ['1.1MB macOS app ZIP', '18 Swift tests passed', 'Round-trip release ZIP + codesign verified'],
+    features: [
+      'Drag-and-drop recursive file/folder scanning',
+      'Secret hints (token-like strings, private-key headers, .env values)',
+      'Personal data hints (emails, phone-like strings, local paths, risky URLs)',
+      'Suspicious filename detection (id_rsa, .pem, .p12, .mobileprovision, .env)',
+      'Manual-review media flagging for PDFs and images',
+      'Redacted findings with masked excerpts, zero network calls',
+    ],
+    maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-07-04',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
+    accent: '#ff6b6b',
+  },
+  {
+    slug: 'nodaysidle-voice-anywhere-v2',
+    name: 'Voice Anywhere v2',
+    type: 'Android accessibility dictation overlay',
+    platform: 'Android',
+    stack: ['Kotlin', 'Android Accessibility Services', 'FUTO STT'],
+    status: 'v0.2.0',
+    artifact: 'voice-anywhere-v2-v0.2.0-release.apk',
+    release: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/tag/v0.2.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2',
+    download: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/download/v0.2.0/voice-anywhere-v2-v0.2.0-release.apk',
+    checksum: null,
+    headline: 'Speak into any Android app, anywhere.',
+    summary: 'A floating mic overlay that uses Android Accessibility Services to detect the focused input field and insert dictated text at the cursor. Works fully offline by default, tested on Pixel 8a with Android 16.',
+    proof: [],
+    features: [
+      'Floating pill overlay — draggable, snaps to screen edge, persists position',
+      'Cursor-aware insertion — appends at cursor, not end of field',
+      'Smart hint detection — never confuses placeholder text with real content',
+      'Three insertion modes (SET/PST/CPY) with live visual feedback',
+      'No-field guard — shows NO FIELD instead of useless dictation',
+      'Opt-in local transcript history with copy, retry, delete',
+    ],
+    maturity: 'shipped',
+    dataBoundary: 'local/offline by default',
+    updated: '2026-07-10',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
     accent: '#c8ff00',
   },
   {
@@ -279,90 +288,154 @@ export const projects = [
     checksum: null,
     headline: 'A native macOS knowledge graph for your Markdown notes.',
     summary: 'Import Obsidian vaults, discover semantic connections between notes via on-device embeddings, and explore your knowledge as an interactive graph. Local-first, SwiftUI, no cloud.',
-    proof: ['Public source available'],
-    features: ['Markdown note workspace — create, edit, save, delete, search notes', 'Obsidian vault import — maps [[wiki-links]] into graph edges', 'Semantic auto-links via local NLEmbedding and cosine similarity', 'Ripeness scoring — ranks notes by age, content depth, connection density', 'Interactive graph canvas — pan, zoom, drag nodes, double-click notes', 'Whiteboard mode — canvases with select, rectangle, ellipse, arrow, text, pencil'],
+    proof: [],
+    features: [
+      'Markdown note workspace — create, edit, save, delete, search notes',
+      'Obsidian vault import — maps [[wiki-links]] into graph edges',
+      'Semantic auto-links via local NLEmbedding and cosine similarity',
+      'Ripeness scoring — ranks notes by age, content depth, connection density',
+      'Interactive graph canvas — pan, zoom, drag nodes, double-click notes',
+      'Whiteboard mode — canvases with select, rectangle, ellipse, arrow, text, pencil',
+    ],
     maturity: 'shipped',
+    dataBoundary: 'local',
+    updated: '2026-06-22',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
     accent: '#c8ff00',
   },
   {
-    slug: 'batchrename-pro',
-    name: 'BatchRename Pro',
-    type: 'Batch file renaming desktop app',
+    slug: 'cloudscribe',
+    name: 'CloudScribe',
+    type: 'Cloud speech-to-text menu bar app',
     platform: 'macOS',
-    stack: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite'],
-    status: 'v0.1.0',
-    artifact: 'BatchRename-Pro-0.1.0-aarch64.dmg',
-    release: 'https://github.com/nodaysidle/batchrename-pro/releases/tag/v0.1.0',
-    repo: 'https://github.com/nodaysidle/batchrename-pro',
-    download: 'https://github.com/nodaysidle/batchrename-pro/releases/download/v0.1.0/BatchRename-Pro-0.1.0-aarch64.dmg',
-    checksum: null,
-    headline: 'Rename files in batches, safely, with live preview and undo.',
-    summary: 'Regex patterns, template tokens, sequential numbering, and case transforms — all with a live preview before anything touches disk. Tauri 2 desktop app with SQLite-backed rollback.',
-    proof: ['Public source available'],
-    features: ['Batch rename with regex patterns, template tokens, sequential numbering, case transforms', 'Live preview — see results before anything touches disk', 'Conflict blocking — detects name collisions before applying', 'Full undo/rollback from SQLite-backed job history with backup', 'Drag-drop file or folder input', 'Blue and violet accent themes'],
+    stack: ['SwiftPM', 'SwiftUI', 'Deepgram nova-3', 'Keychain'],
+    status: 'v0.1.0 live',
+    artifact: 'CloudScribe-v0.1.0-macos.zip',
+    release: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/tag/v0.1.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-cloudscribe',
+    download: 'https://github.com/nodaysidle/nodaysidle-cloudscribe/releases/download/v0.1.0/CloudScribe-v0.1.0-macos.zip',
+    checksum: 'b4900ef216fb5a8f44d354ba31b9c9a545133fe9145bf13ec38bdacf30d07d33',
+    headline: 'Menu bar dictation through Deepgram, with the cloud boundary visible.',
+    summary: 'A macOS menu bar dictation app with Keychain API-key storage, Deepgram nova-3 transcription, transcript history, and explicit cloud-use proof.',
+    proof: ['528KB macOS app ZIP', '31 Swift tests passed', 'Live Deepgram smoke + codesign verified'],
+    features: [
+      'Live dictation from menu bar or floating pill with streaming interim text',
+      'Audio file import (WAV, MP3, M4A, OGG, FLAC, AAC, WebM)',
+      'Draggable always-on-top floating pill with live status',
+      'Global hotkey (⌥⇧Space), configurable in Settings',
+      'Auto-paste copies final transcript into frontmost app',
+      'Optional local transcript history and OpenRouter text polish',
+    ],
     maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'brewledger',
-    name: 'BrewLedger',
-    type: 'Coffee brewing journal',
-    platform: 'macOS',
-    stack: ['Swift 6', 'SwiftUI', 'SwiftData'],
-    status: 'v1.0',
-    artifact: '\u2014',
-    release: 'https://github.com/nodaysidle/brewledger',
-    repo: 'https://github.com/nodaysidle/brewledger',
-    download: null,
-    checksum: null,
-    headline: 'Log, track, and review your coffee brews.',
-    summary: 'A native macOS journal for home coffee enthusiasts. Log bean name, grind size, water temperature, brew method, and rating. Local-first with SwiftData — no cloud, no accounts.',
-    proof: ['14 unit tests passing', 'Local-first, no cloud', 'Build from source'],
-    features: ['Log brews with bean name, grind size, water temperature, brew method, and 1–5 rating', 'Manage bean inventory with roast date and remaining amount', 'Search and filter past brews by bean, method, or rating', 'Export brew history as JSON', 'Local-first — all data in SwiftData on your Mac', '14 unit tests covering model validation, persistence, and JSON export'],
-    maturity: 'shipped',
-    accent: '#c8ff00',
-  },
-  {
-    slug: 'hermes-agent',
-    name: 'Hermes Agent',
-    type: 'Fork / upstream mirror',
-    platform: 'Cross-platform',
-    stack: ['Python', 'Hermes Agent'],
-    status: 'Fork',
-    artifact: '\u2014',
-    release: 'https://github.com/nodaysidle/hermes-agent',
-    repo: 'https://github.com/nodaysidle/hermes-agent',
-    download: null,
-    checksum: null,
-    headline: 'The agent that grows with you.',
-    summary: 'A self-improving AI agent with a built-in learning loop, multi-platform messaging, cron scheduler, subagent delegation, and 40+ tools. Forked from NousResearch/hermes-agent.',
-    proof: ['Fork of NousResearch/hermes-agent', 'Upstream mirror'],
-    features: ['Self-improving AI agent with built-in learning loop (creates skills from experience)', 'Multi-platform messaging (Telegram, Discord, Slack, WhatsApp, Signal, CLI)', 'Agent-curated memory with periodic nudges and FTS5 session search', 'Built-in cron scheduler for automated tasks', 'Subagent delegation — spawn isolated subagents for parallel workstreams', 'Runs anywhere (local, Docker, SSH, Singularity, Modal, Daytona)'],
-    maturity: 'fork',
-    accent: '#c8ff00',
+    dataBoundary: 'cloud',
+    updated: '2026-07-04',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
+    accent: '#7dd3fc',
   },
 ];
 
-export function deriveMaturity(status) {
-  if (!status) return 'alpha';
-  const match = status.match(/v?(\d+)\.(\d+)/);
-  if (!match) return 'alpha';
-  const major = parseInt(match[1]);
-  return major >= 1 ? 'stable' : (major === 0 ? 'beta' : 'alpha');
-}
+export const featuredSlugs = [
+  'orbit-browser',
+  'nodaysidle-control-room',
+  'scribeflowpro',
+  'werkstatt-infinite',
+];
 
+/**
+ * @param {Project[]} projects
+ * @returns {Project[]}
+ */
 export function getCatalogueEntries(projects) {
-  return projects.filter(p => p.slug !== 'nodaysidle-project-pages');
+  return projects.filter((p) => p.slug !== 'nodaysidle-project-pages');
 }
 
+/**
+ * @param {Project[]} projects
+ * @returns {Project | undefined}
+ */
 export function getFeaturedProject(projects) {
-  return projects[0];
+  return projects.find((p) => p.slug === featuredSlugs[0]);
 }
 
+/**
+ * @param {string} slug
+ * @returns {Project | undefined}
+ */
 export function getProject(slug) {
   return projects.find((project) => project.slug === slug);
 }
 
+/**
+ * @param {string | null | undefined} hash
+ * @returns {string}
+ */
 export function formatChecksum(hash) {
+  if (!hash || typeof hash !== 'string') return '—';
   return `${hash.slice(0, 12)}\u2026${hash.slice(-10)}`;
 }
+
+export function validateProjects() {
+  if (projects.length !== 10) {
+    throw new Error(`Expected exactly 10 projects, got ${projects.length}`);
+  }
+
+  const slugs = projects.map((p) => p.slug);
+  const uniqueSlugs = new Set(slugs);
+  if (uniqueSlugs.size !== slugs.length) {
+    throw new Error('Project slugs must be unique');
+  }
+
+  if (featuredSlugs.length !== 4) {
+    throw new Error(`Expected exactly 4 featured slugs, got ${featuredSlugs.length}`);
+  }
+
+  for (const slug of featuredSlugs) {
+    if (!projects.some((p) => p.slug === slug)) {
+      throw new Error(`Featured slug not found in projects: ${slug}`);
+    }
+  }
+
+  const requiredStringFields = [
+    'slug',
+    'name',
+    'type',
+    'platform',
+    'status',
+    'artifact',
+    'release',
+    'repo',
+    'headline',
+    'summary',
+    'dataBoundary',
+    'updated',
+  ];
+  const requiredArrayFields = ['stack', 'proof', 'features'];
+
+  for (const project of projects) {
+    for (const field of requiredStringFields) {
+      if (typeof project[field] !== 'string' || project[field].length === 0) {
+        throw new Error(`Project ${project.slug} missing required string field: ${field}`);
+      }
+    }
+    for (const field of requiredArrayFields) {
+      if (!Array.isArray(project[field])) {
+        throw new Error(`Project ${project.slug} missing required array field: ${field}`);
+      }
+    }
+    if (project.maturity !== 'shipped') {
+      throw new Error(`Project ${project.slug} must have maturity='shipped', got ${project.maturity}`);
+    }
+    if (
+      !project.repo.startsWith('https://github.com/nodaysidle/') ||
+      !project.release.startsWith('https://github.com/nodaysidle/')
+    ) {
+      throw new Error(`Project ${project.slug} must use public GitHub repo and release URLs`);
+    }
+  }
+}
+
+validateProjects();

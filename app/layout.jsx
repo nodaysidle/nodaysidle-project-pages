@@ -1,18 +1,22 @@
 import './globals.css';
+import './workshop.css';
 import { SiteFooter, SiteHeader } from './components/SiteChrome';
 
 export const metadata = {
-  title: 'NODAYSIDLE — A catalogue of finished software',
+  title: 'NODAYSIDLE — Working software. Verified releases.',
   description:
-    'Independent software atelier. A catalogue of focused, release-ready tools — native where it matters, local-first by default.',
+    'NODAYSIDLE is an independent software workshop shipping 10 selected public projects for macOS and Android. Local-first where applicable, release-verified, and built for daily use.',
   metadataBase: new URL('https://nodaysidle-project-pages.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: '/favicon.svg',
   },
   openGraph: {
-    title: 'NODAYSIDLE — A catalogue of finished software',
+    title: 'NODAYSIDLE — Working software. Verified releases.',
     description:
-      'Independent software atelier. A catalogue of focused, release-ready tools — native where it matters, local-first by default.',
+      'NODAYSIDLE is an independent software workshop shipping 10 selected public projects for macOS and Android. Local-first where applicable, release-verified, and built for daily use.',
     type: 'website',
     images: [
       {
@@ -28,7 +32,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#faf7f2',
+  themeColor: '#0B0D0C',
 };
 
 export default function RootLayout({ children }) {
