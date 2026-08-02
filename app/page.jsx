@@ -1,49 +1,77 @@
 import Link from 'next/link';
 import { featuredSlugs, getCatalogueEntries, projects } from './data';
-import { FeaturedCard, Footprint, ProjectRecord } from './components/ProjectShowcase';
+import { FeaturedCard, Footprint } from './components/ProjectShowcase';
+import CatalogueIndex from './components/CatalogueIndex';
+import ConstellationHero from './components/ConstellationHero';
+
+function indexLabel(index) {
+  return String(index + 1).padStart(2, '0');
+}
+
+function versionOf(project) {
+  const match = /^v[0-9.]+/.exec(project.status);
+  return match ? match[0] : project.status;
+}
 
 export default function HomePage() {
   const entries = getCatalogueEntries(projects);
   const featured = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter(Boolean);
+  const macOSCount = entries.filter((p) => p.platform === 'macOS').length;
+  const androidCount = entries.length - macOSCount;
 
   return (
-    <main id="main-content" className="home-page">
-      <section className="home-hero" aria-labelledby="hero-title">
-        <div className="home-hero__primary">
-          <p className="kicker">Independent software workshop</p>
-          <h1 id="hero-title">NODAYSIDLE</h1>
-          <p className="home-hero__statement">
-            10 selected public projects for macOS and Android. Real, local-first where applicable,
-            release-verified tools. One clear job per product.
-          </p>
-          <div className="home-hero__cta">
-            <a
-              className="button button--primary"
-              href="https://github.com/nodaysidle"
-              rel="noopener noreferrer"
-            >
-              Inspect the work on GitHub
-            </a>
-            <a className="button button--quiet" href="#featured">
-              Browse {entries.length} selected projects
-            </a>
+    <main id="main-content" className="catalogue-page">
+      <section className="catalogue-hero" aria-labelledby="hero-title">
+        <ConstellationHero />
+        <div className="catalogue-hero__inner page-shell">
+          <div className="catalogue-hero__copy">
+            <p className="kicker">Independent software workshop</p>
+            <h1 id="hero-title">
+              NODAYSIDLE <em>release index</em>
+            </h1>
+            <p className="catalogue-hero__lede">
+              {entries.length} verified public projects for macOS and Android.
+              Real, local-first where applicable, release-verified tools. One
+              clear job per product.
+            </p>
+            <div className="button-group">
+              <a
+                className="button button--primary"
+                href="https://github.com/nodaysidle"
+                rel="noopener noreferrer"
+              >
+                Inspect the work on GitHub
+              </a>
+              <a className="button button--quiet" href="#catalogue">
+                Browse all {entries.length} projects
+              </a>
+            </div>
           </div>
+
+          <aside className="release-index" aria-label="All verified releases">
+            <div className="release-index__head">
+              <span>Releases</span>
+              <span>{entries.length}</span>
+            </div>
+            <ol>
+              {entries.map((project, index) => (
+                <li key={project.slug}>
+                  <Link href={`/${project.slug}`}>
+                    <span className="release-index__number">{indexLabel(index)}</span>
+                    <span className="release-index__name">{project.name}</span>
+                    <span className="release-index__version">{versionOf(project)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+            <div className="release-index__foot">
+              <span>{macOSCount} macOS</span>
+              <span>{androidCount} Android</span>
+            </div>
+          </aside>
         </div>
-        <aside className="home-hero__secondary" aria-label="Selected release index">
-          <ol className="home-hero__index">
-            {entries.map((project, index) => (
-              <li key={project.slug}>
-                <Link href={`/${project.slug}`}>
-                  <span className="home-hero__index-number">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="home-hero__index-name">{project.name}</span>
-                  <span className="home-hero__index-status">{project.status}</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </aside>
       </section>
 
       <section id="featured" className="featured-section" aria-labelledby="featured-title">
@@ -66,12 +94,8 @@ export default function HomePage() {
             <p className="kicker">Complete index</p>
             <h2 id="catalogue-title">All {entries.length} projects</h2>
           </header>
-          <div className="project-records">
-            {entries.map((project, index) => (
-              <ProjectRecord key={project.slug} project={project} index={index} />
-            ))}
-          </div>
         </div>
+        <CatalogueIndex entries={entries} />
       </section>
 
       <section className="principles-section" aria-labelledby="principles-title">

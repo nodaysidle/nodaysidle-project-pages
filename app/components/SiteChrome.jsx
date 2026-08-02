@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function SiteHeader() {
+  const pathname = usePathname();
   return (
     <header className="site-header">
       <div className="site-header__inner">
@@ -12,10 +16,17 @@ export function SiteHeader() {
         <nav aria-label="Main navigation">
           <ul className="nav-links">
             <li>
-              <a href="/#catalogue">Catalogue</a>
+              <a href="/#catalogue" aria-current={pathname === '/' ? 'page' : undefined}>
+                Catalogue
+              </a>
             </li>
             <li>
-              <a href="/philosophy">Philosophy</a>
+              <a
+                href="/philosophy"
+                aria-current={pathname?.startsWith('/philosophy') ? 'page' : undefined}
+              >
+                Philosophy
+              </a>
             </li>
             <li>
               <a href="/#source">Contact</a>
@@ -36,6 +47,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
+  const pathname = usePathname();
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
@@ -49,10 +61,17 @@ export function SiteFooter() {
         <nav aria-label="Footer navigation">
           <ul className="footer-nav">
             <li>
-              <a href="/#catalogue">Catalogue</a>
+              <a href="/#catalogue" aria-current={pathname === '/' ? 'page' : undefined}>
+                Catalogue
+              </a>
             </li>
             <li>
-              <a href="/philosophy">Philosophy</a>
+              <a
+                href="/philosophy"
+                aria-current={pathname?.startsWith('/philosophy') ? 'page' : undefined}
+              >
+                Philosophy
+              </a>
             </li>
             <li>
               <a

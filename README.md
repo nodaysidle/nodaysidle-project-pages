@@ -6,22 +6,37 @@ Live site: https://nodaysidle-project-pages.vercel.app
 
 ## What it is
 
-A polished Next.js app for Vercel. The first screen is the portfolio/project experience itself: identity, current release dossier, selected projects, proof metrics, stack, active agents/workflows, and contact paths.
+A polished Next.js App Router showcase for verified NODAYSIDLE software releases. The site presents a living release index, grounded project details, direct public artifacts, technical boundaries, and source links in the DARKVOID CHALKMETAL system.
 
 ## Projects presented
 
-- NODAYSIDLE Control Room — `/nodaysidle-control-room`
+The catalogue derives its count and routes from `app/data.js` and currently contains 19 verified downloadable apps:
+
 - Orbit Browser — `/orbit-browser`
-- Sunder — `/sunder`
+- NODAYSIDLE Control Room — `/nodaysidle-control-room`
 - ScribeFlowPro — `/scribeflowpro`
+- Werkstatt Infinite — `/werkstatt-infinite`
+- FlowState — `/nodaysidle-flowstate`
+- ClipRail — `/cliprail`
+- ShareGuard — `/shareguard`
+- Voice Anywhere v2 — `/nodaysidle-voice-anywhere-v2`
+- Nodaysidian — `/nodaysidian`
+- CloudScribe — `/cloudscribe`
+- BatchRename Pro — `/batchrename-pro`
+- Cistilka — `/nodaysidle-cistilka`
+- Lumiere — `/nodaysidle-lumiere`
 - NoDaysIdle Whispering — `/nodaysidle-whispering`
+- NODAYSNOTES — `/nodaysnotes`
+- NoDays Record — `/nodaysrecording`
+- nodaystypst — `/nodaystypst`
 - Synapse Notes — `/synapse-notes`
+- twentyone — `/twentyone`
 
 ## Tech stack
 
 - Next.js App Router
 - React 19
-- Plain CSS with dense responsive layout and NODAYSIDLE Volt accent
+- Plain CSS with responsive DARKVOID CHALKMETAL presentation
 - Static export via `next.config.mjs`
 - Vercel deployment
 
