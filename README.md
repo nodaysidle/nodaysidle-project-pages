@@ -1,8 +1,12 @@
-<img src=".github/social-preview.png" alt="NODAYSIDLE Project Pages — NODAYSIDLE" width="100%">
-
 # NODAYSIDLE Project Pages
 
-> Public project showcase for NODAYSIDLE software releases and source repositories.
+Public showcase site for NODAYSIDLE software releases, project pages, and source repositories.
+
+Visitors can use this site to:
+- browse NODAYSIDLE applications
+- open product-specific showcase pages
+- navigate to public source repositories
+- access release downloads when available
 
 ![Platform](https://img.shields.io/badge/platform-Web-black?style=flat-square)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
@@ -12,7 +16,7 @@ Live site: [nodaysidle-project-pages.vercel.app](https://nodaysidle-project-page
 
 ## Overview
 
-NODAYSIDLE Project Pages is a React + Vite static site presenting NODAYSIDLE projects. Each project has its own route, visual system, product summary, proof notes, and download CTA. Deployed on Vercel.
+NODAYSIDLE Project Pages is a React + Vite static site that acts as the public showcase layer for NODAYSIDLE software. Each project route presents product framing, visual identity, proof notes, and release access in one place.
 
 ## Projects presented
 
