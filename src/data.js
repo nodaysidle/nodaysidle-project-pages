@@ -1,6 +1,6 @@
 /**
  * Public NODAYSIDLE showcase data
- * Curated for the current public-facing story surface.
+ * Home surface is the four flagship chapters only.
  */
 
 /** @typedef {'voice-input' | 'notes-knowledge' | 'native-utilities' | 'workflow-systems' | 'browser-tools'} Category */
@@ -10,6 +10,11 @@
  * @typedef {Object} Project
  * @property {string} slug
  * @property {string} name
+ * @property {string} [navLabel]
+ * @property {string} [kicker]
+ * @property {string} [loop]
+ * @property {string} [ctaLabel]
+ * @property {string} [ctaHref]
  * @property {string} type
  * @property {'macOS' | 'Android'} platform
  * @property {string[]} stack
@@ -39,26 +44,31 @@
 export const projects = [
   {
     slug: 'nodaysidle-cascade-v3',
-    name: 'NODAYSIDLE Cascade V3',
+    name: 'Cascade V3',
+    navLabel: 'Cascade V3',
+    kicker: 'macOS 13+ · Tauri 2',
+    loop: 'One DeepSeek call. A local compiler writes PRD, ARD, TRD, TASKS, AGENTS. Not iOS.',
+    ctaLabel: 'GitHub',
+    ctaHref: 'https://github.com/nodaysidle/nodaysidle-cascade-v3',
     type: 'Contract-driven software planning app',
     platform: 'macOS',
     stack: ['Tauri', 'Rust', 'TypeScript'],
     status: 'active public system',
     artifact: 'Source repository',
-    release: 'https://github.com/nodaysidle/nodaysidle-cascade-v3/releases',
+    release: 'https://github.com/nodaysidle/nodaysidle-cascade-v3',
     repo: 'https://github.com/nodaysidle/nodaysidle-cascade-v3',
     download: null,
     checksum: null,
-    headline: 'Turn one software idea into five agent-ready markdown contracts.',
-    summary: 'A compiler-like planning surface for structured software execution. One idea in, one disciplined delivery packet out.',
+    headline: 'One idea. Five contracts.',
+    summary: 'One DeepSeek call. A local compiler writes PRD, ARD, TRD, TASKS, AGENTS. Not iOS.',
     proof: ['Public repository', 'Structured contract output', 'Flagship workflow system'],
     features: [
-      'Transforms a product idea into a fixed contract cascade',
-      'Keeps structure ahead of improvisation',
-      'Produces agent-ready markdown deliverables',
-      'Designed for deterministic planning and handoff',
-      'Fits multi-agent software execution workflows',
-      'Represents the NODAYSIDLE planning worldview directly',
+      'One DeepSeek call drives the cascade',
+      'Local compiler writes five markdown contract files',
+      'Outputs PRD, ARD, TRD, TASKS, and AGENTS',
+      'macOS 13+ Tauri / Rust / TypeScript',
+      'No iOS build',
+      'Source on GitHub — no DMG release yet',
     ],
     maturity: 'shipped',
     dataBoundary: 'local-first workflow with model-assisted meaning extraction',
@@ -69,30 +79,74 @@ export const projects = [
     accent: '#C8FF00',
     category: 'workflow-systems',
     visibility: 'public',
-    story: 'This is the planning engine behind the broader NODAYSIDLE approach: structure first, contracts before code, and outputs designed for real execution rather than vague ideation.',
+    story: 'One idea in. Five agent-ready markdown contracts out. Structure before code.',
+  },
+  {
+    slug: 'nodaysidle-voice-anywhere-v2',
+    name: 'Voice Anywhere',
+    navLabel: 'Voice Anywhere',
+    kicker: 'Android 12+',
+    loop: 'Tap. STT. SET/PST when Accessibility is bound. IME paste when it isn’t. 60dp stadium. Overlay allow for the pill. First Xiaomi Accessibility enable still waits 15s.',
+    ctaLabel: 'Download APK',
+    ctaHref: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/download/v0.4.0/VoiceAnywhere-0.4.0.apk',
+    type: 'Android overlay dictation',
+    platform: 'Android',
+    stack: ['Kotlin'],
+    status: 'active public product',
+    artifact: 'Android APK 0.4.0',
+    release: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/tag/v0.4.0',
+    repo: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2',
+    download: 'https://github.com/nodaysidle/nodaysidle-voice-anywhere-v2/releases/download/v0.4.0/VoiceAnywhere-0.4.0.apk',
+    checksum: null,
+    headline: 'Overlay pill. Words at the cursor.',
+    summary: 'Tap. STT. SET/PST when Accessibility is bound. IME paste when it isn’t.',
+    proof: ['Public repository', 'v0.4.0 APK release', 'Android 12+'],
+    features: [
+      'Overlay pill → STT → insert at cursor',
+      'SET/PST when Accessibility is BOUND',
+      'IME paste when the bind is DEAD',
+      'ACCESS tile states: BOUND / DEAD / ENABLE',
+      '60dp stadium overlay pill',
+      'First Xiaomi Accessibility enable waits 15s',
+    ],
+    maturity: 'shipped',
+    dataBoundary: 'on-device overlay with configured speech path',
+    updated: '2026-09-01',
+    screenshotPath: null,
+    screenshotAlt: null,
+    screenshotSource: null,
+    accent: '#C8FF00',
+    category: 'voice-input',
+    visibility: 'public',
+    story: 'Android overlay dictation. Words land at the cursor. No iOS.',
   },
   {
     slug: 'nodaysidle-vois',
     name: 'NODAYSIDLE Voice',
-    type: 'Hotkey-first dictation app',
+    navLabel: 'Voice',
+    kicker: 'macOS 14+ · Apple silicon',
+    loop: 'Silent capsule. Deepgram live words in-capsule. Finals only. EN / IT / SL. Pill hides after talk.',
+    ctaLabel: 'Download DMG',
+    ctaHref: 'https://github.com/nodaysidle/nodaysidle-vois/releases/download/v0.2.0/NODAYSIDLE-Voice-0.2.0.dmg',
+    type: 'Native macOS menu-bar dictation',
     platform: 'macOS',
     stack: ['Swift', 'SwiftUI', 'AppKit'],
     status: 'active public product',
-    artifact: 'macOS release',
-    release: 'https://github.com/nodaysidle/nodaysidle-vois/releases',
+    artifact: 'macOS DMG 0.2.0',
+    release: 'https://github.com/nodaysidle/nodaysidle-vois/releases/tag/v0.2.0',
     repo: 'https://github.com/nodaysidle/nodaysidle-vois',
-    download: 'https://github.com/nodaysidle/nodaysidle-vois/releases',
+    download: 'https://github.com/nodaysidle/nodaysidle-vois/releases/download/v0.2.0/NODAYSIDLE-Voice-0.2.0.dmg',
     checksum: null,
-    headline: 'Native hotkey-first dictation for macOS.',
-    summary: 'A practical voice input tool built around fast capture, clean insertion, and a workflow that respects focus.',
-    proof: ['Public repository', 'Release-backed product lane', 'Native Swift implementation'],
+    headline: 'Hold Control-Space. Speak. Text lands.',
+    summary: 'Silent capsule. Deepgram live words in-capsule. Finals only. EN / IT / SL. Pill hides after talk.',
+    proof: ['Public repository', 'v0.2.0 DMG release', 'Native SwiftUI menu bar'],
     features: [
-      'Hotkey-first dictation workflow',
-      'Built for fast text capture into real daily work',
-      'Native macOS product feel rather than browser-style tooling',
-      'Supports the broader NODAYSIDLE voice/input product lane',
-      'Structured around low-friction interaction',
-      'Designed as a practical tool, not a demo layer',
+      'Hold Control-Space to dictate',
+      'Silent capsule with Deepgram live words',
+      'Finals only — EN / IT / SL',
+      'Pill hides after talk',
+      'macOS 14+ Apple silicon',
+      'Native SwiftUI menu-bar app',
     ],
     maturity: 'shipped',
     dataBoundary: 'depends on configured speech path',
@@ -103,30 +157,35 @@ export const projects = [
     accent: '#C8FF00',
     category: 'voice-input',
     visibility: 'public',
-    story: 'Voice is one of the clearest recurring themes in NODAYSIDLE. This product represents input systems built for actual work, not novelty interaction.',
+    story: 'Hold Control-Space. Speak. Text lands. Pill hides after talk.',
   },
   {
     slug: 'synapse-notes',
     name: 'Synapse Notes',
+    navLabel: 'Synapse Notes',
+    kicker: 'Android',
+    loop: 'Title is the first sentence. Graph is a screen you open — keyword edges. List search is text match.',
+    ctaLabel: 'Download APK',
+    ctaHref: 'https://github.com/nodaysidle/synapse-notes/releases/download/v0.4.3/synapse-notes-0.4.3-debug.apk',
     type: 'Voice-first note system',
     platform: 'Android',
-    stack: ['TypeScript', 'React', 'Supabase'],
+    stack: ['TypeScript', 'React', 'Capacitor'],
     status: 'active public product',
-    artifact: 'Android release',
-    release: 'https://github.com/nodaysidle/synapse-notes/releases',
+    artifact: 'Android APK 0.4.3',
+    release: 'https://github.com/nodaysidle/synapse-notes/releases/tag/v0.4.3',
     repo: 'https://github.com/nodaysidle/synapse-notes',
-    download: 'https://github.com/nodaysidle/synapse-notes/releases',
+    download: 'https://github.com/nodaysidle/synapse-notes/releases/download/v0.4.3/synapse-notes-0.4.3-debug.apk',
     checksum: null,
-    headline: 'Voice-first notes with transcription, semantic search, and visual knowledge exploration.',
-    summary: 'A note system where capture starts with speech and grows into searchable, structured memory rather than disposable fragments.',
-    proof: ['Public repository', 'Voice-first product direction', 'Knowledge-system flagship'],
+    headline: 'Speak. Transcript. Image. Home.',
+    summary: 'Title is the first sentence. Graph is a screen you open — keyword edges. List search is text match.',
+    proof: ['Public repository', 'v0.4.3 APK release', 'Capacitor Android'],
     features: [
-      'Voice-first note capture',
-      'Transcription and semantic memory framing',
-      'Graph-oriented exploration of stored ideas',
-      'A stronger knowledge-product thesis than a plain notes app',
-      'Combines capture, retrieval, and visual structure',
-      'Extends the NODAYSIDLE memory and knowledge lane',
+      'Speak → transcribe → embed → AI image → Home',
+      'Title is the first sentence',
+      'Graph is a screen you open with keyword edges',
+      'List search is text match',
+      'Capacitor Android',
+      'No iOS build',
     ],
     maturity: 'shipped',
     dataBoundary: 'hybrid app workflow',
@@ -134,10 +193,10 @@ export const projects = [
     screenshotPath: null,
     screenshotAlt: null,
     screenshotSource: null,
-    accent: '#79F2C0',
+    accent: '#C8FF00',
     category: 'notes-knowledge',
     visibility: 'public',
-    story: 'NODAYSIDLE is not just about utilities. It is also about memory, structure, and building systems that keep ideas discoverable after the moment of capture.',
+    story: 'Speak. Transcript. Image. Home. Graph is a screen you open — not a pipeline step.',
   },
   {
     slug: 'nodaysidle-cistilka',
@@ -345,80 +404,20 @@ export const projects = [
   },
 ];
 
+/** Home page chapters — exactly these four, this order. */
 export const featuredSlugs = [
   'nodaysidle-cascade-v3',
+  'nodaysidle-voice-anywhere-v2',
   'nodaysidle-vois',
   'synapse-notes',
-  'nodaysidle-cistilka',
-  'pocket-drafts',
-  'nodaysrecording',
 ];
 
-export const storyChapters = [
-  {
-    slug: 'identity',
-    label: '01',
-    title: 'NODAYSIDLE is not a portfolio brand first.',
-    body: 'It is a software identity built around practical tools, native applications, voice systems, notes and knowledge products, and controlled AI-assisted execution. The page should read like an operating philosophy with products inside it, not a gallery of random repositories.',
-  },
-  {
-    slug: 'workflow',
-    label: '02',
-    title: 'Structure comes before improvisation.',
-    body: 'The work leans toward deterministic outputs, architectural consistency, contract-driven planning, and toolchains that reduce drift. That is why compiler-like planning systems and disciplined execution workflows matter alongside the applications themselves.',
-  },
-  {
-    slug: 'products',
-    label: '03',
-    title: 'The products are different, but the worldview is consistent.',
-    body: 'Voice input, capture tools, utilities, knowledge systems, browser experiments, and workflow engines all point toward the same preference: local control, practical UX, reduced noise, and software that earns trust through function.',
-  },
-  {
-    slug: 'direction',
-    label: '04',
-    title: 'This is an ecosystem, not a feed.',
-    body: 'Some projects are active flagships. Some stay visible as secondary proof. Others move private when they weaken clarity. The public surface should be curated, sharp, and honest about what the real strengths are now.',
-  },
-];
-
-export const operatingLanes = [
-  {
-    title: 'Voice and input',
-    key: 'voice-input',
-    text: 'Speech, dictation, and low-friction text input systems designed for actual use rather than novelty demos.',
-  },
-  {
-    title: 'Notes and knowledge',
-    key: 'notes-knowledge',
-    text: 'Capture-first tools that turn raw thought into searchable, structured memory and explorable context.',
-  },
-  {
-    title: 'Native utilities',
-    key: 'native-utilities',
-    text: 'Small and mid-sized macOS products with clear jobs, clean boundaries, and practical everyday value.',
-  },
-  {
-    title: 'Workflow systems',
-    key: 'workflow-systems',
-    text: 'Compiler-like planning and agent-facing systems that make execution more deterministic and less chaotic.',
-  },
-  {
-    title: 'Focused browsing',
-    key: 'browser-tools',
-    text: 'Experiments in calmer, more intentional software surfaces where noise is reduced rather than expanded.',
-  },
-];
-
-export function getCatalogueEntries(items) {
-  return items.filter((item) => item.visibility === 'public');
+export function getFeaturedProjects() {
+  return featuredSlugs.map((slug) => getProject(slug)).filter(Boolean);
 }
 
 export function getProject(slug) {
   return projects.find((project) => project.slug === slug);
-}
-
-export function getProjectsByCategory(category) {
-  return projects.filter((project) => project.category === category && project.visibility === 'public');
 }
 
 export function formatChecksum(hash) {

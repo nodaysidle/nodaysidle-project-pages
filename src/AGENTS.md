@@ -6,13 +6,15 @@ Owns the main application UI/runtime source for this project.
 
 ## Ownership
 
-- `main.jsx`
-- `styles.css`
+- `data.js` — product truth, `featuredSlugs`, download/CTA URLs
+- `main.jsx` — home chapters, detail routes, header/footer
+- `styles.css` — void-black full-bleed chapter layout
 
 ## Local Contracts
 
 - Preserve the current frontend stack and component architecture.
-- Keep UI polished, accessible, and dark-mode friendly where applicable.
+- Home is exactly four full-bleed chapters from `featuredSlugs` (Cascade V3, Voice Anywhere, Voice, Synapse Notes). No catalogue grid on the public home surface.
+- Keep lime accent `#C8FF00`. Cascade `download` stays `null` (no empty `/releases` download link).
 - Do not introduce new frameworks without approval.
 
 ## Work Guidance
