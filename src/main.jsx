@@ -6,42 +6,32 @@ import {
   formatChecksum,
   getCatalogueEntries,
   getProject,
+  getProjectsByCategory,
+  operatingLanes,
   projects,
+  storyChapters,
 } from './data';
 
 function indexLabel(index) {
   return String(index + 1).padStart(2, '0');
 }
 
-function hasScreenshot(project) {
-  return Boolean(project.screenshotPath);
-}
-
 function SiteHeader() {
   return (
     <header className="site-header">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <div className="site-header__inner">
         <a className="brand" href="/" aria-label="NODAYSIDLE home">
           <span className="brand__mark" aria-hidden="true" />
           <span>NODAYSIDLE</span>
         </a>
-        <p className="site-header__descriptor">Independent software workshop</p>
+        <p className="site-header__descriptor">Software systems, native tools, and structured execution.</p>
         <nav aria-label="Main navigation">
           <ul className="nav-links">
-            <li>
-              <a href="/#catalogue">Catalogue</a>
-            </li>
-            <li>
-              <a href="/#source">Source</a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/nodaysidle"
-                rel="noopener noreferrer"
-              >
-                GitHub ↗
-              </a>
-            </li>
+            <li><a href="/#story">Story</a></li>
+            <li><a href="/#applications">Applications</a></li>
+            <li><a href="/#catalogue">Catalogue</a></li>
+            <li><a href="https://github.com/nodaysidle" rel="noopener noreferrer">GitHub ↗</a></li>
           </ul>
         </nav>
       </div>
@@ -58,25 +48,17 @@ function SiteFooter() {
             <span className="brand__mark" aria-hidden="true" />
             <span>NODAYSIDLE</span>
           </a>
-          <p>Focused software, built in public and finished for daily use.</p>
+          <p>A curated public surface for software, systems, and products that reflect the actual NODAYSIDLE worldview.</p>
         </div>
         <nav aria-label="Footer navigation">
           <ul className="footer-nav">
-            <li>
-              <a href="/#catalogue">Catalogue</a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/nodaysidle"
-                rel="noopener noreferrer"
-              >
-                GitHub ↗
-              </a>
-            </li>
+            <li><a href="/#story">Story</a></li>
+            <li><a href="/#applications">Applications</a></li>
+            <li><a href="https://github.com/nodaysidle" rel="noopener noreferrer">GitHub ↗</a></li>
           </ul>
         </nav>
         <div className="site-footer__meta">
-          <span>Edition 02 / 2026</span>
+          <span>Curated public edition</span>
           <span>© {new Date().getFullYear()} NODAYSIDLE</span>
         </div>
       </div>
@@ -84,281 +66,186 @@ function SiteFooter() {
   );
 }
 
-function FeaturedCard({ project, index }) {
+function StoryChapter({ chapter }) {
   return (
-    <article className="featured-project" aria-labelledby={`featured-${project.slug}-title`}>
-      <header className="featured-project__header">
-        <span className="featured-project__index" aria-hidden="true">
-          {indexLabel(index)}
-        </span>
-        <div>
-          <p className="featured-project__type">{project.type}</p>
-          <h3 id={`featured-${project.slug}-title`} className="featured-project__name">
-            <a href={`/${project.slug}`}>{project.name}</a>
-          </h3>
-        </div>
-      </header>
+    <article className="story-chapter">
+      <span className="story-chapter__index">{chapter.label}</span>
+      <div>
+        <h3>{chapter.title}</h3>
+        <p>{chapter.body}</p>
+      </div>
+    </article>
+  );
+}
 
-      <p className="featured-project__job">{project.headline}</p>
-
-      <dl className="featured-project__meta">
-        <div>
-          <dt>Platform</dt>
-          <dd>{project.platform}</dd>
-        </div>
-        <div>
-          <dt>Stack</dt>
-          <dd>{project.stack.slice(0, 3).join(' · ')}</dd>
-        </div>
-        <div>
-          <dt>Status</dt>
-          <dd>{project.status}</dd>
-        </div>
-        <div>
-          <dt>Boundary</dt>
-          <dd>{project.dataBoundary}</dd>
-        </div>
+function FlagshipCard({ project, index }) {
+  return (
+    <article className="flagship-card" aria-labelledby={`flagship-${project.slug}`} style={{ '--project-accent': project.accent }}>
+      <div className="flagship-card__top">
+        <span className="flagship-card__index">{indexLabel(index)}</span>
+        <span className="flagship-card__type">{project.type}</span>
+      </div>
+      <h3 id={`flagship-${project.slug}`} className="flagship-card__title">
+        <a href={`/${project.slug}`}>{project.name}</a>
+      </h3>
+      <p className="flagship-card__headline">{project.headline}</p>
+      <p className="flagship-card__summary">{project.story}</p>
+      <dl className="flagship-card__meta">
+        <div><dt>Platform</dt><dd>{project.platform}</dd></div>
+        <div><dt>Status</dt><dd>{project.status}</dd></div>
+        <div><dt>Boundary</dt><dd>{project.dataBoundary}</dd></div>
+        <div><dt>Stack</dt><dd>{project.stack.slice(0, 3).join(' · ')}</dd></div>
       </dl>
-
-      {hasScreenshot(project) ? (
-        <figure className="featured-project__media">
-          <img
-            src={project.screenshotPath}
-            alt={project.screenshotAlt || `${project.name} product screenshot`}
-            loading="lazy"
-            decoding="async"
-            width={1440}
-            height={1000}
-          />
-        </figure>
-      ) : (
-        <div className="featured-project__proof">
-          <p className="featured-project__proof-title">Release proof</p>
-          {project.proof.length > 0 ? (
-            <ul>
-              {project.proof.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>Public repository with tagged release.</p>
-          )}
-        </div>
-      )}
-
-      <footer className="featured-project__actions">
-        <a href={project.repo} rel="noopener noreferrer">
-          Repository
-        </a>
-        <a href={project.release} rel="noopener noreferrer">
-          Release
-        </a>
-        {project.download && (
-          <a href={project.download} rel="noopener noreferrer">
-            Download
-          </a>
-        )}
-      </footer>
-    </article>
-  );
-}
-
-function ProjectRecord({ project, index }) {
-  return (
-    <article className="project-record" aria-labelledby={`record-${project.slug}-title`}>
-      <span className="project-record__index" aria-hidden="true">
-        {indexLabel(index)}
-      </span>
-      <div className="project-record__body">
-        <header>
-          <h3 id={`record-${project.slug}-title`} className="project-record__name">
-            <a href={`/${project.slug}`}>{project.name}</a>
-          </h3>
-          <p className="project-record__type">{project.type}</p>
-        </header>
-        <p className="project-record__job">{project.headline}</p>
-        <dl className="project-record__meta">
-          <div>
-            <dt>Platform</dt>
-            <dd>{project.platform}</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>{project.stack.slice(0, 3).join(' · ')}</dd>
-          </div>
-          <div>
-            <dt>Release</dt>
-            <dd>{project.status}</dd>
-          </div>
-          <div>
-            <dt>Updated</dt>
-            <dd>{project.updated}</dd>
-          </div>
-        </dl>
+      <div className="flagship-card__actions">
+        <a href={`/${project.slug}`}>Open dossier</a>
+        <a href={project.repo} rel="noopener noreferrer">Repository</a>
       </div>
     </article>
   );
 }
 
-function Footprint({ projects }) {
-  const macOSCount = projects.filter((p) => p.platform === 'macOS').length;
-  const androidCount = projects.filter((p) => p.platform === 'Android').length;
-  const productionCount = projects.filter(
-    (p) => p.status.includes('live') || /^v[1-9]/.test(p.status),
-  ).length;
-  const earlyCount = projects.length - productionCount;
-
+function LaneBlock({ lane }) {
+  const items = getProjectsByCategory(lane.key);
   return (
-    <dl className="footprint">
-      <div>
-        <dt>Selected</dt>
-        <dd>{projects.length}</dd>
+    <article className="lane-block">
+      <header>
+        <p className="kicker">{String(items.length).padStart(2, '0')} public</p>
+        <h3>{lane.title}</h3>
+      </header>
+      <p>{lane.text}</p>
+      <ul>
+        {items.map((item) => (
+          <li key={item.slug}><a href={`/${item.slug}`}>{item.name}</a></li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function CatalogueRow({ project, index }) {
+  return (
+    <article className="catalogue-row" aria-labelledby={`catalogue-${project.slug}`}>
+      <span className="catalogue-row__index">{indexLabel(index)}</span>
+      <div className="catalogue-row__main">
+        <h3 id={`catalogue-${project.slug}`}><a href={`/${project.slug}`}>{project.name}</a></h3>
+        <p>{project.summary}</p>
       </div>
-      <div>
-        <dt>macOS</dt>
-        <dd>{macOSCount}</dd>
+      <div className="catalogue-row__meta">
+        <span>{project.platform}</span>
+        <span>{project.category.replace('-', ' ')}</span>
+        <span>{project.status}</span>
       </div>
-      <div>
-        <dt>Android</dt>
-        <dd>{androidCount}</dd>
-      </div>
-      <div>
-        <dt>Production-ready</dt>
-        <dd>{productionCount}</dd>
-      </div>
-      <div>
-        <dt>Early / experimental</dt>
-        <dd>{earlyCount}</dd>
-      </div>
-    </dl>
+    </article>
   );
 }
 
 function HomePage() {
   const entries = getCatalogueEntries(projects);
-  const featured = featuredSlugs
-    .map((slug) => projects.find((p) => p.slug === slug))
-    .filter(Boolean);
+  const featured = featuredSlugs.map((slug) => getProject(slug)).filter(Boolean);
 
   return (
     <>
       <SiteHeader />
       <main id="main-content" className="home-page">
-        <section className="home-hero" aria-labelledby="hero-title">
-          <div className="home-hero__primary">
-            <p className="kicker">Independent software workshop</p>
-            <h1 id="hero-title">NODAYSIDLE</h1>
-            <p className="home-hero__statement">
-              10 selected public projects for macOS and Android. Real, local-first where applicable,
-              release-verified tools. One clear job per product.
-            </p>
-            <div className="home-hero__cta">
-              <a
-                className="button button--primary"
-                href="https://github.com/nodaysidle"
-                rel="noopener noreferrer"
-              >
-                Inspect the work on GitHub
-              </a>
-              <a className="button button--quiet" href="#featured">
-                Browse {entries.length} selected projects
-              </a>
+        <section className="hero-story">
+          <div className="page-shell hero-story__grid">
+            <div className="hero-story__lead">
+              <p className="kicker">Independent developer from Slovenia</p>
+              <h1>NODAYSIDLE is a software story told through tools.</h1>
+              <p className="hero-story__statement">
+                Native applications, local-first utilities, voice systems, knowledge tools, and compiler-like workflow products. Not a generic portfolio. A curated public surface for how the work actually fits together.
+              </p>
+              <div className="hero-story__actions">
+                <a className="button button--primary" href="#applications">Read the applications</a>
+                <a className="button button--quiet" href="https://github.com/nodaysidle" rel="noopener noreferrer">Open GitHub</a>
+              </div>
             </div>
-          </div>
-          <aside className="home-hero__secondary" aria-label="Selected release index">
-            <ol className="home-hero__index">
-              {entries.map((project, index) => (
-                <li key={project.slug}>
-                  <a href={`/${project.slug}`}>
-                    <span className="home-hero__index-number">{String(index + 1).padStart(2, '0')}</span>
-                    <span className="home-hero__index-name">{project.name}</span>
-                    <span className="home-hero__index-status">{project.status}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        </section>
-
-        <section id="featured" className="featured-section" aria-labelledby="featured-title">
-          <div className="page-shell">
-            <header className="featured-section__header">
-              <p className="kicker">Featured</p>
-              <h2 id="featured-title">Four releases in focus</h2>
-            </header>
-            <div className="featured-grid">
-              {featured.map((project, index) => (
-                <FeaturedCard key={project.slug} project={project} index={index} />
-              ))}
-            </div>
+            <aside className="hero-story__aside" aria-label="NODAYSIDLE profile notes">
+              <div className="hero-note">
+                <span>Base</span>
+                <strong>Slovenia / EU</strong>
+              </div>
+              <div className="hero-note">
+                <span>Focus</span>
+                <strong>Native software · AI workflows · practical systems</strong>
+              </div>
+              <div className="hero-note">
+                <span>Method</span>
+                <strong>Structured execution over improvisation</strong>
+              </div>
+              <div className="hero-note">
+                <span>Public set</span>
+                <strong>{entries.length} curated repositories and applications</strong>
+              </div>
+            </aside>
           </div>
         </section>
 
-        <section id="catalogue" className="catalogue-section" aria-labelledby="catalogue-title">
+        <section id="story" className="story-section">
           <div className="page-shell">
-            <header className="catalogue-section__header">
-              <p className="kicker">Complete index</p>
-              <h2 id="catalogue-title">All {entries.length} projects</h2>
+            <header className="section-intro">
+              <p className="kicker">Story</p>
+              <h2>What the public page should actually communicate.</h2>
+              <p>
+                The point is not to list everything. The point is to make the operating logic visible: why these products exist, why some are public, why some are hidden, and how they together define the NODAYSIDLE identity.
+              </p>
             </header>
-            <div className="project-records">
-              {entries.map((project, index) => (
-                <ProjectRecord key={project.slug} project={project} index={index} />
-              ))}
+            <div className="story-grid">
+              {storyChapters.map((chapter) => <StoryChapter key={chapter.slug} chapter={chapter} />)}
             </div>
           </div>
         </section>
 
-        <section className="principles-section" aria-labelledby="principles-title">
+        <section id="applications" className="applications-section">
           <div className="page-shell">
-            <header className="principles-section__header">
-              <p className="kicker">Operating principles</p>
-              <h2 id="principles-title">How these tools are built</h2>
+            <header className="section-intro section-intro--tight">
+              <p className="kicker">Applications in the story</p>
+              <h2>Flagship projects that define the current public surface.</h2>
             </header>
-            <ul className="principles-list">
-              <li>
-                <strong>Local-first where applicable.</strong> Data stays on the device unless
-                the tool explicitly crosses a cloud boundary.
-              </li>
-              <li>
-                <strong>Verification before claims.</strong> Every release links to a public
-                repository, tag, and artifact.
-              </li>
-              <li>
-                <strong>Cross-platform execution.</strong> macOS utilities and Android apps
-                share the same finish standard.
-              </li>
-              <li>
-                <strong>Finished tools over demos.</strong> No motivational filler; every
-                project ships or is actively released.
-              </li>
-            </ul>
+            <div className="flagship-grid">
+              {featured.map((project, index) => <FlagshipCard key={project.slug} project={project} index={index} />)}
+            </div>
           </div>
         </section>
 
-        <section className="footprint-section" aria-labelledby="footprint-title">
-          <div className="page-shell">
-            <header className="footprint-section__header">
-              <p className="kicker">Technical footprint</p>
-              <h2 id="footprint-title">Selected by the data</h2>
-            </header>
-            <Footprint projects={entries} />
+        <section className="lanes-section">
+          <div className="page-shell lanes-section__grid">
+            <div className="section-intro section-intro--sticky">
+              <p className="kicker">Operating lanes</p>
+              <h2>The ecosystem is broad, but not random.</h2>
+              <p>These lanes show how the public products cluster without collapsing into a generic portfolio wall.</p>
+            </div>
+            <div className="lane-stack">
+              {operatingLanes.map((lane) => <LaneBlock key={lane.key} lane={lane} />)}
+            </div>
           </div>
         </section>
 
-        <section className="github-cta" id="source" aria-labelledby="github-cta-title">
+        <section id="catalogue" className="catalogue-section catalogue-section--story">
           <div className="page-shell">
-            <h2 id="github-cta-title">Inspect the source</h2>
-            <p>
-              Each project is developed in public. Read the code, verify the release tags,
-              and download the artifacts from GitHub.
-            </p>
-            <a
-              className="button button--primary"
-              href="https://github.com/nodaysidle"
-              rel="noopener noreferrer"
-            >
-              Open github.com/nodaysidle
-            </a>
+            <header className="section-intro section-intro--tight">
+              <p className="kicker">Curated catalogue</p>
+              <h2>The public set, after cleanup.</h2>
+              <p>Archived, private, redundant, or weaker public-facing projects do not define the front layer anymore. What remains here is the edited showroom.</p>
+            </header>
+            <div className="catalogue-stack">
+              {entries.map((project, index) => <CatalogueRow key={project.slug} project={project} index={index} />)}
+            </div>
+          </div>
+        </section>
+
+        <section className="closing-section" id="source">
+          <div className="page-shell closing-section__grid">
+            <div>
+              <p className="kicker">Source and proof</p>
+              <h2>Public narrative here. Technical authority on GitHub.</h2>
+            </div>
+            <div>
+              <p>
+                This site frames the story. GitHub keeps the repositories, releases, and code-level proof. Together they show what NODAYSIDLE builds, how it is shaped, and why the public surface is curated the way it is.
+              </p>
+              <a className="button button--primary" href="https://github.com/nodaysidle" rel="noopener noreferrer">Inspect github.com/nodaysidle</a>
+            </div>
           </div>
         </section>
       </main>
@@ -368,9 +255,7 @@ function HomePage() {
 }
 
 const maturityConfig = {
-  shipped: { label: 'Shipped', className: 'badge--stable' },
-  in_development: { label: 'In development', className: 'badge--development' },
-  fork: { label: 'Fork', className: 'badge--fork' },
+  shipped: { label: 'Public release', className: 'badge--stable' },
 };
 
 function ProjectDetailPage({ project }) {
@@ -383,112 +268,66 @@ function ProjectDetailPage({ project }) {
   return (
     <>
       <SiteHeader />
-      <main id="main-content" className="detail-page">
+      <main id="main-content" className="detail-page detail-page--story">
         <div className="breadcrumb">
-          <a href="/">← Catalogue</a>
+          <a href="/">← Back to story</a>
         </div>
 
-        <section className="detail-hero" aria-labelledby="project-title">
-          <p className="kicker">{project.type}</p>
-          <h1 id="project-title" className="detail-title">
-            {project.name}
-          </h1>
-          <p className="detail-tagline">{project.summary}</p>
-          <div className="detail-maturity-row">
+        <section className="detail-hero detail-hero--story" style={{ '--project-accent': project.accent }}>
+          <div>
+            <p className="kicker">{project.type}</p>
+            <h1 id="project-title" className="detail-title">{project.name}</h1>
+            <p className="detail-tagline">{project.summary}</p>
+          </div>
+          <div className="detail-hero__storybox">
             <span className={`badge ${maturity.className}`}>{maturity.label}</span>
-            <span className="kicker">{project.platform}</span>
+            <p>{project.story}</p>
           </div>
         </section>
 
         <dl className="detail-table">
-          <div className="detail-item">
-            <dt>Status</dt>
-            <dd>{project.status}</dd>
-          </div>
-          <div className="detail-item">
-            <dt>Platform</dt>
-            <dd>{project.platform}</dd>
-          </div>
-          <div className="detail-item">
-            <dt>Artifact</dt>
-            <dd>{project.artifact}</dd>
-          </div>
-          <div className="detail-item">
-            <dt>Data boundary</dt>
-            <dd>{project.dataBoundary}</dd>
-          </div>
-          {project.checksum && (
-            <div className="detail-item">
-              <dt>Checksum</dt>
-              <dd>{formatChecksum(project.checksum)}</dd>
-            </div>
-          )}
+          <div className="detail-item"><dt>Status</dt><dd>{project.status}</dd></div>
+          <div className="detail-item"><dt>Platform</dt><dd>{project.platform}</dd></div>
+          <div className="detail-item"><dt>Boundary</dt><dd>{project.dataBoundary}</dd></div>
+          <div className="detail-item"><dt>Updated</dt><dd>{project.updated}</dd></div>
+          <div className="detail-item"><dt>Artifact</dt><dd>{project.artifact}</dd></div>
+          {project.checksum && <div className="detail-item"><dt>Checksum</dt><dd>{formatChecksum(project.checksum)}</dd></div>}
         </dl>
 
-        <section className="detail-section" aria-labelledby="capabilities-title">
-          <p className="kicker">What it does</p>
-          <h2 id="capabilities-title">Capabilities</h2>
-          {project.features && project.features.length > 0 ? (
-            <ul className="feature-bullets">
-              {project.features.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="detail-empty">Feature list coming soon.</p>
-          )}
+        <section className="detail-section">
+          <p className="kicker">Why it matters</p>
+          <h2>Role in the ecosystem</h2>
+          <p className="detail-narrative">{project.story}</p>
         </section>
 
-        <section className="detail-section" aria-labelledby="stack-title">
+        <section className="detail-section">
+          <p className="kicker">Capabilities</p>
+          <h2>What it does</h2>
+          <ul className="feature-bullets">
+            {project.features.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </section>
+
+        <section className="detail-section">
           <p className="kicker">Stack</p>
-          <h2 id="stack-title">Implementation surface</h2>
+          <h2>Implementation surface</h2>
           <div className="tech-tags">
-            {project.stack.map((item) => (
-              <span className="tech-tag" key={item}>
-                {item}
-              </span>
-            ))}
+            {project.stack.map((item) => <span className="tech-tag" key={item}>{item}</span>)}
           </div>
         </section>
 
-        {project.proof.length > 0 && (
-          <section className="detail-section" aria-labelledby="proof-title">
-            <p className="kicker">Release proof</p>
-            <h2 id="proof-title">Verified</h2>
-            <ul className="feature-bullets">
-              {project.proof.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <section className="detail-section">
+          <p className="kicker">Proof</p>
+          <h2>Public evidence</h2>
+          <ul className="feature-bullets">
+            {project.proof.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </section>
 
         <nav className="detail-actions" aria-label="Project actions">
-          {project.download ? (
-            <a
-              className="detail-action detail-action--current"
-              href={project.download}
-              rel="noopener noreferrer"
-            >
-              Download
-            </a>
-          ) : (
-            <span className="detail-action">Source only</span>
-          )}
-          <a
-            className="detail-action"
-            href={project.repo}
-            rel="noopener noreferrer"
-          >
-            Repository
-          </a>
-          <a
-            className="detail-action"
-            href={project.release}
-            rel="noopener noreferrer"
-          >
-            Release page
-          </a>
+          <a className="detail-action detail-action--current" href={project.repo} rel="noopener noreferrer">Repository</a>
+          <a className="detail-action" href={project.release} rel="noopener noreferrer">Release</a>
+          {project.download ? <a className="detail-action" href={project.download} rel="noopener noreferrer">Download</a> : <span className="detail-action">Source only</span>}
         </nav>
       </main>
       <SiteFooter />
@@ -507,13 +346,8 @@ function NotFoundPage() {
       <main id="main-content" className="not-found-page">
         <div className="page-shell">
           <h1>Page not found</h1>
-          <p>
-            That path does not match a known project. Return to the catalogue to browse
-            all releases.
-          </p>
-          <a className="button button--primary" href="/">
-            Back to catalogue
-          </a>
+          <p>This path does not match a current public NODAYSIDLE project dossier.</p>
+          <a className="button button--primary" href="/">Back to story</a>
         </div>
       </main>
       <SiteFooter />
@@ -526,17 +360,11 @@ function App() {
   const project = slug ? getProject(slug) : null;
 
   React.useEffect(() => {
-    if (!slug) document.title = 'NODAYSIDLE — Working software. Verified releases.';
+    if (!slug) document.title = 'NODAYSIDLE — Software story, systems, and applications.';
   }, [slug]);
 
-  if (slug && !project) {
-    return <NotFoundPage />;
-  }
-
-  if (project) {
-    return <ProjectDetailPage project={project} />;
-  }
-
+  if (slug && !project) return <NotFoundPage />;
+  if (project) return <ProjectDetailPage project={project} />;
   return <HomePage />;
 }
 
