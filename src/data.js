@@ -180,7 +180,7 @@ export const projects = [
     summary: 'Title is the first sentence. Graph is a screen you open — keyword edges. List search is text match.',
     proof: ['Public repository', 'v0.4.3 APK release', 'Capacitor Android'],
     features: [
-      'Speak → transcribe → embed → AI image → Home',
+      'Speak → transcribe → embed → image → Home',
       'Title is the first sentence',
       'Graph is a screen you open with keyword edges',
       'List search is text match',
