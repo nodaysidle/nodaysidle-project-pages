@@ -54,8 +54,12 @@ function ProductChapter({ project, index }) {
       id={project.slug}
       className="product-chapter"
       aria-labelledby={`chapter-${project.slug}`}
-      style={{ '--chapter-delay': `${index * 40}ms` }}
+      style={{
+        '--chapter-accent': project.accent,
+        '--chapter-delay': `${index * 40}ms`,
+      }}
     >
+      <div className="product-chapter__frame" aria-hidden="true" />
       <div className="product-chapter__inner">
         <p className="product-chapter__kicker">{project.kicker}</p>
         <h2 id={`chapter-${project.slug}`} className="product-chapter__headline">
@@ -70,6 +74,15 @@ function ProductChapter({ project, index }) {
           >
             {project.ctaLabel}
           </a>
+          {project.ctaSecondaryHref ? (
+            <a
+              className="cta cta--ghost"
+              href={project.ctaSecondaryHref}
+              rel="noopener noreferrer"
+            >
+              {project.ctaSecondaryLabel ?? 'GitHub'}
+            </a>
+          ) : null}
         </div>
       </div>
     </section>
@@ -125,7 +138,7 @@ function ProjectDetailPage({ project }) {
           <a href="/">← Back</a>
         </div>
 
-        <section className="detail-hero" style={{ '--project-accent': project.accent }}>
+        <section className="detail-hero" style={{ '--chapter-accent': project.accent }}>
           <p className="product-chapter__kicker">{project.kicker ?? project.type}</p>
           <h1 id="project-title" className="detail-title">{project.name}</h1>
           <p className="detail-tagline">{project.headline}</p>
@@ -136,9 +149,15 @@ function ProjectDetailPage({ project }) {
                 {project.ctaLabel ?? 'Open'}
               </a>
             ) : null}
-            <a className="cta cta--ghost" href={project.repo} rel="noopener noreferrer">
-              Repository
-            </a>
+            {project.ctaSecondaryHref ? (
+              <a className="cta cta--ghost" href={project.ctaSecondaryHref} rel="noopener noreferrer">
+                {project.ctaSecondaryLabel ?? 'Repository'}
+              </a>
+            ) : (
+              <a className="cta cta--ghost" href={project.repo} rel="noopener noreferrer">
+                Repository
+              </a>
+            )}
           </div>
           <span className={`badge ${maturity.className}`}>{maturity.label}</span>
         </section>

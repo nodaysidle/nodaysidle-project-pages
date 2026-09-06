@@ -1,6 +1,6 @@
 # NODAYSIDLE Project Pages
 
-Public showcase for NODAYSIDLE — four flagship products as full-bleed void-black chapters.
+Public showcase for NODAYSIDLE — five flagship products as full-bleed void-black scroll-snap chapters.
 
 Live site: [https://nodaysidle-project-pages.vercel.app](https://nodaysidle-project-pages.vercel.app)
 
@@ -10,16 +10,19 @@ Live site: [https://nodaysidle-project-pages.vercel.app](https://nodaysidle-proj
 
 ## Flagship chapters (home)
 
-Home is a SpaceX-style scroll of four chapters — not a catalogue grid. Nav is only these four names.
+Home is a SpaceX-style scroll of five chapters — not a catalogue grid. Nav is only these five names. Each chapter has its own accent color.
 
 | Chapter | Platform | CTA |
 |---------|----------|-----|
-| **Cascade V3** | macOS 13+ · Tauri 2 | GitHub (source; `download: null`, no DMG) |
+| **Cascade V3** | macOS · Apple Silicon · aarch64 | Download Apple Silicon DMG (+ GitHub) |
 | **Voice Anywhere** 0.4.0 | Android 12+ | Download APK |
 | **NODAYSIDLE Voice** 0.2.0 | macOS 14+ · Apple silicon | Download DMG |
-| **Synapse Notes** 0.4.3 | Android · Capacitor | Download APK |
+| **Synapse Notes** 0.4.3 | Android · Capacitor | Download debug APK |
+| **Excalidays** 0.1.0 | macOS · Phase 0/1 | Download DMG |
 
-`featuredSlugs` order: `nodaysidle-cascade-v3` → `nodaysidle-voice-anywhere-v2` → `nodaysidle-vois` → `synapse-notes`.
+`featuredSlugs` order: `nodaysidle-cascade-v3` → `nodaysidle-voice-anywhere-v2` → `nodaysidle-vois` → `synapse-notes` → `excalidays`.
+
+Cascade honesty: aarch64 / ad-hoc / not notarized — no Intel/Win/Linux claim. Excalidays is Phase 0/1 only.
 
 ## Technology
 
@@ -51,9 +54,9 @@ Output in `dist/`. Preview with `npm run preview`.
 ## Project structure
 
 ```text
-src/data.js     Product truth, featuredSlugs, download URLs
+src/data.js     Product truth, featuredSlugs, download URLs, accents
 src/main.jsx    Home chapters, detail routes, header/footer
-src/styles.css  Void-black full-bleed chapter layout
+src/styles.css  Void-black scroll-snap chapter layout
 vercel.json     SPA route rewrites
 ```
 

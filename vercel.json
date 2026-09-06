@@ -2,6 +2,26 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/nodaysidle-cascade-v3",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nodaysidle-voice-anywhere-v2",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nodaysidle-vois",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/synapse-notes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/excalidays",
+      "destination": "/index.html"
+    },
+    {
       "source": "/orbit-browser",
       "destination": "/index.html"
     },
@@ -27,10 +47,6 @@
     },
     {
       "source": "/shareguard",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/nodaysidle-voice-anywhere-v2",
       "destination": "/index.html"
     },
     {
