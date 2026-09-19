@@ -121,3 +121,13 @@ Prompt files are instruction templates, not executable scripts. Keep them short,
 
 - `src/AGENTS.md` — Application/frontend source.
 - `public/AGENTS.md` — Static public assets.
+
+## Cursor Cloud specific instructions
+
+This is the only one of the sibling NODAYSIDLE repos that runs on the Linux Cursor Cloud VM. The Swift apps (`cliprail`, `nodaysidian`, `nodaysnotes`) are macOS-only and cannot be built here.
+
+- Runtime: Node/npm (Vite 8, React 19). Deps refresh via `npm install` (handled by the startup update script).
+- Dev server: `npm run dev` binds `http://127.0.0.1:5173`. Production build: `npm run build` → `dist/`. Preview built output: `npm run preview` → `http://127.0.0.1:4173`.
+- No lint/test scripts are defined in `package.json`; `npm run build` is the static-check gate.
+- Gotcha: the React entry is `src/main.jsx` (JSX), even though `typescript` is a dependency; there is no `vite.config` file and no TypeScript build step wired up.
+- SPA routing is client-side from `window.location.pathname`; `vercel.json` rewrites project routes to `index.html`. `vite dev` serves these routes directly (e.g. `/nodaysnotes`, `/nodaysidian`).
